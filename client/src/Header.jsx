@@ -23,7 +23,7 @@ export default function Header() {
             d='M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'
           />
         </svg>
-        <span className='font-bold text-xl'>rinsed</span>
+        <span className='font-bold text-xl'>rinse</span>
       </a>
       {/* search bar */}
       <div className='flex gap-4 border border-gray-300 rounded-full py-2 px-4 shadow-md shadow-gray-300'>
