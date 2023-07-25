@@ -19,7 +19,7 @@ rinsed is a web app designed to simplify the process of booking car washing serv
 ## Getting Started
 
 1. Clone the repository:
-   
+
    ```bash
    git clone https://github.com/dancarlton/rinsed.git
    ```
@@ -40,4 +40,4 @@ rinsed is a web app designed to simplify the process of booking car washing serv
     - To start the front-end, run: `cd client && npm start`
     - To start the back-end, run: `cd server && npm start`
 
-5. Once running, open your browser and navigate to [http://localhost:3000](http://localhost:3000) to access rinsed.
+5. Once running, open your browser and navigate to [http://localhost:5173](http://localhost:5173) to access rinsed.
