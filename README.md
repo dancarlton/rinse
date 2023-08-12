@@ -26,7 +26,7 @@ rinsed is a web app designed to simplify the process of booking car washing serv
 2. Install dependencies for the front-end and back-end:
 
     ```bash
-    cd rinsed-project
+    cd rinsed
     cd client && npm install
     cd ../server && npm install
     ```
