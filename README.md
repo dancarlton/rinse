@@ -1,6 +1,6 @@
-# Rinsed - Car Wash Booking Web App
+# rinsed - Car Wash Booking Web App
 
-Rinsed is a web app designed to simplify the process of booking car washing services. Whether you're a car owner looking for a quick wash or a skilled car washer seeking clients, Rinsed has you covered.
+rinsed is a web app designed to simplify the process of booking car washing services. Whether you're a car owner looking for a quick wash or a skilled car washer seeking clients, rinsed has you covered.
 
 ## Features
 
@@ -40,4 +40,4 @@ Rinsed is a web app designed to simplify the process of booking car washing serv
     - To start the front-end, run: `cd client && npm start`
     - To start the back-end, run: `cd server && npm start`
 
-5. Once running, open your browser and navigate to [http://localhost:3000](http://localhost:3000) to access Rinsed.
+5. Once running, open your browser and navigate to [http://localhost:3000](http://localhost:3000) to access rinsed.
