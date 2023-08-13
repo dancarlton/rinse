@@ -1,6 +1,6 @@
-# rinsed - Car Wash Booking Web App
+# rinse - Car Wash Booking Web App
 
-rinsed is a web app designed to simplify the process of booking car washing services. Whether you're a car owner looking for a quick wash or a skilled car washer seeking clients, rinsed has you covered.
+rinse is a web app designed to simplify the process of booking car washing services. Whether you're a car owner looking for a quick wash or a skilled car washer seeking clients, rinsed has you covered.
 
 ## Features
 
@@ -21,7 +21,7 @@ rinsed is a web app designed to simplify the process of booking car washing serv
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/dancarlton/rinsed.git
+   git clone https://github.com/dancarlton/rinse.git
    ```
 2. Install dependencies for the front-end and back-end:
 
