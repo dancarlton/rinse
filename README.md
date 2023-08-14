@@ -81,7 +81,7 @@ The primary objectives of the project include:
 2. Install dependencies for the front-end and back-end:
 
    ```bash
-   cd rinsed
+   cd rinse
    cd client && npm install
    cd ../server && npm install
    ```
