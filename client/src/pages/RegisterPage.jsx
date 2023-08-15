@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import axios from 'axios';
 
 export default function RegisterPage() {
@@ -7,14 +7,15 @@ export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function registerUser() {
+  async function registerUser() {
     // send req to API
     ev.preventDefault();
-    axios.post('/register', {
+    await axios.post('/register', {
         name,
         email,
         password
     });
+    alert('Registration successful. Now you can wash that filthy whip of yours!')
   }
 
   return (
