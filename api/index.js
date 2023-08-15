@@ -6,13 +6,12 @@ const User = require('./models/User');
 require('dotenv').config();
 const app = express();
 
-const bcryptSalt = bcrypt.genSalt(10);
 
 app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: 'http://localhost:5173/',
+    origin: 'http://localhost:5173',
   })
 );
 
@@ -26,13 +25,20 @@ app.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
+    // hash has to be created inside async function
+    const bcryptSalt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, bcryptSalt);
+
+    // create user in mongo db
     const userDoc = await User.create({
       name,
       email,
-      password: bcrypt.hashSync(password, bcryptSalt),
+      hashedPassword
     });
+    // return user to client console
     res.json(userDoc);
   } catch (err) {
+    console.log("I'm catching here: ",err, "\n")
     res.status(422).json(err);
   }
 });
