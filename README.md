@@ -96,7 +96,7 @@ The primary objectives of the project include:
 4. Run the Application:
 
    - To start the front-end, run: `cd client && npm run dev`
-   - To start the back-end, run: `cd server && npm run dev`
+   - To start the back-end, run: `cd server && nodemon index.js`
      <br/>
      <br/>
 
