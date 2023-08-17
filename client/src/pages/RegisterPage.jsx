@@ -11,11 +11,13 @@ export default function RegisterPage() {
     // send req to API
     ev.preventDefault();
     await axios.post('/register', {
-        name,
-        email,
-        password
+      name,
+      email,
+      password,
     });
-    alert('Registration successful. Now you can wash that filthy whip of yours!')
+    alert(
+      'Registration successful. Now you can wash that filthy whip of yours!'
+    );
   }
 
   return (
