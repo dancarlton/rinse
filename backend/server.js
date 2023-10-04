@@ -70,9 +70,9 @@ if (process.env.NODE_ENV === "production") {
 } else {
   app.use(morgan("dev"));
   // Basic route for the root URL
-  // app.get("/", (req, res) => {
-  //   res.send("API running");
-  // });
+  app.get("/", (req, res) => {
+    res.send("API running");
+  });
 }
 
 app.listen(port, () => console.log(`Server running on ${port}`));
