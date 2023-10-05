@@ -4,7 +4,10 @@ import UserController from "../controllers/userController.js";
 
 const router = Router();
 
-router.get("/", UserController.getUser);
+router.get("/", UserController.getAllUsers);
+router.post("/", UserController.createUser);
+router.get("/:id", UserController.getUserById);
+router.delete("/:id", UserController.deleteUserById);
 
 //  Input : username, email, password via body;
 //  HTTP Success : 200 and message.

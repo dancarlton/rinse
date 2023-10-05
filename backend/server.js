@@ -43,7 +43,7 @@ app.use(
 );
 
 // Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(passport.initialize());
@@ -59,7 +59,6 @@ const __dirname = path.resolve();
 // If app running in production use static folder else only use api.
 // switched to development mode for now.
 if (process.env.NODE_ENV === "production") {
-  app.use(morgan("dev"));
   // Set the static folder for serving frontend files
   app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
