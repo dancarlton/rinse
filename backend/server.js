@@ -7,25 +7,18 @@ import express from "express";
 import path from "path";
 import dotenv from "dotenv";
 import morgan from "morgan";
-import { initProd } from "./config/prod.js";
-import { initDB } from "./config/db.js";
-import { initCORS } from "./config/cors.js";
-import { initPassportJS } from "./config/passport.js";
+import winston from "winston";
+import { initConfig } from "./config/config.js";
 import { initRoutes } from "./routes/index.js";
-import { initRateLimit } from "./config/rateLimit.js";
+import errorHandler from "./middleware/errorMiddleware.js";
 
 // load config
 dotenv.config({ path: "./config/config.env" });
 
 const port = process.env.PORT || 5000;
 const app = express();
-app.use(morgan("dev"));
 
-initPassportJS();
-initCORS(app);
-initDB();
-initProd(app);
-initRateLimit(app);
+initConfig(app);
 
 // Create express session
 app.use(
@@ -45,9 +38,12 @@ app.use(
 // Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+morgan.token("body", (req, res) => JSON.stringify(req.body));
+
+app.use(morgan("dev"));
 
 app.use(passport.initialize());
-app.use(passport.authenticate('session'));
+app.use(passport.authenticate("session"));
 
 app.use(passport.session());
 
@@ -67,11 +63,13 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"))
   );
 } else {
-  app.use(morgan("dev"));
   // Basic route for the root URL
   app.get("/", (req, res) => {
     res.send("API running");
   });
 }
 
-app.listen(port, () => console.log(`Server running on ${port}`));
+// Middleware for handling errors
+app.use(errorHandler);
+
+app.listen(port, () => winston.info(`Server running on ${port}`));

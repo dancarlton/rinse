@@ -11,7 +11,7 @@
         "dev": "concurrently \"npm run server\" \"npm run client\"",
         "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
         "generate-toc": "markdown-toc -i readme.md",
-        "lint": "eslint",
+        "lint": "eslint .",
         "data:import": "node backend/seeder.js",
         "data:destroy": "node backend/seeder.js -D"
     },
@@ -52,12 +52,16 @@
         "passport": "^0.6.0",
         "passport-google-oauth20": "^2.0.0",
         "passport-local": "^1.0.0",
+        "pino": "^8.15.6",
+        "pino-http": "^8.5.0",
+        "pino-http-print": "^3.1.0",
         "prettier": "^2.5.1",
         "ramda": "^0.29.0",
         "winston": "^3.10.0"
     },
     "devDependencies": {
         "@babel/eslint-parser": "^7.17.0",
+        "@flydotio/dockerfile": "^0.4.10",
         "@types/express": "^4.17.17",
         "concurrently": "^7.6.0",
         "eslint": "^8.10.0",

@@ -1,8 +1,11 @@
 {
-    "extends": ["airbnb-base", "prettier"],
+    "extends": [
+        "airbnb-base",
+        "prettier"
+    ],
     "parser": "@babel/eslint-parser",
     "plugins": [
-      "prettier"
+        "prettier"
     ],
     "env": {
         "jasmine": true,
@@ -30,21 +33,31 @@
         "import/first": 0,
         "import/no-dynamic-require": 0,
         // don't force function names if it won't help debugging
-        "func-names": [2, "as-needed"],
-
+        "func-names": [
+            2,
+            "as-needed"
+        ],
         "no-mixed-spaces-and-tabs": 0,
         "no-tabs": 0,
         "quotes": 0,
         "no-underscore-dangle": 0,
-
         // i like ++
         "no-plusplus": 0,
-
+        "eqeqeq": "error",
+        "no-trailing-spaces": "error",
+        "object-curly-spacing": [
+            "error", "always"
+        ],
+        "arrow-spacing": [
+            "error",
+            { "before": true, "after": true}
+        ],
         // enforce curly braces for multiline if, else, for, while, do
-        "curly": ["error", "multi-line"]
-
-
+        "curly": [
+            "error",
+            "multi-line"
+        ],
+        "no-console": 0
     },
-    "globals": {
-    }
+    "globals": {}
 }
