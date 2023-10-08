@@ -13,7 +13,8 @@
         "generate-toc": "markdown-toc -i readme.md",
         "lint": "eslint .",
         "data:import": "node backend/seeder.js",
-        "data:destroy": "node backend/seeder.js -D"
+        "data:destroy": "node backend/seeder.js -D",
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose"
     },
     "repository": {
         "type": "git",
@@ -70,7 +71,7 @@
         "eslint-plugin-import": "^2.25.4",
         "eslint-plugin-prettier": "^4.0.0",
         "eslint-plugin-security": "^1.4.0",
-        "jest": "^27.0.6",
+        "jest": "^27.5.1",
         "jshint": "^2.13.4",
         "markdown-toc": "^1.2.0",
         "nodemon": "^2.0.21"
