@@ -5,7 +5,6 @@ import sampleUsers from "./seeds/users.js";
 import { User } from "./models/userModel.js";
 import { initDB } from "./config/db.js";
 
-
 initDB();
 
 const importData = async () => {

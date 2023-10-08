@@ -53,7 +53,6 @@ initRoutes(app);
 const __dirname = path.resolve();
 
 // If app running in production use static folder else only use api.
-// switched to development mode for now.
 if (process.env.NODE_ENV === "production") {
   // Set the static folder for serving frontend files
   app.use(express.static(path.join(__dirname, "/frontend/dist")));
@@ -73,3 +72,5 @@ if (process.env.NODE_ENV === "production") {
 app.use(errorHandler);
 
 app.listen(port, () => winston.info(`Server running on ${port}`));
+
+export { app };

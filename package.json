@@ -6,15 +6,17 @@
     "main": "server.js",
     "scripts": {
         "start": "node backend/server.js",
-        "server": "nodemon backend/server.js",
+        "server": "NODE_ENV=development node backend/server.js",
         "client": "npm run dev --prefix frontend",
-        "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "dev": "NODE_ENV=development concurrently \"npm run server\" \"npm run client\"",
         "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
         "generate-toc": "markdown-toc -i readme.md",
         "lint": "eslint .",
         "data:import": "node backend/seeder.js",
         "data:destroy": "node backend/seeder.js -D",
-        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose"
+        "data:import-test": "NODE_ENV=test node backend/seeder.js",
+        "data:destroy-test": "NODE_ENV=test node backend/seeder.js -D",
+        "test": "NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose --runInBand"
     },
     "repository": {
         "type": "git",
@@ -74,9 +76,11 @@
         "jest": "^27.5.1",
         "jshint": "^2.13.4",
         "markdown-toc": "^1.2.0",
-        "nodemon": "^2.0.21"
+        "nodemon": "^2.0.21",
+        "supertest": "^6.3.3"
     },
     "jest": {
-        "testEnvironment": "node"
+        "testEnvironment": "node",
+        "globalTeardown": "./backend/tests/teardown.js"
     }
 }
