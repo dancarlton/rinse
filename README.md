@@ -39,7 +39,7 @@
 
 </br>
 <td valign="top" style="width:30%">
-    <img src="/frontend/src/assets/images/rinse-cover.jpg" alt="Guy washing a porsche"/>
+    <img src="frontend/src/assets/images/rinse-cover.jpeg" alt="Guy washing a porsche"/>
 </td>
 </br>
 
