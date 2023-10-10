@@ -32,7 +32,7 @@ describe("when there are some users in the database already", () => {
 
   test("the first initial user is an admin", async () => {
     const response = await api.get("/api/users");
-    console.log(response.body[0].role)
+    console.log(response.body[0].role);
     expect(response.body[0].role).toBe("admin");
   });
 });
@@ -78,7 +78,11 @@ describe("adding a new user", () => {
       email: "admin@email.com",
       password: "AAAaaa111!!!",
     };
-    await api.post("/api/users/local").send(newUser).expect(400);
+    const response = await api
+      .post("/api/users/local")
+      .send(newUser)
+      .expect(400);
+    expect(response.body.message).toBe("Username already in use.");
   });
 });
 
