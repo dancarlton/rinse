@@ -13,7 +13,11 @@ import TokenService from "../services/tokenServices.js";
 // import LoggerService from "../services/loggerServices.js";
 import EmailService from "../services/emailServices.js";
 
-const clientHost = "http://localhost:5173";
+// client host is either deployed base url or local host environment
+const clientHost =
+  process.env.NODE_ENV === "production"
+    ? "https://rinse-copy.onrender.com"
+    : "http://localhost:5173"; 
 
 export const loginFail = (req, res) => {
   res.status(401).json({

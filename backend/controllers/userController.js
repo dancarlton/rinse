@@ -10,7 +10,6 @@ import UserService from "../services/userServices.js";
 import TokenService from "../services/tokenServices.js";
 import EmailService from "../services/emailServices.js";
 import User from "../models/userModel.js";
-import { logger } from "../config/logging.js";
 // export const getUser = (req, res) => {
 //   const { user } = req;
 
@@ -75,7 +74,7 @@ export const deleteUserById = async (req, res) => {
 };
 
 /**
- * @description Add a new user and send verification email to that user's email
+ * @description Create a new user and send verification email to that user's email
  * @route /api/users/local
  * @method POST
  * @returns {message, User} The newly created user and a message indicating success or failure
@@ -83,7 +82,12 @@ export const deleteUserById = async (req, res) => {
 export const createUserLocal = async (req, res) => {
   // Validate Register input
   const { error } = validateRegisterInput(req.body);
-  if (error) return res.status(400).send({ message: "password does not match requirements." });
+  if (error) {
+    return res.status(400).send({
+      message:
+        "Password must have one uppercase letter, one lowercase, one number, and one special character ! @ # $ % ^ & * ",
+    });
+  }
 
   const sanitizedInput = sanitize(req.body);
   const { username, email, password } = sanitizedInput;
@@ -93,7 +97,7 @@ export const createUserLocal = async (req, res) => {
 
   if (user) {
     return res.status(400).send({
-      message: "Username already taken. Take an another Username",
+      message: "Username already in use.",
     });
   }
 
@@ -101,7 +105,7 @@ export const createUserLocal = async (req, res) => {
 
   if (user) {
     return res.status(400).send({
-      message: "Email already registered. Take an another email",
+      message: "Email already in use.",
     });
   }
 
@@ -147,7 +151,7 @@ export const createUserLocal = async (req, res) => {
   */
   await newUser.save();
   return res.status(201).send({
-    message: `user created`,
+    message: `user created successfully`,
     newUser,
   });
 };
