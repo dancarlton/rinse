@@ -11,5 +11,5 @@ export default function errorHandler(err, req, res, next) {
   // silly
 
   res.status(500).send("Something failed. Check the logs by Winston");
-  next(err);
+  // next(err);
 }

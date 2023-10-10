@@ -7,6 +7,7 @@ const router = Router();
 router.get("/", UserController.getAllUsers);
 router.post("/", UserController.createUser);
 router.get("/:id", UserController.getUserById);
+router.put("/:id", UserController.updateUserById);
 router.delete("/:id", UserController.deleteUserById);
 
 //  Input : username, email, password via body;

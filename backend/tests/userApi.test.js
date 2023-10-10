@@ -8,6 +8,7 @@ import { app } from "../server";
 
 const api = supertest(app);
 
+// reset test db before every test
 beforeEach(async () => {
   // Delete all existing users and facts
   await User.deleteMany();

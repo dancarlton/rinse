@@ -1,5 +1,6 @@
 /* eslint-disable import/no-named-as-default-member */
 import sanitize from "mongo-sanitize";
+import bcrypt from "bcryptjs";
 import {
   validateEmail,
   validateRegisterInput,
@@ -32,15 +33,15 @@ export const getAllUsers = async (req, res) => {
     return error;
   }
 };
+
 /**
- * @description get one user by id
+ * @description get one user by _id
  * @route /api/users/:id
  * @method GET
  * @returns a javascript object, user. currently gets all info
  */
 export const getUserById = async (req, res) => {
   try {
-    console.log(req.params);
     const { id } = req.params;
     const user = await User.findById(id);
     return res.status(200).json(user);
@@ -49,6 +50,33 @@ export const getUserById = async (req, res) => {
     res.status(404).end();
   }
 };
+
+/**
+ * @description update one user by _id
+ * @route /api/users/:id
+ * @method PUT
+ * @returns a javascript object, with fields changed and success or failure message
+ */
+export const updateUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { username, email, password } = req.body;
+    const user = await User.findById(id);
+    if (username) user.username = username;
+    if (email) user.email = email;
+    if (password) user.password = bcrypt.hashSync(password, 10);
+    await user.save();
+    return res
+      .status(200)
+      .json({ message: "user information updated successfully." });
+  } catch (error) {
+    res
+      .status(404)
+      .json({ message: "user information could not be updated." })
+      .end();
+  }
+};
+
 /**
  * @description delete one user by _id
  * @route /api/users/:id
@@ -65,6 +93,7 @@ export const deleteUserById = async (req, res) => {
     res.status(404).end();
   }
 };
+
 /**
  * @description Add a new user
  * @route POST /api/users
@@ -181,6 +210,7 @@ export default {
   deleteUserById,
   getAllUsers,
   createUser,
+  updateUserById,
   // postUser,
   // postUserCancel,
 };
