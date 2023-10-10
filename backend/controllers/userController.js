@@ -59,6 +59,7 @@ export const getUserById = async (req, res) => {
  */
 export const updateUserById = async (req, res) => {
   try {
+    console.log(req.body)
     const { id } = req.params;
     const { username, email, password } = req.body;
     const user = await User.findById(id);

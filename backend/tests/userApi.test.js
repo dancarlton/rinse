@@ -58,6 +58,20 @@ test("a valid user can be added", async () => {
   expect(usernames).toContain("Leonardo Da Vinci");
 });
 
+test("a valid user can be updated", async () => {
+  const user = await User.findOne({ email: "admin@email.com" });
+  const body = { username: "bob" };
+  await api
+    .put(`/api/users/${user._id}`)
+    .send(body)
+    .expect(200)
+    .expect("Content-Type", /application\/json/);
+
+  const response = await api.get(`/api/users/${user._id}`);
+  console.log(response);
+  expect("bob").toBe("bob");
+});
+
 afterAll(async () => {
   await mongoose.connection.close();
 });
