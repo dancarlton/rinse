@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import winston from "winston";
+import { logger } from "./logging.js";
 
 // Connect to DB from env variable url, create instance
 export async function initDB() {
@@ -15,9 +15,9 @@ export async function initDB() {
       // useFindAndModify: false,
     });
 
-    winston.info(`MongoDB connected: ${conn.connection.host}`);
+    logger.info(`MongoDB connected: ${conn.connection.host}`);
   } catch (error) {
-    winston.error("error connecting to MongoDB:", error.message);
+    logger.error("error connecting to MongoDB:", error.message);
     process.exit(1);
   }
 }

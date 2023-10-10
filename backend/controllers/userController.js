@@ -8,10 +8,9 @@ import {
 
 import UserService from "../services/userServices.js";
 import TokenService from "../services/tokenServices.js";
-import LoggerService from "../services/loggerServices.js";
 import EmailService from "../services/emailServices.js";
 import User from "../models/userModel.js";
-
+import { logger } from "../config/logging.js";
 // export const getUser = (req, res) => {
 //   const { user } = req;
 
@@ -22,195 +21,142 @@ import User from "../models/userModel.js";
  * @description get all users in db
  * @route /api/users
  * @method GET
- * @returns an array of all user objects from DB
+ * @returns {User[]}an array of all user objects from DB
  */
 export const getAllUsers = async (req, res) => {
-  try {
-    const users = await User.find({});
-    return res.status(200).json(users);
-  } catch (error) {
-    console.log("error ", error);
-    return error;
-  }
+  const users = await User.find({});
+  return res.status(200).json(users);
 };
 
 /**
  * @description get one user by _id
  * @route /api/users/:id
  * @method GET
- * @returns a javascript object, user. currently gets all info
+ * @returns {User}, user. currently gets all info
  */
 export const getUserById = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const user = await User.findById(id);
-    return res.status(200).json(user);
-  } catch (error) {
-    console.log("There's been an Error, Harry. ", error);
-    res.status(404).end();
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (!user) {
+    return res.status(404).send("User not found");
   }
+  return res.status(200).json(user);
 };
 
 /**
  * @description update one user by _id
  * @route /api/users/:id
  * @method PUT
- * @returns a javascript object, with fields changed and success or failure message
+ * @returns {object}, with fields changed and success or failure message
  */
 export const updateUserById = async (req, res) => {
-  try {
-    console.log(req.body)
-    const { id } = req.params;
-    const { username, email, password } = req.body;
-    const user = await User.findById(id);
-    if (username) user.username = username;
-    if (email) user.email = email;
-    if (password) user.password = bcrypt.hashSync(password, 10);
-    await user.save();
-    return res
-      .status(200)
-      .json({ message: "user information updated successfully." });
-  } catch (error) {
-    res
-      .status(404)
-      .json({ message: "user information could not be updated." })
-      .end();
-  }
+  const { id } = req.params;
+  const { username, email, password } = req.body;
+  const user = await User.findById(id);
+  if (username) user.username = username;
+  if (email) user.email = email;
+  if (password) user.password = bcrypt.hashSync(password, 10);
+  await user.save();
+  return res
+    .status(200)
+    .json({ message: "user information updated successfully." });
 };
 
 /**
  * @description delete one user by _id
  * @route /api/users/:id
  * @method DELETE
- * @returns a javascript object, user. currently returns all info about deleted user
+ * @returns {User}, user. currently returns all info about deleted user
  */
 export const deleteUserById = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const deletedUser = await User.findOneAndDelete({ _id: id });
-    return res.status(200).json(deletedUser);
-  } catch (error) {
-    console.log("There's been an Error, Harry. ", error);
-    res.status(404).end();
-  }
+  const { id } = req.params;
+  const deletedUser = await User.findOneAndDelete({ _id: id });
+  return res.status(200).json(deletedUser);
 };
 
 /**
- * @description Add a new user
- * @route POST /api/users
- * @returns {object} The newly created user
+ * @description Add a new user and send verification email to that user's email
+ * @route /api/users/local
+ * @method POST
+ * @returns {message, User} The newly created user and a message indicating success or failure
  */
-export const createUser = async (req, res) => {
-  try {
-    const { username, email } = req.body;
+export const createUserLocal = async (req, res) => {
+  // Validate Register input
+  const { error } = validateRegisterInput(req.body);
+  if (error) return res.status(400).send({ message: "password does not match requirements." });
 
-    // Check if a user with the same email already exists
-    const existingUser = await User.findOne({ email });
+  const sanitizedInput = sanitize(req.body);
+  const { username, email, password } = sanitizedInput;
 
-    if (existingUser) {
-      return res
-        .status(400)
-        .json({ message: "User already exists with that email" });
-    }
+  // check if user already exists via username then email
+  let user = await User.findOne({ username });
 
-    // Create a new user
-    const newUser = await User.create({ username, email });
-
-    return res.status(201).json(newUser);
-  } catch (error) {
-    console.error("There's been an error: ", error);
-    res.status(500).json({ message: "Internal Server Error" });
+  if (user) {
+    return res.status(400).send({
+      message: "Username already taken. Take an another Username",
+    });
   }
+
+  user = await User.findOne({ email: email.toLowerCase() });
+
+  if (user) {
+    return res.status(400).send({
+      message: "Email already registered. Take an another email",
+    });
+  }
+
+  // create new user with hashed password
+  const newUser = await User.create({ username, email, password });
+  await newUser.hashPassword();
+  /*
+    try {
+      await newUser.save();
+
+      // create verification token for new user
+      const verificationToken = TokenService.createToken();
+      TokenService.setUserId(verificationToken, newUser._id);
+      TokenService.saveToken(verificationToken);
+
+      // send verification email to new user
+      const verificationEmail = EmailService.createVerificationEmail(
+        newUser.email,
+        verificationToken.token
+      );
+      try {
+        // attempt email service to registration email
+        EmailService.sendEmail(verificationEmail);
+        return res.status(200).send({
+          message: `A verification email has been sent to ${verificationEmail}.`,
+          newUser,
+        });
+      } catch (err) {
+        //
+        await User.findByIdAndDelete(user._id);
+
+        return res.status(503).send({
+          message: `Error sending an email to ${newUser.email}. You must re-register. Our service may be down.`,
+        });
+      }
+    } catch (err) {
+      LoggerService.log.error(err);
+
+      return res
+        .status(500)
+        .send({ message: "Creation of user failed, try again." });
+    }
+  */
+  await newUser.save();
+  return res.status(201).send({
+    message: `user created`,
+    newUser,
+  });
 };
-
-// export const postUser = async (req, res) => {
-//   // Validate Register input
-//   const { error } = validateRegisterInput(req.body);
-//   if (error) return res.status(400).send({ message: error.details[0].message });
-
-//   const sanitizedInput = sanitize(req.body);
-
-//   try {
-//     let user = await UserService.findUserBy(
-//       "username",
-//       sanitizedInput.username.toLowerCase()
-//     );
-
-//     if (user) {
-//       return res.status(400).send({
-//         message: "Username already taken. Take an another Username",
-//       });
-//     }
-
-//     user = await UserService.findUserBy(
-//       "email",
-//       sanitizedInput.email.toLowerCase()
-//     );
-
-//     if (user) {
-//       return res.status(400).send({
-//         message: "Email already registered. Take an another email",
-//       });
-//     }
-
-//     const newUser = UserService.createUser(sanitizedInput);
-//     await UserService.setUserPassword(newUser, newUser.password);
-//     try {
-//       await UserService.saveUser(newUser);
-//       const verificationToken = TokenService.createToken();
-//       TokenService.setUserId(verificationToken, newUser._id);
-//       TokenService.saveToken(verificationToken);
-//       const verificationEmail = EmailService.createVerificationEmail(
-//         newUser.email,
-//         verificationToken.token
-//       );
-//       try {
-//         EmailService.sendEmail(verificationEmail);
-
-//         return res
-//           .status(200)
-//           .send({ message: "A verification mail has been sent." });
-//       } catch (err) {
-//         UserService.deleteUserById(newUser._id);
-
-//         return res.status(503).send({
-//           message: `Impossible to send an email to ${newUser.email}, try again. Our service may be down.`,
-//         });
-//       }
-//     } catch (err) {
-//       LoggerService.log.error(err);
-
-//       return res
-//         .status(500)
-//         .send({ message: "Creation of user failed, try again." });
-//     }
-//   } catch (err) {
-//     LoggerService.log.error(err);
-
-//     return res.status(500).send("An unexpected error occurred");
-//   }
-// };
-
-// // delete user?
-// export const postUserCancel = (req, res) => {
-//   const { error } = validateEmail(req.body);
-//   if (error) return res.status(400).send({ message: error.details[0].message });
-
-//   const sanitizedInputs = sanitize(req.body);
-
-//   try {
-//     UserService.deleteUnverifiedUserByEmail(sanitizedInputs.email);
-//     return res.status(200).send({ message: "User reset success" });
-//   } catch (err) {
-//     return res.status(500).send("An unexpected error occurred");
-//   }
-// };
 
 export default {
   getUserById,
   deleteUserById,
   getAllUsers,
-  createUser,
+  createUserLocal,
   updateUserById,
   // postUser,
   // postUserCancel,

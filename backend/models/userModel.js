@@ -34,10 +34,11 @@ const userSchema = new Schema({
     required: true,
     default: false,
   },
-  isAdmin: {
-    type: Boolean,
-    default: false,
+  role: {
+    type: String,
+    default: "user",
     required: true,
+    enum: ["admin", "user", "provider"],
   },
   expires: { type: Date, default: dayjs().toDate(), expires: 43200 },
 });

@@ -1,26 +1,43 @@
-import winston from "winston";
-import "express-async-errors";
-// To Log on MongoDB database use:
-// import "winston-mongodb";
+import { createLogger, format, transports } from "winston";
 
-export function initLogger() {
-  winston.exceptions.handle(
-    new winston.transports.Console(),
-    new winston.transports.File({ filename: "uncaughtExceptions.log" })
+export const logger = createLogger({
+  level: "info",
+  format: format.combine(
+    format.timestamp({
+      format: "YYYY-MM-DD HH:mm:ss",
+    }),
+    format.errors({ stack: true }),
+    format.splat(),
+    format.json(),
+    format.colorize({
+      all: true,
+    })
+  ),
+  transports: [
+    //
+    // - Write to all logs with level `info` and below to `quick-start-combined.log`.
+    // - Write all logs error (and below) to `quick-start-error.log`.
+    //
+    new transports.File({ filename: "quick-start-error.log", level: "error" }),
+    new transports.File({ filename: "quick-start-combined.log" }),
+  ],
+});
+
+//
+// If we're not in production then **ALSO** log to the `console`
+// with the colorized custom format.
+//
+if (process.env.NODE_ENV !== "production") {
+  logger.add(
+    new transports.Console({
+      format: format.combine(
+        format.label({
+          label: "[LOGGER]",
+        }),
+        format.printf(
+          (info) => ` ${info.label}-[${info.level}] : ${info.message}`
+        )
+      ),
+    })
   );
-
-  process.on("unhandledRejection", (ex) => {
-    throw ex;
-  });
-
-  // Local file
-  winston.add(new winston.transports.File({ filename: "logfile.log" }));
-  winston.add(new winston.transports.Console());
-
-  // Log on the MongoDB database
-  // Uncomment the following lines and set up your MongoDB URI
-  //   winston.add(new winston.transports.MongoDB({
-  //     db: process.env.MONGO_URI,
-  //     level: "info",
-  //   }));
 }

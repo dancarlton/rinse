@@ -5,7 +5,7 @@ import UserController from "../controllers/userController.js";
 const router = Router();
 
 router.get("/", UserController.getAllUsers);
-router.post("/", UserController.createUser);
+router.post("/local", UserController.createUserLocal);
 router.get("/:id", UserController.getUserById);
 router.put("/:id", UserController.updateUserById);
 router.delete("/:id", UserController.deleteUserById);

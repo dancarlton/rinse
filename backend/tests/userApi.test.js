@@ -17,59 +17,113 @@ beforeEach(async () => {
   await User.insertMany(sampleUsers);
 });
 
-test("users are returned as json", async () => {
-  await api
-    .get("/api/users")
-    .expect(200)
-    .expect("Content-Type", /application\/json/);
+describe("when there are some users in the database already", () => {
+  test("users are returned as json", async () => {
+    await api
+      .get("/api/users")
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+  });
+
+  test("all users are returned", async () => {
+    const response = await api.get("/api/users");
+    expect(response.body).toHaveLength(sampleUsers.length);
+  });
+
+  test("the first initial user is an admin", async () => {
+    const response = await api.get("/api/users");
+    console.log(response.body[0].role)
+    expect(response.body[0].role).toBe("admin");
+  });
 });
 
-test("there are three users initially", async () => {
-  const response = await api.get("/api/users");
-
-  expect(response.body).toHaveLength(sampleUsers.length);
+describe("viewing a specific user", () => {
+  test("succeds with a valid id", async () => {
+    const user = await User.findOne({ email: "admin@email.com" });
+    const response = await api.get(`/api/users/${user._id}`).expect(200);
+    expect(response.body.email).toBe("admin@email.com");
+  });
+  test("fails with status code 404 if no user found with that id", async () => {
+    const id = "652558de66cfab18f5babdc";
+    await api.get(`/api/users/${id}`).expect(404);
+  });
 });
 
-test("the first initial user is an admin", async () => {
-  const response = await api.get("/api/users");
+describe("adding a new user", () => {
+  test("succeeds with valid data", async () => {
+    const newUser = {
+      username: "Leonardo Da Vinci",
+      email: "leodavinci@email.com",
+      // password must have one lowercase one uppercase one num and one special symbol 6-30 characters
+      password: "aaaAAA111!!!",
+    };
 
-  expect(response.body[0].isAdmin).toBe(true);
+    await api
+      .post("/api/users/local")
+      .send(newUser)
+      .expect(201)
+      .expect("Content-Type", /application\/json/);
+
+    const response = await api.get("/api/users");
+
+    const usernames = response.body.map((r) => r.username);
+
+    expect(response.body).toHaveLength(sampleUsers.length + 1);
+    expect(usernames).toContain("Leonardo Da Vinci");
+  });
+
+  test("fails with status code 400 if user already exists or validation fails", async () => {
+    const newUser = {
+      username: "admin",
+      email: "admin@email.com",
+      password: "AAAaaa111!!!",
+    };
+    await api.post("/api/users/local").send(newUser).expect(400);
+  });
 });
 
-test("a valid user can be added", async () => {
-  const newUser = {
-    username: "Leonardo Da Vinci",
-    email: "leodavinci@email.com",
-    password: bcrypt.hashSync("leoRocks", 10),
-    isAdmin: false,
-  };
+describe("updating an existing user", () => {
+  test("succeeds when user exists and there is valid data", async () => {
+    const user = await User.findOne({ email: "admin@email.com" });
+    const body = { username: "bob" };
+    await api
+      .put(`/api/users/${user._id}`)
+      .send(body)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
 
-  await api
-    .post("/api/users")
-    .send(newUser)
-    .expect(201)
-    .expect("Content-Type", /application\/json/);
+    const response = await api.get(`/api/users/${user._id}`);
+    expect(response.body.username).toBe("bob");
+  });
+  test("succeeds with status 200, but no info is changed if empty fields provided", async () => {
+    const user = await User.findOne({ email: "admin@email.com" });
+    const body = { username: "", email: "" };
+    await api
+      .put(`/api/users/${user._id}`)
+      .send(body)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
 
-  const response = await api.get("/api/users");
-
-  const usernames = response.body.map((r) => r.username);
-
-  expect(response.body).toHaveLength(sampleUsers.length + 1);
-  expect(usernames).toContain("Leonardo Da Vinci");
+    const response = await api.get(`/api/users/${user._id}`);
+    expect(response.body.username).toBe("admin");
+    expect(response.body.email).toBe("admin@email.com");
+  });
+  test("fails with status code 404 when user does not exist", async () => {
+    const id = "123";
+    const body = { username: "bob" };
+    await api.put(`/api/users/${id}`).send(body).expect(404);
+  });
 });
 
-test("a valid user can be updated", async () => {
-  const user = await User.findOne({ email: "admin@email.com" });
-  const body = { username: "bob" };
-  await api
-    .put(`/api/users/${user._id}`)
-    .send(body)
-    .expect(200)
-    .expect("Content-Type", /application\/json/);
-
-  const response = await api.get(`/api/users/${user._id}`);
-  console.log(response);
-  expect("bob").toBe("bob");
+describe("deleting a user", () => {
+  test("succeeds with status 200 and returns deleted user with valid id", async () => {
+    const user = await User.findOne({ email: "admin@email.com" });
+    const response = await api
+      .delete(`/api/users/${user._id}`)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    expect(response.body.username).toBe("admin");
+  });
 });
 
 afterAll(async () => {

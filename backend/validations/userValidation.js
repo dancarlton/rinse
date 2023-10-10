@@ -2,10 +2,10 @@ import Joi from "joi";
 
 export function validateUser(user) {
   const schema = Joi.object({
-    username: Joi.string().min(3).max(50).required(),
+    username: Joi.string().alphanum().min(3).max(30).required(),
     email: Joi.string().min(5).max(255).required().email(),
     password: Joi.string().min(5).max(255).required(),
-    isAdmin: Joi.boolean().required(),
+    role: Joi.string().valid("admin", "user", "provider").required(),
   });
 
   return schema.validate(user);
@@ -14,7 +14,13 @@ export function validateUser(user) {
 export function validateLoginInput(input) {
   const schema = Joi.object({
     username: Joi.string().min(3).max(50).required(),
-    password: Joi.string().min(5).max(255).required(),
+    password: Joi.string()
+      .pattern(
+        // one uppercase, one lowercase, one digit,
+        // one special character( @ # $ % ^ & + = ) 6-30 characters long
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,30}$/
+      )
+      .required(),
   });
 
   return schema.validate(input);
@@ -23,7 +29,13 @@ export function validateLoginInput(input) {
 export function validateRegisterInput(input) {
   const schema = Joi.object({
     username: Joi.string().min(3).max(50).required(),
-    password: Joi.string().min(5).max(255).required(),
+    password: Joi.string()
+      .pattern(
+        // one uppercase, one lowercase, one digit,
+        // one special character( @ # $ % ^ & + = ) 6-30 characters long
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,30}$/
+      )
+      .required(),
     email: Joi.string().min(5).max(255).required().email(),
   });
 
@@ -40,7 +52,13 @@ export function validateEmail(input) {
 
 export function validatePassword(input) {
   const schema = Joi.object({
-    password: Joi.string().min(5).max(255).required(),
+    password: Joi.string()
+      .pattern(
+        // one uppercase, one lowercase, one digit,
+        // one special character( @ # $ % ^ & + = ) 6-30 characters long
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,30}$/
+      )
+      .required(),
   });
   return schema.validate(input);
 }

@@ -10,7 +10,7 @@ import {
 
 import UserService from "../services/userServices.js";
 import TokenService from "../services/tokenServices.js";
-import LoggerService from "../services/loggerServices.js";
+// import LoggerService from "../services/loggerServices.js";
 import EmailService from "../services/emailServices.js";
 
 const clientHost = "http://localhost:5173";

@@ -4,13 +4,14 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import bodyParser from "body-parser";
 import express from "express";
+import "express-async-errors";
 import path from "path";
 import dotenv from "dotenv";
 import morgan from "morgan";
-import winston from "winston";
+import { logger } from "./config/logging.js";
 import { initConfig } from "./config/config.js";
 import { initRoutes } from "./routes/index.js";
-import errorHandler from "./middleware/errorMiddleware.js";
+import errorHandler, { notFound } from "./middleware/errorMiddleware.js";
 
 // load config
 dotenv.config({ path: "./config/config.env" });
@@ -68,9 +69,12 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-// Middleware for handling errors
+// Middleware for handling 404 not found errors
+app.use(notFound);
+
+// Middleware for handling other errors
 app.use(errorHandler);
 
-app.listen(port, () => winston.info(`Server running on ${port}`));
+app.listen(port, () => logger.info(`Server running on ${port}`));
 
 export { app };
