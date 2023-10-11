@@ -11,7 +11,7 @@ import morgan from "morgan";
 import { logger } from "./config/logging.js";
 import { initConfig } from "./config/config.js";
 import { initRoutes } from "./routes/index.js";
-import errorHandler, { notFound } from "./middleware/errorMiddleware.js";
+// import { notFound } from "./middleware/errorMiddleware.js";
 
 // load config
 dotenv.config({ path: "./config/config.env" });
@@ -70,10 +70,10 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Middleware for handling 404 not found errors
-app.use(notFound);
+// app.use(notFound);
 
 // Middleware for handling other errors
-app.use(errorHandler);
+// app.use(errorHandler);
 
 app.listen(port, () => logger.info(`Server running on ${port}`));
 

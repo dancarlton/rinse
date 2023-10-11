@@ -1,6 +1,7 @@
 import passport from "passport";
 import Local from "passport-local";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import mongoose from "mongoose";
 import { User } from "../models/userModel.js";
 import { logger } from "./logging.js";
 
@@ -68,17 +69,15 @@ export function initPassportJS() {
     )
   );
 
-  // passes user id to session
+  // passes user id to client side
   passport.serializeUser((user, cb) => {
-    process.nextTick(() => {
-      cb(null, { id: user._id });
-    });
+    cb(null, user._id.toString());
   });
 
-  // attaches user object to request (req.user)
-  passport.deserializeUser(async (id, cb) => {
+  // returrn as much user info as you want via deserialization
+  passport.deserializeUser(async (_id, cb) => {
     try {
-      const user = await User.findById(id);
+      const user = await User.findById(_id); // Directly pass _id, not { id }
       cb(null, user);
     } catch (err) {
       cb(err);

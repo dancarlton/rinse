@@ -20,7 +20,7 @@ const clientHost =
     ? "https://rinse-copy.onrender.com"
     : "http://localhost:5173";
 
-export const loginFail = (req, res) => {
+/* export const loginFail = (req, res) => {
   res.status(401).json({
     success: false,
     message: "Failure to login",
@@ -28,6 +28,8 @@ export const loginFail = (req, res) => {
 };
 
 export const loginSuccess = (req, res) => {
+  logger.warn(req.body);
+  logger.info(req.user);
   if (req.user) {
     res.status(200).json({
       success: true,
@@ -36,7 +38,8 @@ export const loginSuccess = (req, res) => {
       cookies: req.cookies,
     });
   }
-};
+  res.redirect("/api/auth/login/fail");
+}; */
 
 export const logoutUser = (req, res) => {
   req.logout((err) => {
@@ -53,7 +56,6 @@ export const logoutUser = (req, res) => {
  * @method GET
  */
 export const googleLogin = (req, res, next) => {
-  logger.info("hello from google Login");
   // scope tells us how much to ask from google
   passport.authenticate("google", { scope: ["profile", "email"] })(
     req,
@@ -66,27 +68,12 @@ export const googleLogin = (req, res, next) => {
  * @route /google/callback
  * @method GET
  */
-export const googleCallback = (req, res, next) => {
-  logger.info("hello from google callback");
-  passport.authenticate(
-    "google",
-    {
-      failureRedirect: "/login/fail",
-      session: false,
-    },
-    (err, user, info) => {
-      if (err) {
-        return next(err);
-      }
-      if (info && info.message === "Missing credentials") {
-        return res.status(400).send({ info });
-      }
-      if (!user) {
-        return res.status(400).send({ message: "Invalid email or password." });
-      }
-      res.redirect(`/login/success`);
-    }
-  )(req, res, next);
+export const googleCallback = (req, res) => {
+  passport.authenticate("google", {
+    failureRedirect: "/",
+  })(req, res, () => {
+    res.redirect("/");
+  });
 };
 
 // for local passport auth
@@ -120,9 +107,9 @@ export const localLogin = (req, res, next) => {
     // }
     req.login(user, (e = err) => {
       if (e) {
-        res.redirect("/login/fail");
+        res.redirect("/");
       }
-      res.redirect("/login/success");
+      res.redirect("/");
     });
   })(req, res, next);
 };
@@ -347,8 +334,6 @@ export const localLogin = (req, res, next) => {
 // };
 
 export default {
-  loginFail,
-  loginSuccess,
   logoutUser,
   localLogin,
   googleLogin,

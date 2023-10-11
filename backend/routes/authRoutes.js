@@ -9,10 +9,6 @@ router.get("/google", authController.googleLogin);
 
 router.get("/google/callback", authController.googleCallback);
 
-router.get("/login/fail", authController.loginFail);
-
-router.get("/login/success", authController.loginSuccess);
-
 router.get("/logout", authController.logoutUser);
 //  Input : username/password via body
 //  HTTP Success : 200, message and user infos.
