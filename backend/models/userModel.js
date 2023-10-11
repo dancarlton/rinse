@@ -2,6 +2,7 @@ import { model, Schema } from "mongoose";
 import { omit } from "ramda";
 import bcrypt from "bcryptjs";
 import dayjs from "dayjs";
+import mongooseUniqueValidator from "mongoose-unique-validator";
 
 const userSchema = new Schema({
   username: {
@@ -9,14 +10,16 @@ const userSchema = new Schema({
     required: false,
     minlength: 2,
     maxlength: 50,
+    unique: true,
   },
   googleId: {
     type: String,
     required: false,
+    unique: true,
   },
   email: {
     type: String,
-    required: false,
+    required: true,
     minlength: 5,
     maxlength: 255,
     unique: true,
@@ -69,6 +72,8 @@ userSchema.methods.hashPassword = function hashPassword() {
 userSchema.methods.hidePassword = function hidePassword() {
   return omit(["password", "__v", "_id"], this.toObject({ virtuals: true }));
 };
+
+userSchema.plugin(mongooseUniqueValidator);
 
 export const User = model("User", userSchema);
 

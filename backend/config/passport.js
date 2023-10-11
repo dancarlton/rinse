@@ -8,22 +8,25 @@ export function initPassportJS() {
   // must be wrapped in async await because mongoose findone returns promises now.
   // local
   passport.use(
-    new Local.Strategy(async (username, password, done) => {
+    new Local.Strategy(async (email, password, cb) => {
       try {
-        const user = await User.findOne({ username });
+        const user = await User.findOne({ email });
+        // if user exists
         if (!user) {
-          return done(undefined, false, {
+          return cb(null, false, {
             message: "Incorrect username or password",
           });
         }
+        // if password is correct
         if (!user.comparePassword(password)) {
-          return done(undefined, false, {
+          return cb(null, false, {
             message: "Incorrect username or password",
           });
         }
-        return done(undefined, user);
+        // else return the user
+        return cb(null, user);
       } catch (err) {
-        return done(err);
+        return cb(err);
       }
     })
   );
@@ -59,9 +62,15 @@ export function initPassportJS() {
   );
 
   // passes user to client side
-  passport.serializeUser((user, done) => done(null, user.id));
+  passport.serializeUser((user, cb) => {
+    process.nextTick(() => {
+      cb(null, { id: user._id });
+    });
+  });
 
-  passport.deserializeUser((user, done) => done(null, user));
+  passport.deserializeUser((user, cb) => {
+    process.nextTick(() => cb(null, user));
+  });
 
   // for local?
   //   passport.deserializeUser(async (id, done) => {

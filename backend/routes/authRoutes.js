@@ -12,6 +12,7 @@ const router = express.Router();
  */
 router.get(
   "/google",
+  // scope tells us how much to ask from google
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 

@@ -46,16 +46,18 @@ export const logoutUser = (req, res) => {
   });
 };
 
-// for local
+// // for local passport auth
 // export const postLogin = (req, res, next) => {
+  // // check for proper input from client
 //   const { error } = validateLoginInput(req.body);
 
-//   if (error) return res.status(400).send({ message: error.details[0].message });
+//   if (error) return res.status(400).send({ message: "Invalid inputs." });
 
 //   const sanitizedInput = sanitize(req.body);
 
 //   sanitizedInput.username = req.body.username.toLowerCase();
 
+    // // this is middleware
 //   passport.authenticate("local", (err, user, info) => {
 //     if (err) {
 //       return next(err);

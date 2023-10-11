@@ -84,8 +84,7 @@ export const createUserLocal = async (req, res) => {
   const { error } = validateRegisterInput(req.body);
   if (error) {
     return res.status(400).send({
-      message:
-        "Password must have one uppercase letter, one lowercase, one number, and one special character ! @ # $ % ^ & * ",
+      message: "Invalid inputs.",
     });
   }
 

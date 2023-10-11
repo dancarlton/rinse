@@ -72,7 +72,7 @@ describe("adding a new user", () => {
     expect(usernames).toContain("Leonardo Da Vinci");
   });
 
-  test("fails with status code 400 if user already exists or validation fails", async () => {
+  test("fails with proper error message if username exists", async () => {
     const newUser = {
       username: "admin",
       email: "admin@email.com",
@@ -83,6 +83,31 @@ describe("adding a new user", () => {
       .send(newUser)
       .expect(400);
     expect(response.body.message).toBe("Username already in use.");
+  });
+
+  test("fails with proper error message if email exists", async () => {
+    const newUser = {
+      username: "waldo",
+      email: "admin@email.com",
+      password: "AAAaaa111!!!",
+    };
+    const response = await api
+      .post("/api/users/local")
+      .send(newUser)
+      .expect(400);
+    expect(response.body.message).toBe("Email already in use.");
+  });
+  test("fails with proper error message if inputs invalid", async () => {
+    const newUser = {
+      username: "waldo",
+      email: "admin.com",
+      password: "123456",
+    };
+    const response = await api
+      .post("/api/users/local")
+      .send(newUser)
+      .expect(400);
+    expect(response.body.message).toBe("Invalid inputs.");
   });
 });
 
