@@ -10,6 +10,7 @@ import UserService from "../services/userServices.js";
 import TokenService from "../services/tokenServices.js";
 import EmailService from "../services/emailServices.js";
 import User from "../models/userModel.js";
+import { logger } from "../config/logging.js";
 // export const getUser = (req, res) => {
 //   const { user } = req;
 
@@ -101,7 +102,6 @@ export const createUserLocal = async (req, res) => {
   }
 
   user = await User.findOne({ email: email.toLowerCase() });
-
   if (user) {
     return res.status(400).send({
       message: "Email already in use.",

@@ -4,49 +4,53 @@ import bcrypt from "bcryptjs";
 import dayjs from "dayjs";
 import mongooseUniqueValidator from "mongoose-unique-validator";
 
-const userSchema = new Schema({
-  username: {
-    type: String,
-    required: false,
-    minlength: 2,
-    maxlength: 50,
-    unique: true,
+const userSchema = new Schema(
+  {
+    username: {
+      type: String,
+      required: false,
+      minlength: 2,
+      maxlength: 50,
+      unique: true,
+    },
+    googleId: {
+      type: String,
+      required: false,
+      unique: true,
+      default: undefined,
+    },
+    email: {
+      type: String,
+      required: true,
+      minlength: 5,
+      maxlength: 255,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: false,
+    },
+    passwordResetToken: { type: String, default: "" },
+    passwordResetExpires: { type: Date, default: dayjs().toDate() },
+    isVerified: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    role: {
+      type: String,
+      default: "user",
+      required: true,
+      enum: ["admin", "user", "provider"],
+    },
+    expires: { type: Date, default: dayjs().toDate(), expires: 43200 },
   },
-  googleId: {
-    type: String,
-    required: false,
-    unique: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    minlength: 5,
-    maxlength: 255,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: false,
-    minlength: 5,
-    maxlength: 1024,
-  },
-  passwordResetToken: { type: String, default: "" },
-  passwordResetExpires: { type: Date, default: dayjs().toDate() },
-  isVerified: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
-  role: {
-    type: String,
-    default: "user",
-    required: true,
-    enum: ["admin", "user", "provider"],
-  },
-  expires: { type: Date, default: dayjs().toDate(), expires: 43200 },
-});
+  {
+    timestamps: true,
+  }
+);
 
-userSchema.methods.comparePassword = function comparePassword(password) {
+userSchema.methods.comparePassword = async function comparePassword(password) {
   return bcrypt.compareSync(password, this.password);
 };
 

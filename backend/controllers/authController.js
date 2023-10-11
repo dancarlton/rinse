@@ -17,7 +17,7 @@ import EmailService from "../services/emailServices.js";
 const clientHost =
   process.env.NODE_ENV === "production"
     ? "https://rinse-copy.onrender.com"
-    : "http://localhost:5173"; 
+    : "http://localhost:5173";
 
 export const loginFail = (req, res) => {
   res.status(401).json({
@@ -46,46 +46,52 @@ export const logoutUser = (req, res) => {
   });
 };
 
-// // for local passport auth
-// export const postLogin = (req, res, next) => {
-  // // check for proper input from client
-//   const { error } = validateLoginInput(req.body);
+export const localLogin = (req, res, next) => {
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+  });
+};
+// for local passport auth
+export const postLogin = (req, res, next) => {
+  // check for proper input from client
+  const { error } = validateLoginInput(req.body);
 
-//   if (error) return res.status(400).send({ message: "Invalid inputs." });
+  if (error) return res.status(400).send({ message: "Invalid inputs." });
 
-//   const sanitizedInput = sanitize(req.body);
+  const sanitizedInput = sanitize(req.body);
 
-//   sanitizedInput.username = req.body.username.toLowerCase();
+  sanitizedInput.username = req.body.username.toLowerCase();
 
-    // // this is middleware
-//   passport.authenticate("local", (err, user, info) => {
-//     if (err) {
-//       return next(err);
-//     }
-//     if (info && info.message === "Missing credentials") {
-//       return res.status(400).send({ message: "Missing credentials" });
-//     }
-//     if (!user) {
-//       return res.status(400).send({ message: "Invalid email or password." });
-//     }
-//     // optional verification
-//     // if (!user.isVerified) {
-//     //   return res.status(401).send({
-//     //     message:
-//     //       "Your account has not been verified. Please activate your account.",
-//     //   });
-//     // }
-//     req.login(user, (e = err) => {
-//       if (e) {
-//         res.status(401).send({ message: "Authentication failed", e });
-//       }
-//       res.status(200).send({
-//         message: "Login success",
-//         user: UserService.getUser(user),
-//       });
-//     });
-//   })(req, res, next);
-// };
+  // this is middleware
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (info && info.message === "Missing credentials") {
+      return res.status(400).send({ message: "Missing credentials" });
+    }
+    if (!user) {
+      return res.status(400).send({ message: "Invalid email or password." });
+    }
+    // optional verification
+    // if (!user.isVerified) {
+    //   return res.status(401).send({
+    //     message:
+    //       "Your account has not been verified. Please activate your account.",
+    //   });
+    // }
+    req.login(user, (e = err) => {
+      if (e) {
+        res.status(401).send({ message: "Authentication failed", e });
+      }
+      res.status(200).send({
+        message: "Login success",
+        user: UserService.getUser(user),
+      });
+    });
+  })(req, res, next);
+};
 
 // // takes in user email and either no user found or try to send reset password email
 // export const postLoginForgot = async (req, res) => {
