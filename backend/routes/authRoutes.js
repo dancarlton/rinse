@@ -1,7 +1,7 @@
 /* eslint-disable import/no-named-as-default-member */
 import express from "express";
 import passport from "passport";
-import AuthControllers from "../controllers/authController.js";
+import authController from "../controllers/authController.js";
 
 const router = express.Router();
 
@@ -23,28 +23,22 @@ router.get(
  */
 router.get(
   "/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login/failed" }),
+  passport.authenticate("google", { failureRedirect: "/login/fail" }),
   (req, res) => {
     // Successful authentication, redirect to client for now
     res.redirect("http://localhost:5173/");
   }
 );
 
-router.get("/login/failed", AuthControllers.loginFail);
+router.get("/login/fail", authController.loginFail);
 
-router.get("/login/success", AuthControllers.loginSuccess);
+router.get("/login/success", authController.loginSuccess);
 
-router.get("/logout", AuthControllers.logoutUser);
+router.get("/logout", authController.logoutUser);
 //  Input : username/password via body
 //  HTTP Success : 200, message and user infos.
 //  HTTP Errors : 400, 401.
-router.post(
-  "/login/password",
-  passport.authenticate("local", {
-    successRedirect: "/login/success",
-    failureRedirect: "/login/failed",
-  })
-);
+router.post("/login/local", authController.postLogin);
 //  Input : email via body.
 //  HTTP Success : 200 and message.
 //  HTTP Errors : 400, 404, 500, 503.

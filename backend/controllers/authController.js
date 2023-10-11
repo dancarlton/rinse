@@ -12,6 +12,7 @@ import UserService from "../services/userServices.js";
 import TokenService from "../services/tokenServices.js";
 // import LoggerService from "../services/loggerServices.js";
 import EmailService from "../services/emailServices.js";
+import { logger } from "../config/logging.js";
 
 // client host is either deployed base url or local host environment
 const clientHost =
@@ -48,8 +49,8 @@ export const logoutUser = (req, res) => {
 
 export const localLogin = (req, res, next) => {
   passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login",
+    successRedirect: "/login/success",
+    failureRedirect: "/login/fail",
   });
 };
 // for local passport auth
@@ -61,7 +62,7 @@ export const postLogin = (req, res, next) => {
 
   const sanitizedInput = sanitize(req.body);
 
-  sanitizedInput.username = req.body.username.toLowerCase();
+  sanitizedInput.email = req.body.email.toLowerCase();
 
   // this is middleware
   passport.authenticate("local", (err, user, info) => {
@@ -69,7 +70,7 @@ export const postLogin = (req, res, next) => {
       return next(err);
     }
     if (info && info.message === "Missing credentials") {
-      return res.status(400).send({ message: "Missing credentials" });
+      return res.status(400).send({ info });
     }
     if (!user) {
       return res.status(400).send({ message: "Invalid email or password." });
@@ -316,4 +317,6 @@ export default {
   loginFail,
   loginSuccess,
   logoutUser,
+  postLogin,
+  localLogin,
 };

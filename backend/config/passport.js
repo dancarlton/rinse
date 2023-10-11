@@ -2,33 +2,40 @@ import passport from "passport";
 import Local from "passport-local";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { User } from "../models/userModel.js";
+import { logger } from "./logging.js";
 
 export function initPassportJS() {
   // pulled from passport JS local strategy https://www.passportjs.org/packages/passport-local/
   // must be wrapped in async await because mongoose findone returns promises now.
   // local
   passport.use(
-    new Local.Strategy(async (email, password, cb) => {
-      try {
-        const user = await User.findOne({ email });
-        // if user exists
-        if (!user) {
-          return cb(null, false, {
-            message: "Incorrect username or password",
-          });
+    new Local.Strategy(
+      {
+        usernameField: "email", // using email instead of username
+        passwordField: "password",
+      },
+      async (email, password, cb) => {
+        try {
+          const user = await User.findOne({ email });
+          // if user exists
+          if (!user) {
+            return cb(null, false, {
+              message: "Incorrect username or password",
+            });
+          }
+          // if password is correct
+          if (!user.comparePassword(password)) {
+            return cb(null, false, {
+              message: "Incorrect username or password",
+            });
+          }
+          // else return the user
+          return cb(null, user);
+        } catch (err) {
+          return cb(err);
         }
-        // if password is correct
-        if (!user.comparePassword(password)) {
-          return cb(null, false, {
-            message: "Incorrect username or password",
-          });
-        }
-        // else return the user
-        return cb(null, user);
-      } catch (err) {
-        return cb(err);
       }
-    })
+    )
   );
 
   // https://www.passportjs.org/packages/passport-google-oauth20/
