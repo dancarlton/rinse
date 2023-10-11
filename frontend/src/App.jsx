@@ -9,17 +9,17 @@ import axios from "axios"
 function App() {
 	// TODO: Make this a slice action in userSlice.js.
 	const [user, setUser] = useState(null);
-	const hook = () => {
-		console.log('effect')
-		axios
-			.get('http://localhost:5000/api/users')
-			.then(response => {
-				console.log('promise fulfilled')
-				setUser(response)
-			})
-	}
-	useEffect(hook, [])
-	console.log(user)
+	// const hook = () => {
+	// 	console.log('effect')
+	// 	axios
+	// 		.get('http://localhost:5000/api/users')
+	// 		.then(response => {
+	// 			console.log('promise fulfilled')
+	// 			setUser(response)
+	// 		})
+	// }
+	// useEffect(hook, [])
+	// console.log(user)
 
 	return (
 		<BrowserRouter>

@@ -32,7 +32,6 @@ describe("when there are some users in the database already", () => {
 
   test("the first initial user is an admin", async () => {
     const response = await api.get("/api/users");
-    console.log(response.body[0].role);
     expect(response.body[0].role).toBe("admin");
   });
 });

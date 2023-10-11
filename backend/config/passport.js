@@ -68,24 +68,20 @@ export function initPassportJS() {
     )
   );
 
-  // passes user to client side
+  // passes user id to session
   passport.serializeUser((user, cb) => {
     process.nextTick(() => {
       cb(null, { id: user._id });
     });
   });
 
-  passport.deserializeUser((user, cb) => {
-    process.nextTick(() => cb(null, user));
+  // attaches user object to request (req.user)
+  passport.deserializeUser(async (id, cb) => {
+    try {
+      const user = await User.findById(id);
+      cb(null, user);
+    } catch (err) {
+      cb(err);
+    }
   });
-
-  // for local?
-  //   passport.deserializeUser(async (id, done) => {
-  //     try {
-  //       const user = await User.findById(id);
-  //       done(null, user);
-  //     } catch (err) {
-  //       done(err);
-  //     }
-  //   });
 }

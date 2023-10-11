@@ -47,14 +47,50 @@ export const logoutUser = (req, res) => {
   });
 };
 
-export const localLogin = (req, res, next) => {
-  passport.authenticate("local", {
-    successRedirect: "/login/success",
-    failureRedirect: "/login/fail",
-  });
+/**
+ * @desc Google OAuth 2.0 via passport
+ * @route /google
+ * @method GET
+ */
+export const googleLogin = (req, res, next) => {
+  logger.info("hello from google Login");
+  // scope tells us how much to ask from google
+  passport.authenticate("google", { scope: ["profile", "email"] })(
+    req,
+    res,
+    next
+  );
 };
+/**
+ * @desc Google OAuth 2.0 via passport callback. used to redirect after successful authentication
+ * @route /google/callback
+ * @method GET
+ */
+export const googleCallback = (req, res, next) => {
+  logger.info("hello from google callback");
+  passport.authenticate(
+    "google",
+    {
+      failureRedirect: "/login/fail",
+      session: false,
+    },
+    (err, user, info) => {
+      if (err) {
+        return next(err);
+      }
+      if (info && info.message === "Missing credentials") {
+        return res.status(400).send({ info });
+      }
+      if (!user) {
+        return res.status(400).send({ message: "Invalid email or password." });
+      }
+      res.redirect(`/login/success`);
+    }
+  )(req, res, next);
+};
+
 // for local passport auth
-export const postLogin = (req, res, next) => {
+export const localLogin = (req, res, next) => {
   // check for proper input from client
   const { error } = validateLoginInput(req.body);
 
@@ -84,12 +120,9 @@ export const postLogin = (req, res, next) => {
     // }
     req.login(user, (e = err) => {
       if (e) {
-        res.status(401).send({ message: "Authentication failed", e });
+        res.redirect("/login/fail");
       }
-      res.status(200).send({
-        message: "Login success",
-        user: UserService.getUser(user),
-      });
+      res.redirect("/login/success");
     });
   })(req, res, next);
 };
@@ -317,6 +350,7 @@ export default {
   loginFail,
   loginSuccess,
   logoutUser,
-  postLogin,
   localLogin,
+  googleLogin,
+  googleCallback,
 };
