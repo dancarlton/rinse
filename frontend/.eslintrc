@@ -1,0 +1,91 @@
+{
+	"root": true,
+	"env": {
+		"browser": true,
+		"es2020": true,
+		"es6": true,
+		"jest": true, // if you use Jest for frontend tests
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:react/jsx-runtime",
+		"plugin:react-hooks/recommended",
+		"airbnb-base", // Imported from your backend config
+		"prettier", // Imported from your backend config
+		"react-app",
+	],
+	"parser": "@babel/eslint-parser", // Imported from your backend config
+	"ignorePatterns": [
+		"dist",
+		".eslintrc.cjs"
+	],
+	"parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true // to enable JSX
+		},
+    "requireConfigFile": false,
+    "allowImportExportEverywhere": true
+	},
+	"settings": { "react": { "version": "18.2"
+		}
+	},
+	"plugins": [
+		"react-refresh",
+		"prettier", // Imported from your backend config
+	],
+	"rules": {
+		// Your frontend-specific rules here
+		"react-refresh/only-export-components": [
+			"warn",
+			{ "allowConstantExport": true
+			},
+		],
+		// Your backend rules imported here
+		"prettier/prettier": [
+			"error",
+			{
+				"endOfLine": "auto",
+				"tabWidth": 2,
+			},
+		],
+		"import/no-unresolved": 0,
+		"import/no-absolute-path": 0,
+		"import/extensions": 0,
+		"import/no-extraneous-dependencies": 0,
+		"import/prefer-default-export": 0,
+		"import/first": 0,
+		"import/no-dynamic-require": 0,
+		// don't force function names if it won't help debugging
+		"func-names": [
+			2,
+			"as-needed"
+		],
+		"no-mixed-spaces-and-tabs": 0,
+		"no-tabs": 0,
+		"quotes": 0,
+		"no-underscore-dangle": 0,
+		// i like ++
+		"no-plusplus": 0,
+		"eqeqeq": "error",
+		"no-trailing-spaces": "error",
+		"object-curly-spacing": [
+			"error",
+			"always"
+		],
+		"arrow-spacing": [
+			"error",
+			{ "before": true, "after": true
+			}
+		],
+		// enforce curly braces for multiline if, else, for, while, do
+		"curly": [
+			"error",
+			"multi-line"
+		],
+		"no-console": 0,
+	},
+	"globals": {},
+}
