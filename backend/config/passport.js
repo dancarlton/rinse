@@ -74,10 +74,10 @@ export function initPassportJS() {
     cb(null, user._id.toString());
   });
 
-  // returrn as much user info as you want via deserialization
+  // returrn as much user info as you want via deserialization to req.user
   passport.deserializeUser(async (_id, cb) => {
     try {
-      const user = await User.findById(_id); // Directly pass _id, not { id }
+      const user = await User.findById(_id);
       cb(null, user);
     } catch (err) {
       cb(err);

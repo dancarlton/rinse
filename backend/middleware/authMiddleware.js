@@ -1,38 +1,39 @@
-import jwt from "jsonwebtoken";
-import asyncHandler from "./asyncHandler.js";
-import User from "../models/userModel.js";
-
-// User must be authenticated
-const protect = asyncHandler(async (req, res, next) => {
-  // Read JWT from the 'jwt' cookie
-  const token = req.cookies.jwt;
-
-  if (token) {
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-      req.user = await User.findById(decoded.userId).select("-password");
-
-      next();
-    } catch (error) {
-      console.error(error);
-      res.status(401);
-      throw new Error("Not authorized, token failed");
-    }
-  } else {
-    res.status(401);
-    throw new Error("Not authorized, no token");
+// User must be authenticated/logged in
+const authenticated = (req, res, next) => {
+  if (req.user && req.isAuthenticated()) {
+    return next();
   }
-});
+  res.redirect("/login");
+};
+// User must be verified
+const verified = (req, res, next) => {
+  if (req.user && req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/login");
+};
 
 // User must be an admin
 const admin = (req, res, next) => {
-  if (req.user && req.user.isAdmin) {
+  if (req.user && req.isAuthenticated && req.user.role === "admin") {
     next();
   } else {
     res.status(401);
     throw new Error("Not authorized as an admin");
   }
 };
+// User must be a provider. lets admin role through as well
+const provider = (req, res, next) => {
+  if (
+    req.user &&
+    req.isAuthenticated &&
+    (req.user.role === "provider" || req.user.role === "admin")
+  ) {
+    next();
+  } else {
+    res.status(401);
+    throw new Error("Not authorized as a provider");
+  }
+};
 
-export { protect, admin };
+export { authenticated, verified, admin, provider };

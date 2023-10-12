@@ -41,12 +41,18 @@ export const loginSuccess = (req, res) => {
   res.redirect("/api/auth/login/fail");
 }; */
 
+/**
+ * @desc Logs out user
+ * @route /logout
+ * @method POST
+ */
 export const logoutUser = (req, res) => {
-  req.logout((err) => {
+  req.logOut((err) => {
     if (err) {
-      return res.status(500).json({ error: "Could not log out" });
+      res.status(500).send({ message: "Logout failed", err });
+    } else {
+      res.status(200).send({ message: "Logout success" });
     }
-    res.redirect(clientHost);
   });
 };
 
@@ -63,8 +69,9 @@ export const googleLogin = (req, res, next) => {
     next
   );
 };
+
 /**
- * @desc Google OAuth 2.0 via passport callback. used to redirect after successful authentication
+ * @desc Google OAuth 2.0 via passport callback. used to redirect after authentication
  * @route /google/callback
  * @method GET
  */
@@ -76,18 +83,23 @@ export const googleCallback = (req, res) => {
   });
 };
 
-// for local passport auth
+/**
+ * @desc Local login strategy from passport.js
+ * @route /login/local
+ * @method POST
+ */
 export const localLogin = (req, res, next) => {
   // check for proper input from client
   const { error } = validateLoginInput(req.body);
 
   if (error) return res.status(400).send({ message: "Invalid inputs." });
 
+  // sanitize input for malicious users
   const sanitizedInput = sanitize(req.body);
 
   sanitizedInput.email = req.body.email.toLowerCase();
 
-  // this is middleware
+  // passport authentication
   passport.authenticate("local", (err, user, info) => {
     if (err) {
       return next(err);
@@ -107,6 +119,7 @@ export const localLogin = (req, res, next) => {
     // }
     req.login(user, (e = err) => {
       if (e) {
+        // eventually redirect to client
         res.redirect("/");
       }
       res.redirect("/");

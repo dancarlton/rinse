@@ -9,7 +9,7 @@ router.get("/google", authController.googleLogin);
 
 router.get("/google/callback", authController.googleCallback);
 
-router.get("/logout", authController.logoutUser);
+router.post("/logout", authController.logoutUser);
 //  Input : username/password via body
 //  HTTP Success : 200, message and user infos.
 //  HTTP Errors : 400, 401.

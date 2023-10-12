@@ -9,16 +9,16 @@ export function notFound(req, res, next) {
   next(error);
 }
 
-/* export default function errorHandler(err, req, res, next) {
+export function errorHandler(err, req, res, next) {
   // Determine the status code. Default to 500 if the current status code is 200
   let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   let { message } = err;
 
-  // // Check for a Mongoose CastError related to ObjectId
-  // if (err.name === "CastError" && err.kind === "ObjectId") {
-  //   message = "Resource not found.";
-  //   statusCode = 404;
-  // }
+  // Check for a Mongoose CastError related to ObjectId
+  if (err.name === "CastError" && err.kind === "ObjectId") {
+    message = "Resource not found.";
+    statusCode = 404;
+  }
 
   // Send the response with the determined status code, error message,
   // and optionally the error stack if not in production
@@ -27,4 +27,4 @@ export function notFound(req, res, next) {
     stack: process.env.NODE_ENV === "production" ? "Pancake Stack" : err.stack,
   });
   next();
-} */
+}

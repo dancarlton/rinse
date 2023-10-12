@@ -29,6 +29,18 @@ export const getAllUsers = async (req, res) => {
 };
 
 /**
+ * @description get current user
+ * @route /api/users/current
+ * @method GET
+ * @returns {User}, user. currently gets all info
+ */
+export const getCurrentUser = async (req, res) => {
+  if (!req.user) {
+    return res.status(404).send("No current user");
+  }
+  return res.status(200).json(req.user);
+};
+/**
  * @description get one user by _id
  * @route /api/users/:id
  * @method GET
@@ -161,6 +173,7 @@ export default {
   getAllUsers,
   createUserLocal,
   updateUserById,
+  getCurrentUser,
   // postUser,
   // postUserCancel,
 };
