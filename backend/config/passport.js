@@ -18,13 +18,13 @@ export function initPassportJS() {
       async (email, password, cb) => {
         try {
           const user = await User.findOne({ email });
-          // if user exists
+          // if user does not exist
           if (!user) {
             return cb(null, false, {
               message: "Incorrect username or password",
             });
           }
-          // if password is correct
+          // if password is incorrect
           if (!user.comparePassword(password)) {
             return cb(null, false, {
               message: "Incorrect username or password",

@@ -120,9 +120,9 @@ export const localLogin = (req, res, next) => {
     req.login(user, (e = err) => {
       if (e) {
         // eventually redirect to client
-        res.redirect("/");
+        res.send(user);
       }
-      res.redirect("/");
+      res.send(user.hidePassword());
     });
   })(req, res, next);
 };

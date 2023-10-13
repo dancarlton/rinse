@@ -87,7 +87,7 @@ export const deleteUserById = async (req, res) => {
 };
 
 /**
- * @description Create a new user and send verification email to that user's email
+ * @description Create a new user via local signup and send verification email to that user's email
  * @route /api/users/local
  * @method POST
  * @returns {message, User} The newly created user and a message indicating success or failure

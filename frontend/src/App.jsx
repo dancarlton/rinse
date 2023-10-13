@@ -2,34 +2,31 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import axios from "axios";
-import Header from "./components/Header";
+import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 
 function App() {
   // TODO: Make this a slice action in userSlice.js.
-  const [user, setUser] = useState(null);
-  // const hook = () => {
-  // 	console.log('effect')
-  // 	axios
-  // 		.get('http://localhost:5000/api/users')
-  // 		.then(response => {
-  // 			console.log('promise fulfilled')
-  // 			setUser(response)
-  // 		})
-  // }
-  // useEffect(hook, [])
-  // console.log(user)
+  const [currentUser, setCurrentUser] = useState(null);
+  const hook = async () => {
+    console.log("setting Current User");
+    const response = await axios.get("http://localhost:5000/api/users/current");
+    console.log(response);
+    setCurrentUser(response);
+  };
+  useEffect(() => hook, []);
+  console.log(currentUser);
 
   return (
     <BrowserRouter>
       <div>
-        <Header />
+        <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route
             path="/login"
-            element={user ? <Navigate to="/" /> : <LoginPage />}
+            element={currentUser ? <Navigate to="/" /> : <LoginPage />}
           />
         </Routes>
       </div>

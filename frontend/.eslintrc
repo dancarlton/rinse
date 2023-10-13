@@ -21,15 +21,17 @@
 		".eslintrc.cjs"
 	],
 	"parserOptions": {
-    "ecmaVersion": 8,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true // to enable JSX
+		"ecmaVersion": 8,
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true // to enable JSX
 		},
-    "requireConfigFile": false,
-    "allowImportExportEverywhere": true
+		"requireConfigFile": false,
+		"allowImportExportEverywhere": true
 	},
-	"settings": { "react": { "version": "18.2"
+	"settings": {
+		"react": {
+			"version": "18.2"
 		}
 	},
 	"plugins": [
@@ -40,10 +42,11 @@
 		// Your frontend-specific rules here
 		"react-refresh/only-export-components": [
 			"warn",
-			{ "allowConstantExport": true
+			{
+				"allowConstantExport": true
 			},
 		],
-		// Your backend rules imported here
+		"react/no-unescaped-entities": 0,
 		"prettier/prettier": [
 			"error",
 			{
@@ -77,7 +80,9 @@
 		],
 		"arrow-spacing": [
 			"error",
-			{ "before": true, "after": true
+			{
+				"before": true,
+				"after": true
 			}
 		],
 		// enforce curly braces for multiline if, else, for, while, do
