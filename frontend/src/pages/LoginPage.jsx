@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { localLogin } from "../hooks/localLogin";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleGoogleLogin = () => {
     window.open("http://localhost:5000/api/auth/google", "_self");
@@ -25,8 +27,18 @@ const LoginPage = () => {
     }
   };
 
+  const handlePasswordVisibility = (event) => {
+    event.preventDefault();
+    try {
+      setPasswordVisible((prev) => !prev);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <>
+      {/* If user not logged in show sign in form. */}
       {user === null ? (
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -69,6 +81,13 @@ const LoginPage = () => {
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Password
+                    <button className="mx-3" onClick={handlePasswordVisibility}>
+                      {passwordVisible ? (
+                        <FontAwesomeIcon icon={faEyeSlash} />
+                      ) : (
+                        <FontAwesomeIcon icon={faEye} />
+                      )}
+                    </button>
                   </label>
                   <div className="text-sm">
                     <a
@@ -80,15 +99,27 @@ const LoginPage = () => {
                   </div>
                 </div>
                 <div className="mt-2">
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    autoComplete="current-password"
-                    placeholder="Enter Password Here"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    onChange={({ target }) => setPassword(target.value)}
-                  />
+                  {passwordVisible ? (
+                    <input
+                      id="password"
+                      name="password"
+                      type="text" // this is difference
+                      autoComplete="current-password"
+                      placeholder="Enter Password Here"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={({ target }) => setPassword(target.value)}
+                    />
+                  ) : (
+                    <input
+                      id="password"
+                      name="password"
+                      type="password" // this is difference
+                      autoComplete="current-password"
+                      placeholder="Enter Password Here"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={({ target }) => setPassword(target.value)}
+                    />
+                  )}
                 </div>
               </div>
 
@@ -128,6 +159,7 @@ const LoginPage = () => {
           </div>
         </div>
       ) : (
+        // If user already logged in, display this
         <h3>You are logged in</h3>
       )}
     </>

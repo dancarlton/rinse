@@ -11,7 +11,10 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const hook = async () => {
     console.log("setting Current User");
-    const response = await axios.get("http://localhost:5000/api/users/current");
+    const response = await axios.get(
+      "http://localhost:5000/api/users/current",
+      { withCredentials: true }
+    );
     console.log(response);
     setCurrentUser(response);
   };
