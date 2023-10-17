@@ -12,6 +12,7 @@
         "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
         "generate-toc": "markdown-toc -i readme.md",
         "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
         "data:import": "node backend/seeder.js",
         "data:destroy": "node backend/seeder.js -D",
         "data:import-test": "NODE_ENV=test node backend/seeder.js",
