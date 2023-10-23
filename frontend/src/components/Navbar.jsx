@@ -19,6 +19,11 @@ const Header = () => (
             </span>
           </div>
           <div className="flex items-center space-x-2">
+            <span className="text-gray-50">
+              <Link to="/contact">Contact Us</Link>
+            </span>
+          </div>
+          <div className="flex items-center space-x-2">
             <span className="text-gray-50">Log out</span>
           </div>
         </div>

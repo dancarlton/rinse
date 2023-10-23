@@ -18,12 +18,14 @@ const LoginPage = () => {
     event.preventDefault();
     try {
       const attemptedUser = await localLogin({ email, password });
-      setUser(attemptedUser);
-      setEmail("");
-      setPassword("");
-      console.log("successful login");
+      if (attemptedUser) {
+        setUser(attemptedUser);
+        setEmail("");
+        setPassword("");
+        console.log("successful login");
+      }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
