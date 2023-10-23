@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
 const ContactForm = () => (
   <>
@@ -12,7 +12,7 @@ const ContactForm = () => (
           />
 
           <div className="hidden lg:relative lg:block lg:p-12">
-            <a className="block text-white" href="/">
+            <Link className="block text-white" to="/">
               <span className="sr-only">Home</span>
               <svg
                 className="h-8 sm:h-10"
@@ -25,7 +25,7 @@ const ContactForm = () => (
                   fill="currentColor"
                 />
               </svg>
-            </a>
+            </Link>
 
             <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
               Welcome to Rinse 💦
@@ -169,13 +169,13 @@ const ContactForm = () => (
               <div className="col-span-6">
                 <p className="text-sm text-gray-500">
                   By creating an account, you agree to our{" "}
-                  <a href="#" className="text-gray-700 underline">
+                  <Link to="#" className="text-gray-700 underline">
                     terms and conditions
-                  </a>{" "}
+                  </Link>{" "}
                   and{" "}
-                  <a href="#" className="text-gray-700 underline">
+                  <Link to="#" className="text-gray-700 underline">
                     privacy policy
-                  </a>
+                  </Link>
                   .
                 </p>
               </div>
@@ -187,9 +187,9 @@ const ContactForm = () => (
 
                 <p className="mt-4 text-sm text-gray-500 sm:mt-0">
                   Already have an account?{" "}
-                  <a href="#" className="text-gray-700 underline">
+                  <Link to="#" className="text-gray-700 underline">
                     Log in
-                  </a>
+                  </Link>
                   .
                 </p>
               </div>

@@ -54,6 +54,7 @@
 				"tabWidth": 2,
 			},
 		],
+		"import/no-anonymous-default-export": 0,
 		"import/no-unresolved": 0,
 		"import/no-absolute-path": 0,
 		"import/extensions": 0,

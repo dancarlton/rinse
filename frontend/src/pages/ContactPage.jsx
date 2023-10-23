@@ -1,9 +1,11 @@
-import React from "react";
 import ContactForm from "../components/ContactForm";
+import ToggleButton from "../components/ToggleButton";
 
 const ContactPage = () => (
   <>
-    <ContactForm />
+    <ToggleButton buttonLabel="reveal">
+      <ContactForm />
+    </ToggleButton>
   </>
 );
 
