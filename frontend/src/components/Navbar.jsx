@@ -34,8 +34,7 @@ const Header = () => (
               className="h-6 w-6 text-gray-600 cursor-pointer"
               fill="none"
               viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+              stroke="currentColor">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -44,7 +43,11 @@ const Header = () => (
               />
             </svg>
           </span>
-          <input className="outline-none" type="text" placeholder="Search" />
+          <input
+            className="outline-none"
+            type="text"
+            placeholder="Search"
+          />
         </div>
       </div>
     </nav>
