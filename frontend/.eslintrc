@@ -4,18 +4,16 @@
 		"browser": true,
 		"es2020": true,
 		"es6": true,
-		"jest": true, // if you use Jest for frontend tests
+		"jest": true
 	},
 	"extends": [
 		"eslint:recommended",
 		"plugin:react/recommended",
 		"plugin:react/jsx-runtime",
 		"plugin:react-hooks/recommended",
-		"airbnb-base", // Imported from your backend config
-		"prettier", // Imported from your backend config
 		"react-app",
+		"prettier"
 	],
-	"parser": "@babel/eslint-parser", // Imported from your backend config
 	"ignorePatterns": [
 		"dist",
 		".eslintrc.cjs"
@@ -36,7 +34,8 @@
 	},
 	"plugins": [
 		"react-refresh",
-		"prettier", // Imported from your backend config
+		"prettier",
+		"jest"
 	],
 	"rules": {
 		// Your frontend-specific rules here
@@ -44,16 +43,10 @@
 			"warn",
 			{
 				"allowConstantExport": true
-			},
+			}
 		],
-		"react/no-unescaped-entities": 0,
-		"prettier/prettier": [
-			"error",
-			{
-				"endOfLine": "auto",
-				"tabWidth": 2,
-			},
-		],
+		"import/no-anonymous-default-export": 0
+		/* "react/no-unescaped-entities": 0,
 		"import/no-unresolved": 0,
 		"import/no-absolute-path": 0,
 		"import/extensions": 0,
@@ -90,7 +83,7 @@
 			"error",
 			"multi-line"
 		],
-		"no-console": 0,
+		"no-console": 0, */
 	},
-	"globals": {},
+	"globals": {}
 }

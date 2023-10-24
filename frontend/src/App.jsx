@@ -5,6 +5,7 @@ import axios from "axios";
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import ContactPage from "./pages/ContactPage";
 
 function App() {
   // TODO: Make this a slice action in userSlice.js.
@@ -27,6 +28,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route
             path="/login"
             element={currentUser ? <Navigate to="/" /> : <LoginPage />}

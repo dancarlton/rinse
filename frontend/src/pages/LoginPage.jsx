@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
@@ -18,12 +19,14 @@ const LoginPage = () => {
     event.preventDefault();
     try {
       const attemptedUser = await localLogin({ email, password });
-      setUser(attemptedUser);
-      setEmail("");
-      setPassword("");
-      console.log("successful login");
+      if (attemptedUser) {
+        setUser(attemptedUser);
+        setEmail("");
+        setPassword("");
+        console.log("successful login");
+      }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -90,12 +93,12 @@ const LoginPage = () => {
                     </button>
                   </label>
                   <div className="text-sm">
-                    <a
-                      href="/"
+                    <Link
+                      to="/"
                       className="font-semibold text-indigo-600 hover:text-indigo-500"
                     >
                       Forgot password?
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="mt-2">
@@ -148,13 +151,13 @@ const LoginPage = () => {
             </form>
             <p className="mt-10 text-center text-sm text-gray-500">
               Not a member?{" "}
-              <a
-                href="/"
+              <Link
+                to="/"
                 className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
               >
                 {" "}
                 Register Now
-              </a>
+              </Link>
             </p>
           </div>
         </div>
