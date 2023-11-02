@@ -5,6 +5,7 @@ import authSliceReducer from "./slices/authSlice";
 
 // Configure the RTK store
 const store = configureStore({
+
   // Define the reducers used in the application
   reducer: {
     // Add the API slice reducer under its reducer path

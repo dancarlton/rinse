@@ -9,7 +9,7 @@ export const apiSlice = createApi({
   // Use the baseQuery created above for all API endpoints
   baseQuery,
   // Define tag types to label and manage cached data
-  tagTypes: ["Fact", "User"],
+  tagTypes: ["User"],
   // Define the API endpoints within the slice
   // Currently empty but is extended with API calls through other slices
   endpoints: (builder) => ({}),

@@ -1,9 +1,12 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
-import { localLogin } from "../hooks/localLogin";
+import { useLocalLoginMutation, useGetCurrentUserQuery } from "../slices/usersSlice";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../slices/authSlice";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -11,24 +14,36 @@ const LoginPage = () => {
   const [user, setUser] = useState(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const handleGoogleLogin = () => {
-    window.open("http://localhost:5000/api/auth/google", "_self");
+  const handleGoogleLogin = async (e) => {
+    e.preventDefault()
+    await window.open("http://localhost:5000/api/auth/google", "_self");
   };
+  // Fetching login state
+  const [login] = useLocalLoginMutation();
+  const {data: currentUser} = useGetCurrentUserQuery();
+  console.log(currentUser)
+  const dispatch = useDispatch()
 
-  const handleLocalLogin = async (event) => {
-    event.preventDefault();
-    try {
-      const attemptedUser = await localLogin({ email, password });
-      if (attemptedUser) {
-        setUser(attemptedUser);
-        setEmail("");
-        setPassword("");
-        console.log("successful login");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // Function to handle form submission
+	const handleLocalLogin = async (e) => {
+		e.preventDefault();
+
+		try {
+			// Attempt to login
+			const res = await login({ email, password }).unwrap();
+
+			// Update credentials in Redux store
+			dispatch(setCredentials({ ...res }));
+      console.log({...res})
+      setUser({...res})
+
+			// Navigate to redirect URL
+			Navigate("/");
+		} catch (err) {
+			// Show error toast if login fails. Too lazy to fix rn.
+			console.error(err)
+		}
+	};
 
   const handlePasswordVisibility = (event) => {
     event.preventDefault();
@@ -56,12 +71,14 @@ const LoginPage = () => {
           </div>
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" action="/" method="POST">
+            <form
+              className="space-y-6"
+              action="/"
+              method="POST">
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
+                  className="block text-sm font-medium leading-6 text-gray-900">
                   Email address
                 </label>
                 <div className="mt-2">
@@ -81,10 +98,11 @@ const LoginPage = () => {
                 <div className="flex items-center justify-between">
                   <label
                     htmlFor="password"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
+                    className="block text-sm font-medium leading-6 text-gray-900">
                     Password
-                    <button className="mx-3" onClick={handlePasswordVisibility}>
+                    <button
+                      className="mx-3"
+                      onClick={handlePasswordVisibility}>
                       {passwordVisible ? (
                         <FontAwesomeIcon icon={faEyeSlash} />
                       ) : (
@@ -95,8 +113,7 @@ const LoginPage = () => {
                   <div className="text-sm">
                     <Link
                       to="/"
-                      className="font-semibold text-indigo-600 hover:text-indigo-500"
-                    >
+                      className="font-semibold text-indigo-600 hover:text-indigo-500">
                       Forgot password?
                     </Link>
                   </div>
@@ -130,8 +147,7 @@ const LoginPage = () => {
                 <button
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  onClick={handleLocalLogin}
-                >
+                  onClick={handleLocalLogin}>
                   Sign in
                 </button>
               </div>
@@ -140,8 +156,7 @@ const LoginPage = () => {
                 <button
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-amber-400 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  onClick={handleGoogleLogin}
-                >
+                  onClick={handleGoogleLogin}>
                   Sign in with{" "}
                   <i className="pl-1">
                     <FontAwesomeIcon icon={faGoogle} />
@@ -153,8 +168,7 @@ const LoginPage = () => {
               Not a member?{" "}
               <Link
                 to="/"
-                className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-              >
+                className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                 {" "}
                 Register Now
               </Link>

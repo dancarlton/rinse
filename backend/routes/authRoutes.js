@@ -14,6 +14,7 @@ router.post("/logout", authController.logoutUser);
 //  HTTP Success : 200, message and user infos.
 //  HTTP Errors : 400, 401.
 router.post("/login/local", authController.localLogin);
+
 //  Input : email via body.
 //  HTTP Success : 200 and message.
 //  HTTP Errors : 400, 404, 500, 503.

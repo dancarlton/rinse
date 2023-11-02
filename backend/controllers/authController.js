@@ -18,28 +18,7 @@ import { logger } from "../config/logging.js";
 const clientHost =
   process.env.NODE_ENV === "production"
     ? "https://rinse-copy.onrender.com"
-    : "http://localhost:5173";
-
-/* export const loginFail = (req, res) => {
-  res.status(401).json({
-    success: false,
-    message: "Failure to login",
-  });
-};
-
-export const loginSuccess = (req, res) => {
-  logger.warn(req.body);
-  logger.info(req.user);
-  if (req.user) {
-    res.status(200).json({
-      success: true,
-      message: "Login successful",
-      user: req.user,
-      cookies: req.cookies,
-    });
-  }
-  res.redirect("/api/auth/login/fail");
-}; */
+    : "http://localhost:5173/";
 
 /**
  * @desc Logs out user
@@ -77,9 +56,12 @@ export const googleLogin = (req, res, next) => {
  */
 export const googleCallback = (req, res) => {
   passport.authenticate("google", {
-    failureRedirect: "/",
+    failureRedirect: clientHost,
+    successMessage: true,
+    failureMessage: true,
   })(req, res, () => {
-    res.redirect("/");
+    console.log(req);
+    res.redirect(clientHost);
   });
 };
 
