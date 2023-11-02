@@ -12,6 +12,5 @@ export const apiSlice = createApi({
   tagTypes: ["User"],
   // Define the API endpoints within the slice
   // Currently empty but is extended with API calls through other slices
-   
   endpoints: (builder) => ({}),
 });
