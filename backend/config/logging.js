@@ -11,7 +11,7 @@ export const logger = createLogger({
     format.json(),
     format.colorize({
       all: true,
-    })
+    }),
   ),
   transports: [
     //
@@ -35,9 +35,9 @@ if (process.env.NODE_ENV !== "production") {
           label: "[LOGGER]",
         }),
         format.printf(
-          (info) => ` ${info.label}-[${info.level}] : ${info.message}`
-        )
+          (info) => ` ${info.label}-[${info.level}] : ${info.message}`,
+        ),
       ),
-    })
+    }),
   );
 }

@@ -1,9 +1,9 @@
 import passport from "passport";
 import Local from "passport-local";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
 import { User } from "../models/userModel.js";
-import { logger } from "./logging.js";
+// import { logger } from "./logging.js";
 
 export function initPassportJS() {
   // pulled from passport JS local strategy https://www.passportjs.org/packages/passport-local/

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -34,9 +33,6 @@ const LoginPage = () => {
 
 			// Update credentials in Redux store
 			dispatch(setCredentials({ ...res }));
-      console.log({...res})
-      setUser({...res})
-
 			// Navigate to redirect URL
 			Navigate("/");
 		} catch (err) {

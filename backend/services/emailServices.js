@@ -32,7 +32,7 @@ export const createResetConfirmationEmail = (receiverEmail) => {
 
 export const createVerificationEmail = (
   receiverEmail,
-  verificationTokenValue
+  verificationTokenValue,
 ) => {
   const email = {
     to: receiverEmail,

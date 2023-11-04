@@ -21,6 +21,7 @@ const app = express();
 
 initConfig(app);
 
+const expiryDate = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 // Create express session
 app.use(
   session({
@@ -28,7 +29,10 @@ app.use(
     secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: process.env.NODE_ENV === "production" },
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+      expires: expiryDate,
+    },
     // Store session on DB
     store: MongoStore.create({
       mongoUrl: process.env.MONGO_URI || "mongodb://localhost:27017/test",
@@ -59,7 +63,7 @@ if (process.env.NODE_ENV === "production") {
 
   // Any undefined route will serve index.html file
   app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"))
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html")),
   );
 } else {
   // Basic route for the root URL

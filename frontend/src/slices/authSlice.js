@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 
 // Retrieve user info from local storage
 const userInfoFromStorage = localStorage.getItem("userInfo");

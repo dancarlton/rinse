@@ -28,7 +28,7 @@ export function validateRegisterInput(input) {
       .pattern(
         // one uppercase, one lowercase, one digit,
         // one special character( @ # $ % ^ & + = ) 6-30 characters long
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,30}$/
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,30}$/,
       )
       .required(),
     email: Joi.string().min(5).max(255).required().email(),
@@ -51,7 +51,7 @@ export function validatePassword(input) {
       .pattern(
         // one uppercase, one lowercase, one digit,
         // one special character( ! @ # $ % ^ & * ) 6-30 characters long
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*^?&])[A-Za-z\d@$!%^*?&]{6,30}$/
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*^?&])[A-Za-z\d@$!%^*?&]{6,30}$/,
       )
       .required(),
   });

@@ -43,11 +43,14 @@ const userSchema = new Schema(
       required: true,
       enum: ["admin", "user", "provider"],
     },
-    expires: { type: Date, default: dayjs().toDate(), expires: 43200 },
+    avatar: {
+      type: String,
+      default: "",
+    },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 userSchema.methods.comparePassword = async function comparePassword(password) {
@@ -74,7 +77,7 @@ userSchema.methods.hashPassword = function hashPassword() {
 };
 
 userSchema.methods.hidePassword = function hidePassword() {
-  return omit(["password", "__v", "_id"], this.toObject({ virtuals: true }));
+  return omit(["password", "__v"], this.toObject({ virtuals: true }));
 };
 
 userSchema.plugin(mongooseUniqueValidator);
