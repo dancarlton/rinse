@@ -33,7 +33,7 @@ const Navbar = () => {
               <button>Register</button>
               <ul className="p-2">
                 <li>
-                  <Link>Detailer</Link>
+                  <Link to="/register">Detailer</Link>
                 </li>
                 <li>
                   <Link to="/register">Customer</Link>
@@ -50,30 +50,33 @@ const Navbar = () => {
         </div>
         <Link
           to="/"
-          className="normal-case text-xl">
+          className="normal-case text-xl link link-hover">
           Rinse
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <Link>Log in</Link>
+            <Link to="/login">Log in</Link>
           </li>
           <li tabIndex={0}>
             <details>
               <summary>Register</summary>
               <ul className="p-2">
                 <li>
-                  <Link>Detailer</Link>
+                  <Link to="/register">Detailer</Link>
                 </li>
                 <li>
-                  <Link>Customer</Link>
+                  <Link to="/register">Customer</Link>
                 </li>
               </ul>
             </details>
           </li>
           <li>
-            <Link>Log out</Link>
+            <Link to="/logout">Log out</Link>
+          </li>
+          <li>
+            <Link to="/contact">Contact Us</Link>
           </li>
         </ul>
       </div>

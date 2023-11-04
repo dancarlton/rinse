@@ -1,9 +1,8 @@
+import Hero from "../components/Hero";
 
 const HomePage = () => (
   <>
-    <div>Hello World</div>
-    <button className="btn btn-primary">Button</button>
-
+    <Hero />
   </>
 );
 
