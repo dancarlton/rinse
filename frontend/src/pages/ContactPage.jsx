@@ -3,9 +3,7 @@ import ToggleButton from "../components/ToggleButton";
 
 const ContactPage = () => (
   <>
-    <ToggleButton buttonLabel="reveal">
-      <ContactForm />
-    </ToggleButton>
+    <ContactForm />
   </>
 );
 

@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 
 const ContactForm = () => (
   <>
-    <section className="bg-white">
-      <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
+    <section className="">
+      <div className="lg:grid lg:grid-cols-12 lg:h-[calc(98vh-4rem)]">
         <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
           <img
             alt="Night"
             src="https://images.unsplash.com/photo-1617195737496-bc30194e3a19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-            className="absolute inset-0 h-full w-full object-cover opacity-80"
+            className="absolute inset-0 h-full w-full object-cover opacity-60"
           />
           <div className="hidden lg:relative lg:block lg:p-12">
             <Link
@@ -32,8 +32,7 @@ const ContactForm = () => (
             </h2>
 
             <p className="mt-4 leading-relaxed text-white/90">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-              nam dolorum aliquam, quibusdam aperiam voluptatum.
+              Register now for the chance to win a free wash and dry!
             </p>
           </div>
         </section>
@@ -57,82 +56,82 @@ const ContactForm = () => (
                 </svg>
               </a>
 
-              <h1 className="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
+              <h1 className="mt-2 text-2xl font-bold sm:text-3xl md:text-4xl">
                 Welcome to Rinse 💦
               </h1>
 
-              <p className="mt-4 leading-relaxed text-gray-500">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
+              <p className="mt-4 leading-relaxed">
+                Register now for the chance to win a free wash and dry!
               </p>
             </div>
 
             <form
               action="#"
               className="mt-8 grid grid-cols-6 gap-6">
-              <div className="col-span-6 sm:col-span-3">
+              <div className="col-span-6 sm:col-span-3 ">
                 <label
                   htmlFor="FirstName"
-                  className="block text-sm font-medium text-gray-700">
-                  First Name
+                  className="label">
+                  <span className="label-text">First Name</span>
                 </label>
 
                 <input
                   type="text"
                   id="FirstName"
                   name="first_name"
-                  className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm p-2"
+                  placeholder="First Name"
+                  className="input input-bordered w-full"
                 />
               </div>
 
               <div className="col-span-6 sm:col-span-3">
                 <label
                   htmlFor="LastName"
-                  className="block text-sm font-medium text-gray-700">
-                  Last Name
+                  className="label">
+                  <span className="label-text">Last Name</span>
                 </label>
 
                 <input
                   type="text"
                   id="LastName"
                   name="last_name"
-                  className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm p-2"
+                  placeholder="Last Name"
+                  className="input input-bordered w-full"
                 />
               </div>
 
               <div className="col-span-6">
                 <label
                   htmlFor="Email"
-                  className="block text-sm font-medium text-gray-700">
-                  Email
+                  className="label">
+                  <span className="label-text">Email</span>
                 </label>
 
                 <input
                   type="email"
                   id="Email"
                   name="email"
-                  className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm p-2"
+                  placeholder="example@email.com"
+                  className="input input-bordered block w-full"
                 />
               </div>
 
               <div className="col-span-6">
                 <label
                   htmlFor="contact-message"
-                  className="block text-sm font-medium text-gray-700">
-                  Message
+                  className="label">
+                  <span className="label-text">Message</span>
                 </label>
                 <textarea
                   id="contact-message"
                   name="message"
-                  className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm p-2"
+                  className="textarea h-24 textarea-bordered w-full"
                   rows="4"
                   placeholder="Enter your message here..."></textarea>
               </div>
 
               <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-                <button className="rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
-                  Contact Us
-                </button>
+                <button className="btn btn-outline">Contact Us</button>
               </div>
             </form>
           </div>

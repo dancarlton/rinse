@@ -60,7 +60,7 @@ export const googleCallback = (req, res) => {
     successMessage: true,
     failureMessage: true,
   })(req, res, () => {
-    console.log(req);
+    // Successful authentication, redirect to client
     res.redirect(clientHost);
   });
 };
