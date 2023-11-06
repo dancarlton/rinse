@@ -1,7 +1,30 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ThemeSwitch from "./ThemeSwitch";
+import { useDispatch, useSelector } from "react-redux";
+import { useLogoutMutation } from "../slices/usersSlice";
+import { logout } from "../slices/authSlice";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [logoutApiCall] = useLogoutMutation();
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+  // log out current user, clear user info from local storage, remove credentials from redux store, and navigate to login page
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall().unwrap();
+      dispatch(logout());
+      navigate("/");
+      toast.success("Logged out successfully.");
+    } catch (err) {
+      console.error(err);
+      toast.error(err?.data?.message || err?.error);
+    }
+  };
+
   return (
     <div className="navbar bg-base-100 sticky top-0 z-50">
       <div className="navbar-start">
@@ -26,23 +49,30 @@ const Navbar = () => {
           <ul
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-            <li>
-              <Link to="/login">Log in</Link>
-            </li>
-            <li>
-              <button>Register</button>
-              <ul className="p-2">
+            {!userInfo && (
+              <>
                 <li>
-                  <Link to="/register">Detailer</Link>
+                  <Link to="/login">Log in</Link>
                 </li>
+
                 <li>
-                  <Link to="/register">Customer</Link>
+                  <button>Register</button>
+                  <ul className="p-2">
+                    <li>
+                      <Link to="/register">Detailer</Link>
+                    </li>
+                    <li>
+                      <Link to="/register">Customer</Link>
+                    </li>
+                  </ul>
                 </li>
-              </ul>
-            </li>
-            <li>
-              <Link to="/logout">Log out</Link>
-            </li>
+              </>
+            )}
+            {userInfo && (
+              <li>
+                <button onClick={logoutHandler}>Log out</button>
+              </li>
+            )}
             <li>
               <Link to="/contact">Contact Us</Link>
             </li>
@@ -56,25 +86,31 @@ const Navbar = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <li>
-            <Link to="/login">Log in</Link>
-          </li>
-          <li tabIndex={0}>
-            <details>
-              <summary>Register</summary>
-              <ul className="p-2">
-                <li>
-                  <Link to="/register">Detailer</Link>
-                </li>
-                <li>
-                  <Link to="/register">Customer</Link>
-                </li>
-              </ul>
-            </details>
-          </li>
-          <li>
-            <Link to="/logout">Log out</Link>
-          </li>
+          {!userInfo && (
+            <>
+              <li>
+                <Link to="/login">Log in</Link>
+              </li>
+              <li tabIndex={0}>
+                <details>
+                  <summary>Register</summary>
+                  <ul className="p-2">
+                    <li>
+                      <Link to="/register">Detailer</Link>
+                    </li>
+                    <li>
+                      <Link to="/register">Customer</Link>
+                    </li>
+                  </ul>
+                </details>
+              </li>
+            </>
+          )}
+          {userInfo && (
+            <li>
+              <button onClick={logoutHandler}>Log out</button>
+            </li>
+          )}
           <li>
             <Link to="/contact">Contact Us</Link>
           </li>

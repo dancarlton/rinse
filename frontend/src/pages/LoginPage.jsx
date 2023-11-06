@@ -3,9 +3,10 @@ import { Link, Navigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
-import { useLocalLoginMutation, useGetCurrentUserQuery } from "../slices/usersSlice";
+import { useLocalLoginMutation } from "../slices/usersSlice";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -18,8 +19,7 @@ const LoginPage = () => {
   };
   // Fetching login state
   const [login] = useLocalLoginMutation();
-  const {data: currentUser} = useGetCurrentUserQuery();
-  console.log(currentUser)
+
   const dispatch = useDispatch()
 
   // Function to handle form submission
@@ -32,11 +32,12 @@ const LoginPage = () => {
 
 			// Update credentials in Redux store
 			dispatch(setCredentials({ ...res }));
-			// Navigate to redirect URL
+			// Navigate to home
 			Navigate("/");
 		} catch (err) {
-			// Show error toast if login fails. Too lazy to fix rn.
-			console.error(err)
+			// Show error toast if login fails.
+			console.error(err);
+      toast.error(err?.data?.message || err?.error);
 		}
 	};
 

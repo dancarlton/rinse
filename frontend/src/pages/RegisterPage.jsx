@@ -1,54 +1,61 @@
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
-import {
-  useLocalLoginMutation,
-  useGetCurrentUserQuery,
-} from "../slices/usersSlice";
+// import { useLocalRegisterMutation } from "../slices/usersSlice";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
+import { toast } from "react-toastify";
 
 const RegisterPage = () => {
+  // form state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [verifyPassword, setVerifyPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const handleGoogleLogin = async (e) => {
-    e.preventDefault();
-    await window.open("http://localhost:5000/api/auth/google", "_self");
-  };
-  // Fetching login state
-  const [login] = useLocalLoginMutation();
-  const { data: currentUser } = useGetCurrentUserQuery();
-  console.log(currentUser);
-  const dispatch = useDispatch();
-
-  // Function to handle form submission
-  const handleLocalLogin = async (e) => {
-    e.preventDefault();
-
-    try {
-      // Attempt to login
-      const res = await login({ email, password }).unwrap();
-
-      // Update credentials in Redux store
-      dispatch(setCredentials({ ...res }));
-      // Navigate to redirect URL
-      Navigate("/");
-    } catch (err) {
-      // Show error toast if login fails. Too lazy to fix rn.
-      console.error(err);
-    }
-  };
-
+  // changes password input from password to text and vice versa
   const handlePasswordVisibility = (event) => {
     event.preventDefault();
     try {
       setPasswordVisible((prev) => !prev);
     } catch (e) {
-      console.log(e);
+      console.error(e);
+    }
+  };
+
+  // local register mutation form RTK Query
+  // const [register, { isLoading }] = useLocalRegisterMutation();
+  // const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // handle google login. currently points to backend. need to change for production
+  // TODO: change the link here
+  const handleGoogleLogin = async (e) => {
+    e.preventDefault();
+    await window.open("http://localhost:5000/api/auth/google", "_self");
+  };
+
+  // Function to handle local login form submission
+  const handleLocalRegister = async (e) => {
+    e.preventDefault();
+
+    // Check for password match
+    if (password !== verifyPassword) {
+      toast.error("Passwords do not match.");
+      return;
+    } else {
+      try {
+        // Attempt to register and set local credentials
+        // const res = await register({ name, email, password }).unwrap();
+        // dispatch(setCredentials({ ...res }));
+        console.log("registration success");
+        navigate("/");
+      } catch (err) {
+        console.error(err);
+        toast.error(err?.data?.message || err?.error);
+      }
     }
   };
 
@@ -62,7 +69,7 @@ const RegisterPage = () => {
             alt="Your Company"
           /> */}
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight">
-            Sign in to your account
+            Register for an account!
           </h2>
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm form-control">
@@ -105,13 +112,6 @@ const RegisterPage = () => {
                     )}
                   </button>
                 </label>
-                <div className="label-text-alt">
-                  <Link
-                    to="/"
-                    className="link hover:text-indigo-500">
-                    Forgot password?
-                  </Link>
-                </div>
               </div>
               <div className="mt-2">
                 {passwordVisible ? (
@@ -137,13 +137,54 @@ const RegisterPage = () => {
                 )}
               </div>
             </div>
+            <div>
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="verify-password"
+                  className="label">
+                  <span className="label-text">Verify Password</span>
+                  <button
+                    className="mx-3"
+                    onClick={handlePasswordVisibility}>
+                    {passwordVisible ? (
+                      <FontAwesomeIcon icon={faEyeSlash} />
+                    ) : (
+                      <FontAwesomeIcon icon={faEye} />
+                    )}
+                  </button>
+                </label>
+              </div>
+              <div className="mt-2">
+                {passwordVisible ? (
+                  <input
+                    id="verify-password"
+                    name="verify-password"
+                    type="text" // this is difference
+                    autoComplete="current-password"
+                    placeholder="Retype Password Here"
+                    className="input input-bordered w-full block"
+                    onChange={({ target }) => setVerifyPassword(target.value)}
+                  />
+                ) : (
+                  <input
+                    id="verify-password"
+                    name="verify-password"
+                    type="password" // this is difference
+                    autoComplete="current-password"
+                    placeholder="Retype Password Here"
+                    className="input input-bordered w-full block"
+                    onChange={({ target }) => setVerifyPassword(target.value)}
+                  />
+                )}
+              </div>
+            </div>
 
             <div>
               <button
                 type="submit"
                 className="btn btn-block btn-primary"
-                onClick={handleLocalLogin}>
-                Sign in
+                onClick={handleLocalRegister}>
+                Register
               </button>
             </div>
             <hr />
@@ -152,7 +193,7 @@ const RegisterPage = () => {
                 type="submit"
                 className="btn btn-block btn-secondary"
                 onClick={handleGoogleLogin}>
-                Sign in with{" "}
+                Register with{" "}
                 <i className="pl-1">
                   <FontAwesomeIcon icon={faGoogle} />
                 </i>
@@ -160,12 +201,12 @@ const RegisterPage = () => {
             </div>
           </form>
           <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{" "}
+            Already have an account?{" "}
             <Link
-              to="/"
+              to="/login"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
               {" "}
-              Register Now
+              Login Here
             </Link>
           </p>
         </div>
