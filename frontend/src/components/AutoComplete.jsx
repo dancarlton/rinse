@@ -1,23 +1,25 @@
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-import { setOrigin, useGetPlaceDetailsQuery } from "../slices/navSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { setOrigin } from "../slices/navSlice";
+import { useDispatch } from "react-redux";
+import { useLazyGetPlaceDetailsQuery } from "../slices/navSlice";
 
-// https://tintef.github.io/react-google-places-autocomplete/
 const AutoComplete = () => {
   const dispatch = useDispatch();
-  const [getPlaceDetails] = useGetPlaceDetailsQuery();
+const [trigger, { data, error }] = useLazyGetPlaceDetailsQuery();
+
+const handleSelect = (place) => {
+  dispatch(setOrigin(place));
+  if (place?.value?.place_id) {
+    trigger(place.value.place_id); // This will execute the lazy query
+  }
+};
+
 
   return (
     <>
       <GooglePlacesAutocomplete
         selectProps={{
-          onChange: (e) => {
-            // when the user selects an address from autocomplete, the info is put into redux state under state.nav.origin
-            dispatch(setOrigin(e));
-            // get the place details from the Google Places API
-            const { data } = getPlaceDetails(e.value);
-            console.log(data)
-          },
+          onChange: handleSelect,
           placeholder: "Where would you like to search?",
         }}
         nearbyPlacesAPI="GooglePlacesSearch"

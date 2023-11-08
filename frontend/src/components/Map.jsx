@@ -1,8 +1,6 @@
 import { GoogleMap } from "@react-google-maps/api";
 import { useMemo } from "react";
 import "../App.css";
-import { useSelector } from "react-redux";
-import { useGetPlaceDetailsQuery } from "../slices/navSlice";
 
 
 const Map = () => {
