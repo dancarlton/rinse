@@ -15,6 +15,10 @@ const AutoComplete = () => {
           onChange: setValue,
         }}
         apiKey={apiKey}
+        placeholder="Where would you like to search?"
+        nearbyPlacesAPI="GooglePlacesSearch"
+        debounce={400}
+        minLengthAutocomplete={1}
       />
     </div>
   );

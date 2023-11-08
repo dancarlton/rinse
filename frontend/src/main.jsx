@@ -18,7 +18,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import ContactPage from "./pages/ContactPage";
 import RegisterPage from "./pages/RegisterPage";
-import SearchPage from "./pages/SearchPage";
+import MapPage from "./pages/MapPage";
 
 // Route Modifiers
 // import AdminRoute from "./components/AdminRoute.tsx";
@@ -59,8 +59,8 @@ const router = createBrowserRouter(
         element={<RegisterPage />}
       />
       <Route
-        path="/search"
-        element={<SearchPage />}
+        path="/map"
+        element={<MapPage />}
       />
     </Route>
   )
