@@ -19,6 +19,7 @@ const Hero = () => {
             water, and money by connecting you with a local detailer.
           </p>
           <button className="btn btn-primary">Get Rinsed</button>
+          <button className="btn btn-primary">Get Rinsed</button>
         </div>
       </div>
     </div>

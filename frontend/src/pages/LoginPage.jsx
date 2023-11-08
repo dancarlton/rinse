@@ -30,14 +30,14 @@ const LoginPage = () => {
 			// Attempt to login
 			const res = await login({ email, password }).unwrap();
 
-			// Update credentials in Redux store
+			// Update credentials in local storage
 			dispatch(setCredentials({ ...res }));
 			// Navigate to home
 			Navigate("/");
 		} catch (err) {
 			// Show error toast if login fails.
 			console.error(err);
-      toast.error(err?.data?.message || err?.error);
+      toast.error(err.data.message || err.error);
 		}
 	};
 

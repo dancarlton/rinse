@@ -18,6 +18,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import ContactPage from "./pages/ContactPage";
 import RegisterPage from "./pages/RegisterPage";
+import SearchPage from "./pages/SearchPage";
 
 // Route Modifiers
 // import AdminRoute from "./components/AdminRoute.tsx";
@@ -56,6 +57,10 @@ const router = createBrowserRouter(
       <Route
         path="/register"
         element={<RegisterPage />}
+      />
+      <Route
+        path="/search"
+        element={<SearchPage />}
       />
     </Route>
   )
