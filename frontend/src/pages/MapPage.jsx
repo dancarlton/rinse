@@ -2,17 +2,28 @@ import React from "react";
 import PropTypes from "prop-types";
 import AutoComplete from "../components/AutoComplete";
 import Map from "../components/Map";
+import { useLoadScript } from "@react-google-maps/api";
 
-const SearchPage = (props) => {
+const MapPage = (props) => {
+  const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+  const libraries = ["places"];
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey,
+    libraries,
+  });
   return (
     <>
-      <AutoComplete />
-      <div>SearchPage</div>
-	  <Map />
+      {isLoaded && (
+        <>
+          <AutoComplete />
+          <div>SearchPage</div>
+          <Map />
+        </>
+      )}
     </>
   );
 };
 
-SearchPage.propTypes = {};
+MapPage.propTypes = {};
 
-export default SearchPage;
+export default MapPage;
