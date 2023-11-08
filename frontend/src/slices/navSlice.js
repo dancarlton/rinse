@@ -36,7 +36,7 @@ const asyncNavSlice = apiSlice.injectEndpoints({
     }),
     getPlaceDetails: builder.query({
       query: (id) => ({
-        url: `https://places.googleapis.com/v1/places/${id}?fields=id,displayName&key=${
+        url: `https://places.googleapis.com/v1/places/${id}?fields=id,formattedAddress,location&key=${
           import.meta.env.VITE_GOOGLE_MAPS_API_KEY
         }`,
         method: "GET",

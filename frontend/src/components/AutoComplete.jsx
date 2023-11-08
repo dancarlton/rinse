@@ -2,15 +2,18 @@ import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { setOrigin } from "../slices/navSlice";
 import { useDispatch } from "react-redux";
 import { useLazyGetPlaceDetailsQuery } from "../slices/navSlice";
+import { set } from "mongoose";
 
 const AutoComplete = () => {
   const dispatch = useDispatch();
 const [trigger, { data, error }] = useLazyGetPlaceDetailsQuery();
 
-const handleSelect = (place) => {
+const handleSelect = async (place) => {
   dispatch(setOrigin(place));
   if (place?.value?.place_id) {
-    trigger(place.value.place_id); // This will execute the lazy query
+    const res = await trigger(place.value.place_id).unwrap(); // This will execute the lazy query
+    console.log(res)
+    dispatch(setOrigin(res));
   }
 };
 
