@@ -1,4 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
+.custom-bg-position {
+    background-position: 30% center;
+}
