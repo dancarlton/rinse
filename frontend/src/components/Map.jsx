@@ -1,21 +1,28 @@
-import { GoogleMap } from "@react-google-maps/api";
-import { useMemo } from "react";
+import { GoogleMap, Marker } from "@react-google-maps/api";
+import { useMemo, useState } from "react";
 import "../App.css";
-
+import { useSelector } from "react-redux";
 
 const Map = () => {
-
-
-  const center = useMemo(() => ({ lat: 18.52043, lng: 73.856743 }), []);
+  const [isMarkerShown, setIsMarkerShown] = useState(true);
+  const latitude = useSelector((state) => state.nav.origin.location.latitude);
+  const longitude = useSelector((state) => state.nav.origin.location.longitude);
+  const center = useMemo(
+    () => ({ lat: latitude, lng: longitude }),
+    [latitude, longitude]
+  );
 
   return (
     <>
-        <GoogleMap
-          mapContainerClassName="container h-screen w-full"
-          center={center}
-          zoom={10}
-          className=""
-        />
+      <GoogleMap
+        mapContainerClassName="container h-screen w-full"
+        center={center}
+        zoom={10}
+        className="">
+        {isMarkerShown && (
+          <Marker position={center} />
+        )}
+      </GoogleMap>
     </>
   );
 };

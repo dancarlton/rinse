@@ -2,7 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import { apiSlice } from "./apiSlice";
 
 const initialState = {
-  origin: null,
+  origin: {
+    id: "",
+    formattedAddress: "",
+    location: {
+      latitude: 0,
+      longitude: 0,
+    },
+  },
   destination: null,
   travelTimeInformation: null, // time it takes to get from origin to destination
 };
