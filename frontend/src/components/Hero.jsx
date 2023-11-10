@@ -18,7 +18,7 @@ const Hero = () => {
             water a year washing their car. Rinse is here to help you save time,
             water, and money by connecting you with a local detailer.
           </p>
-          <button className="btn btn-primary">Get Rinsed</button>
+          <button className="btn btn-primary2">Get Rinsed</button>
           <button className="btn btn-primary">Get Rinsed</button>
         </div>
       </div>
