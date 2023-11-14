@@ -35,8 +35,8 @@ export function initPassportJS() {
         } catch (err) {
           return cb(err);
         }
-      }
-    )
+      },
+    ),
   );
 
   // https://www.passportjs.org/packages/passport-google-oauth20/
@@ -65,8 +65,8 @@ export function initPassportJS() {
         } catch (err) {
           return done(err);
         }
-      }
-    )
+      },
+    ),
   );
 
   // passes user id to client side

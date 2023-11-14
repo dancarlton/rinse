@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
@@ -21,6 +21,7 @@ const LoginPage = () => {
   const [login] = useLocalLoginMutation();
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   // Function to handle form submission
 	const handleLocalLogin = async (e) => {
@@ -33,7 +34,8 @@ const LoginPage = () => {
 			// Update credentials in local storage
 			dispatch(setCredentials({ ...res }));
 			// Navigate to home
-			Navigate("/");
+			navigate("/");
+      toast.success("Login Successful");
 		} catch (err) {
 			// Show error toast if login fails.
 			console.error(err);

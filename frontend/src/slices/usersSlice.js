@@ -20,9 +20,9 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     // Mutation for user registration
-    register: builder.mutation({
+    localRegister: builder.mutation({
       query: (data) => ({
-        url: `${USERS_URL}`,
+        url: `${USERS_URL}/local`,
         method: "POST",
         body: data,
       }),
@@ -80,7 +80,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 export const {
   useLocalLoginMutation,
   useLogoutMutation,
-  useRegisterMutation,
+  useLocalRegisterMutation,
   useProfileMutation,
   useGetAllUsersQuery,
   useDeleteUserMutation,

@@ -94,6 +94,7 @@ export const deleteUserById = async (req, res) => {
  */
 export const createUserLocal = async (req, res) => {
   // Validate Register input
+  console.log(req.body)
   const { error } = validateRegisterInput(req.body);
   if (error) {
     return res.status(400).send({
@@ -102,18 +103,11 @@ export const createUserLocal = async (req, res) => {
   }
 
   const sanitizedInput = sanitize(req.body);
-  const { username, email, password } = sanitizedInput;
+  const { email, password } = sanitizedInput;
 
-  // check if user already exists via username then email
-  let user = await User.findOne({ username });
+  // check if user already exists via email
+  const user = await User.findOne({ email: email.toLowerCase() });
 
-  if (user) {
-    return res.status(400).send({
-      message: "Username already in use.",
-    });
-  }
-
-  user = await User.findOne({ email: email.toLowerCase() });
   if (user) {
     return res.status(400).send({
       message: "Email already in use.",
@@ -121,7 +115,7 @@ export const createUserLocal = async (req, res) => {
   }
 
   // create new user with hashed password
-  const newUser = await User.create({ username, email, password });
+  const newUser = await User.create({ email, password });
   await newUser.hashPassword();
   /*
     try {
@@ -162,7 +156,6 @@ export const createUserLocal = async (req, res) => {
   */
   await newUser.save();
   return res.status(201).send({
-    message: `user created successfully`,
     newUser,
   });
 };

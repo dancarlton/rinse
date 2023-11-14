@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
-// import { useLocalRegisterMutation } from "../slices/usersSlice";
+import { useLocalRegisterMutation } from "../slices/usersSlice";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
@@ -26,8 +26,8 @@ const RegisterPage = () => {
   };
 
   // local register mutation form RTK Query
-  // const [register, { isLoading }] = useLocalRegisterMutation();
-  // const dispatch = useDispatch();
+  const [register] = useLocalRegisterMutation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // handle google login. currently points to backend. need to change for production
@@ -37,7 +37,6 @@ const RegisterPage = () => {
     await window.open("http://localhost:5000/api/auth/google", "_self");
   };
 
-  // Function to handle local login form submission
   const handleLocalRegister = async (e) => {
     e.preventDefault();
 
@@ -48,10 +47,11 @@ const RegisterPage = () => {
     } else {
       try {
         // Attempt to register and set local credentials
-        // const res = await register({ name, email, password }).unwrap();
-        // dispatch(setCredentials({ ...res }));
-        console.log("registration success");
+        const res = await register({email, password }).unwrap();
+        console.log(res);
+        dispatch(setCredentials({ ...res }));
         navigate("/");
+        toast.success("Registration Successful. Welcome to the club.");
       } catch (err) {
         console.error(err);
         toast.error(err?.data?.message || err?.error);

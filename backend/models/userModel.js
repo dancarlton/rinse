@@ -6,12 +6,12 @@ import mongooseUniqueValidator from "mongoose-unique-validator";
 
 const userSchema = new Schema(
   {
-    username: {
+    name: {
       type: String,
       required: false,
       minlength: 2,
       maxlength: 50,
-      unique: true,
+      unique: false,
     },
     googleId: {
       type: String,

@@ -2,7 +2,7 @@ import "./App.css";
 import { Outlet } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Navbar from "./components/Navbar";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useGetCurrentUserQuery } from "./slices/usersSlice";
 import { setCredentials } from "./slices/authSlice";
@@ -16,6 +16,7 @@ function App() {
   useEffect(() => {
     if (currentUser) {
       dispatch(setCredentials(currentUser));
+      toast.success(`Successfully logged in.`);
     }
   }, [currentUser, dispatch]); // Only re-run if currentUser or dispatch changes
   return (

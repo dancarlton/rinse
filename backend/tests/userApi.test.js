@@ -51,7 +51,6 @@ describe("viewing a specific user", () => {
 describe("adding a new user", () => {
   test("succeeds with valid data", async () => {
     const newUser = {
-      username: "Leonardo Da Vinci",
       email: "leodavinci@email.com",
       // password must have one lowercase one uppercase one num and one special symbol 6-30 characters
       password: "aaaAAA111!!!",
@@ -65,28 +64,14 @@ describe("adding a new user", () => {
 
     const response = await api.get("/api/users");
 
-    const usernames = response.body.map((r) => r.username);
+    const emails = response.body.map((r) => r.email);
 
     expect(response.body).toHaveLength(sampleUsers.length + 1);
-    expect(usernames).toContain("Leonardo Da Vinci");
-  });
-
-  test("fails with proper error message if username exists", async () => {
-    const newUser = {
-      username: "admin",
-      email: "admin@email.com",
-      password: "AAAaaa111!!!",
-    };
-    const response = await api
-      .post("/api/users/local")
-      .send(newUser)
-      .expect(400);
-    expect(response.body.message).toBe("Username already in use.");
+    expect(emails).toContain("Leonardo Da Vinci");
   });
 
   test("fails with proper error message if email exists", async () => {
     const newUser = {
-      username: "waldo",
       email: "admin@email.com",
       password: "AAAaaa111!!!",
     };
@@ -98,7 +83,6 @@ describe("adding a new user", () => {
   });
   test("fails with proper error message if inputs invalid", async () => {
     const newUser = {
-      username: "waldo",
       email: "admin.com",
       password: "123456",
     };
@@ -113,7 +97,7 @@ describe("adding a new user", () => {
 describe("updating an existing user", () => {
   test("succeeds when user exists and there is valid data", async () => {
     const user = await User.findOne({ email: "admin@email.com" });
-    const body = { username: "bob" };
+    const body = { email: "bob@bob.com" };
     await api
       .put(`/api/users/${user._id}`)
       .send(body)
@@ -121,11 +105,11 @@ describe("updating an existing user", () => {
       .expect("Content-Type", /application\/json/);
 
     const response = await api.get(`/api/users/${user._id}`);
-    expect(response.body.username).toBe("bob");
+    expect(response.body.email).toBe("bob@bob.com");
   });
   test("succeeds with status 200, but no info is changed if empty fields provided", async () => {
     const user = await User.findOne({ email: "admin@email.com" });
-    const body = { username: "", email: "" };
+    const body = { email: "" };
     await api
       .put(`/api/users/${user._id}`)
       .send(body)
@@ -133,12 +117,11 @@ describe("updating an existing user", () => {
       .expect("Content-Type", /application\/json/);
 
     const response = await api.get(`/api/users/${user._id}`);
-    expect(response.body.username).toBe("admin");
     expect(response.body.email).toBe("admin@email.com");
   });
   test("fails with status code 404 when user does not exist", async () => {
     const id = "123";
-    const body = { username: "bob" };
+    const body = { email: "bob@bob.com" };
     await api.put(`/api/users/${id}`).send(body).expect(404);
   });
 });
@@ -150,7 +133,7 @@ describe("deleting a user", () => {
       .delete(`/api/users/${user._id}`)
       .expect(200)
       .expect("Content-Type", /application\/json/);
-    expect(response.body.username).toBe("admin");
+    expect(response.body.email).toBe("admin@email.com");
   });
 });
 

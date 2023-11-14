@@ -37,7 +37,7 @@ app.use(
     store: MongoStore.create({
       mongoUrl: process.env.MONGO_URI || "mongodb://localhost:27017/test",
     }),
-  })
+  }),
 );
 
 // Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
