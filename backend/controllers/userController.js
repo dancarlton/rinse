@@ -94,7 +94,6 @@ export const deleteUserById = async (req, res) => {
  */
 export const createUserLocal = async (req, res) => {
   // Validate Register input
-  console.log(req.body)
   const { error } = validateRegisterInput(req.body);
   if (error) {
     return res.status(400).send({

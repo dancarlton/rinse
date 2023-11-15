@@ -67,7 +67,7 @@ describe("adding a new user", () => {
     const emails = response.body.map((r) => r.email);
 
     expect(response.body).toHaveLength(sampleUsers.length + 1);
-    expect(emails).toContain("Leonardo Da Vinci");
+    expect(emails).toContain("leodavinci@email.com");
   });
 
   test("fails with proper error message if email exists", async () => {
