@@ -13,11 +13,14 @@ const MapPage = () => {
   return (
     <>
       {isLoaded && (
-        <>
-          <AutoComplete />
-          <div>SearchPage</div>
-          <Map />
-        </>
+        <div className="flex flex-col w-full lg:flex-row">
+          <div className="md:m-32 m-3 p-5 rounded max-h-64">
+            <AutoComplete className="grid grow-2 h-full mx-32 my-32" />
+          </div>
+          <div className="grid grow md:h-[89vh] h-[60vh] mx-3">
+            <Map />
+          </div>
+        </div>
       )}
     </>
   );
