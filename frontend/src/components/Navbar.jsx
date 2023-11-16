@@ -48,7 +48,7 @@ const Navbar = () => {
             tabIndex={0}
             className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'>
             <li>
-              <Link to='/'>Home</Link>
+              <Link to='/home'>Home</Link>
             </li>
             {!userInfo && (
               <>
@@ -79,7 +79,7 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <Link to='/' className='normal-case text-2xl link link-hover ml-5'>
+        <Link to='/home' className='normal-case text-2xl link link-hover ml-5'>
           Rinse
         </Link>
       </div>

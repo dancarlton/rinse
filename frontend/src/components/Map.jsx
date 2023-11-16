@@ -18,10 +18,10 @@ const Map = () => {
   return (
     <>
       <GoogleMap
-        mapContainerClassName=""
+        mapContainerClassName="max-w-sm"
         center={center}
         zoom={10}
-        className="">
+        className=''>
         <MarkerF position={center}></MarkerF>
       </GoogleMap>
     </>

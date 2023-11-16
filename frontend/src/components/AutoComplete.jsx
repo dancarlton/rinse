@@ -32,7 +32,7 @@ const AutoComplete = () => {
       <GooglePlacesAutocomplete
         selectProps={{
           onChange: handleSelect,
-          placeholder: "Where would you like to search?",
+          placeholder: "select location",
         }}
         nearbyPlacesAPI="GooglePlacesSearch"
         debounce={400}
