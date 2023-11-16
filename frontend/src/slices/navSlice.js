@@ -31,7 +31,7 @@ const navSlice = createSlice({
   },
 });
 
-// Create an API slice for async requests
+// inject endpoints into our API slice for async requests like google maps api
 const asyncNavSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getTravelTimeInformation: builder.query({
@@ -43,6 +43,7 @@ const asyncNavSlice = apiSlice.injectEndpoints({
     }),
     getPlaceDetails: builder.query({
       query: (id) => ({
+        // https://developers.google.com/maps/documentation/places/web-service/place-details
         url: `https://places.googleapis.com/v1/places/${id}?fields=id,formattedAddress,location&key=${
           import.meta.env.VITE_GOOGLE_MAPS_API_KEY
         }`,
