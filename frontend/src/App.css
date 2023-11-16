@@ -4,7 +4,15 @@
     background: white;
 }
 
+body {
+    font-family: IBM Plex Sans,monospace!important
+}
+
 .map-container {
     height: 100%;
     width: 100%;
+}
+
+.custom-vh-sm {
+    min-height: 75vh;
 }

@@ -6,3 +6,6 @@
   background-position: 30% center;
 }
 
+.btn {
+  text-transform: lowercase;
+}
