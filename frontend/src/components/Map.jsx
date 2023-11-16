@@ -32,8 +32,8 @@ const Map = () => {
       <GoogleMap
         mapContainerClassName="container h-screen w-full"
         center={center}
-        zoom={10}
-        className=""
+        zoom={5}
+        className="max-h-5"
         onClick={()=> handleActiveMarker(null)}>
         {markers.map((marker) => (
           <MarkerF key={marker.id} position={marker.position} onClick={() => handleActiveMarker(marker.id)}>

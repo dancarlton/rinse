@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .custom-bg-position {
-    background-position: 30% center;
+  background-position: 30% center;
 }

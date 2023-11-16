@@ -16,7 +16,10 @@ const MapPage = () => {
         <>
           <AutoComplete />
           <div>SearchPage</div>
+          <div className="max-h-5">
+
           <Map />
+          </div>
         </>
       )}
     </>
