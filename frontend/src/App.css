@@ -19,6 +19,7 @@ body {
   min-height: 75vh;
 }
 
+/* Delete after Cards are complete */
 .carousel-item img {
   width: 200px;
   height: 150px;
@@ -28,15 +29,100 @@ body {
 }
 
 .services-list h2 {
-    font-size: 1.25rem;
-    font-weight: 500;
+  font-size: 1.25rem;
+  font-weight: 500;
 }
 
 .min-w-service-search {
-    min-width: 300px; /* Set the minimum width to 100px */
-  }
+  min-width: 300px; /* Set the minimum width to 100px */
+}
 
-  /* Additional styling for a little bigger width */
-  .wider-service-search {
-    width: 150px; /* Set a wider width, adjust as needed */
-  }
+/* Additional styling for a little bigger width */
+.wider-service-search {
+  width: 150px; /* Set a wider width, adjust as needed */
+}
+
+/* .card-body {
+  width: 50%;
+  height: 25rem;
+} */
+
+.card-container {
+  width: 12rem;
+  border-radius: 1rem;
+  /* box-shadow: 0px 5px 4px #999; */
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  height: fit-content;
+  margin-right: 7px;
+}
+
+.card-img {
+  width: 200px;
+  height: 150px;
+  /* box-shadow: 0px 5px 4px #999; */
+  object-fit: cover;
+  border-radius: 1rem;
+  padding: 5px;
+}
+
+.bg-white {
+  background-color: white;
+  border-radius: 0 0 1rem 1rem;
+}
+
+.card-title,
+.card-description {
+  margin: 5px 5%;
+  color: black;
+}
+
+
+/* From Scrimba */
+.contacts {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.contact-card {
+  flex-basis: 225px;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 13px;
+  padding-bottom: 20px;
+  background-color: white;
+}
+
+.contact-card > img {
+  width: 100%;
+  height: auto;
+  align-self: center;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.contact-card > h3 {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.info-group {
+  display: flex;
+  align-items: center;
+}
+
+.info-group > img {
+  height: 11px;
+  margin-right: 8px;
+}
+
+.info-group > p {
+  margin-block: 3px;
+  font-size: 12px;
+  color: #2B283A;
+}
