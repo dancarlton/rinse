@@ -1,7 +1,6 @@
 import React from 'react'
 import AutoComplete from '../components/AutoComplete'
 import { useLoadScript } from '@react-google-maps/api'
-import MapPage from '../pages/MapPage'
 import { Link } from 'react-router-dom'
 
 const ServiceSearch = () => {

@@ -16,7 +16,6 @@ function App() {
   useEffect(() => {
     if (currentUser) {
       dispatch(setCredentials(currentUser));
-      toast.success(`Successfully logged in.`);
     }
   }, [currentUser, dispatch]); // Only re-run if currentUser or dispatch changes
   return (
