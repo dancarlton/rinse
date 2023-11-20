@@ -30,27 +30,27 @@ function createUsers(numUsers = 100) {
 }
 
 // Generate 100 user objects
-const sampleUsers = createUsers(10000);
+// const sampleUsers = createUsers(10000);
 
-// const sampleUsers = [
-//   {
-//     name: "admin",
-//     email: "admin@email.com",
-//     password: bcrypt.hashSync("123456", 10),
-//     role: "admin",
-//   },
-//   {
-//     name: "johnd",
-//     email: "john@email.com",
-//     password: bcrypt.hashSync("123456", 10),
-//     role: "user",
-//   },
-//   {
-//     name: "janed",
-//     email: "jane@email.com",
-//     password: bcrypt.hashSync("123456", 10),
-//     role: "user",
-//   },
-// ];
+const sampleUsers = [
+  {
+    name: "admin",
+    email: "admin@email.com",
+    password: bcrypt.hashSync("123456", 10),
+    role: "admin",
+  },
+  {
+    name: "johnd",
+    email: "john@email.com",
+    password: bcrypt.hashSync("123456", 10),
+    role: "user",
+  },
+  {
+    name: "janed",
+    email: "jane@email.com",
+    password: bcrypt.hashSync("123456", 10),
+    role: "user",
+  },
+];
 
 export default sampleUsers;

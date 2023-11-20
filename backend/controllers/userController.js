@@ -63,9 +63,9 @@ export const getUserById = async (req, res) => {
  */
 export const updateUserById = async (req, res) => {
   const { id } = req.params;
-  const { username, email, password } = req.body;
+  const { name, email, password } = req.body;
   const user = await User.findById(id);
-  if (username) user.username = username;
+  if (name) user.name = name;
   if (email) user.email = email;
   if (password) user.password = bcrypt.hashSync(password, 10);
   await user.save();
