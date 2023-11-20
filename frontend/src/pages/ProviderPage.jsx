@@ -160,8 +160,24 @@ const ProviderPage = () => {
       {/* Booking Calendar Section */}
       <section>
         <h3 className='font-bold text-2xl mt-6'>Booking Calendar</h3>
-        {/* Include your booking calendar component here */}
-        {/* For example, you can use a third-party library or your custom implementation */}
+        <div className='bg-white border-black border'>
+          <div className='text-black font-bold text-lg mb-4'>November 2023</div>
+          <div className='days grid grid-cols-7 gap-1 text-black'>
+            <div className='day'>Sun</div>
+            <div className='day'>Mon</div>
+            <div className='day'>Tue</div>
+            <div className='day'>Wed</div>
+            <div className='day'>Thu</div>
+            <div className='day'>Fri</div>
+            <div className='day'>Sat</div>
+
+            {/* Days of the month */}
+            {/* You can generate these dynamically based on the actual month and year */}
+            <div className='day'></div>
+            <div className='day'></div>
+            {/* ... more days ... */}
+          </div>
+        </div>
       </section>
     </div>
   )
