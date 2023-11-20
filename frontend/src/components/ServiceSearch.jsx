@@ -14,7 +14,7 @@ const ServiceSearch = () => {
     <div className='flex justify-center items-center min-h-max lg:flex-col lg:w-auto overflow-ellipsis'>
       {isLoaded && (
         <div className='lg:w-[80] p-5 space-y-8 mr-1.5'>
-          <h1 className='text-5xl lg:text-6xl font-bold text-gray-300 mt-0 mb-8 lg:mb-0'>
+          <h1 className='text-5xl lg:text-6xl font-bold mt-0 mb-8 lg:mb-0'>
             Get Rinsed
             <p className='text-5xl ml-1'>ya filthy animal</p>
           </h1>

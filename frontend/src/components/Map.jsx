@@ -18,7 +18,7 @@ const Map = () => {
   return (
     <>
       <GoogleMap
-        mapContainerClassName="max-w-sm"
+        mapContainerClassName="max-w-sm rounded px-3"
         center={center}
         zoom={10}
         className=''>
