@@ -1,8 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import '../index.css'
+import { Link } from 'react-router-dom'
+import sampleRinsers from '../data/sampleRinsers'
 
 const Card = ({
+  id,
   profileImage,
   name,
   altText,
@@ -11,24 +14,32 @@ const Card = ({
   serviceArea,
 }) => {
   return (
-    // Option 1 (built from scratch)
-    <div className='contacts'>
-      <div className='carousel-item rounded-box card-container flex-col'>
-        <div>
-          <img src={profileImage} alt={altText} className='card-img border-black' />
-        </div>
-        <div className='bg-white'>
-          <div className='flex'>
-            <h1 className='card-title font-bold'>{services.name}</h1>
-            <p className='font-light mt-2.5 text-slate-500'>({reviews.length})</p>
+    <Link to={`/provider/${name}`} className='card-link'>
+      {/* Option 1 (built from scratch) */}
+      <div className='contacts'>
+        <div className='carousel-item rounded-box card-container flex-col'>
+          <div>
+            <img
+              src={profileImage}
+              alt={altText}
+              className='card-img border-black'
+            />
           </div>
-          <div className='card-description mt-0'>
-            <p className='font-semibold'>${services.price}</p>
-            <span className='font-normal'>{serviceArea}</span>
+          <div className='bg-white'>
+            <div className='flex'>
+              <h1 className='card-title font-bold'>{services.name}</h1>
+              <p className='font-light mt-2.5 text-slate-500'>
+                ({reviews.length})
+              </p>
+            </div>
+            <div className='card-description mt-0'>
+              <p className='font-semibold'>${services.price}</p>
+              <span className='font-normal'>{serviceArea}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
 
     // From Scrimba
     // <div className='contacts'>
@@ -75,6 +86,7 @@ const Card = ({
 }
 
 Card.propTypes = {
+  id: PropTypes.string.isRequired,
   profileImage: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   altText: PropTypes.string.isRequired,

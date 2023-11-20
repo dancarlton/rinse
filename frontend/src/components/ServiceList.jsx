@@ -9,11 +9,13 @@ const ServiceList = () => {
       {/* --------Choose a Wash------- */}
       <h1 className='text-3xl lg:text-4xl font-bold'>Choose a Wash</h1>
       {/* -------Recommended--------- */}
-      <h2>Recommended</h2>
+      <h2 className='text-3xl font-bold'>Recommended</h2>
       <div className='carousel rounded-box'>
         {sampleRinsers.map(rinser => (
           <Card
             key={rinser.id}
+            id={rinser.id}
+            name={rinser.name}
             profileImage={rinser.profileImage}
             altText={rinser.altText}
             services={rinser.services[0]}
@@ -22,9 +24,8 @@ const ServiceList = () => {
           />
         ))}
       </div>
-      {/* <Card /> */}
       {/* --------- Best Deals --------- */}
-      <h2>Best Deals</h2>
+      <h2 className='text-3xl font-bold'>Best Deals</h2>
       <div className='carousel rounded-box'>
         {sampleRinsers.map(rinser => (
           <Card
@@ -38,23 +39,18 @@ const ServiceList = () => {
         ))}
       </div>
       {/* -------- Quickest ---------- */}
-      <h2>Quickest Service</h2>
+      <h2 className='text-3xl font-bold'>Quickest Service</h2>
       <div className='carousel rounded-box'>
-        <div className='carousel-item'>
-          <img src='/images/providers/stock1.jpg' alt='Burger' />
-        </div>
-        <div className='carousel-item'>
-          <img src='/images/providers/stock2.jpg' alt='Burger' />
-        </div>
-        <div className='carousel-item'>
-          <img src='/images/providers/stock3.jpg' alt='Burger' />
-        </div>
-        <div className='carousel-item'>
-          <img src='/images/providers/stock6.jpg' alt='Burger' />
-        </div>
-        <div className='carousel-item'>
-          <img src='/images/providers/stock7.jpg' alt='Burger' />
-        </div>
+        {sampleRinsers.map(rinser => (
+          <Card
+            key={rinser.id}
+            profileImage={rinser.profileImage}
+            altText={rinser.altText}
+            services={rinser.services[0]}
+            reviews={rinser.reviews}
+            serviceArea={rinser.serviceArea}
+          />
+        ))}
       </div>
     </div>
   )
