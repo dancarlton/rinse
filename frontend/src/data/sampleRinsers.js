@@ -2,7 +2,6 @@
 
 const sampleRinsers = [
   {
-    id: 1,
     name: 'John Smith',
     avatar: '/images/icons/avatar2.jpg',
     profileImage: '/images/providers/stock2.jpg',
@@ -60,7 +59,6 @@ const sampleRinsers = [
     locations: { latitude: 37.7749, longitude: -122.4194 },
   },
   {
-    id: 2,
     name: 'Emily Davis',
     avatar: '/images/icons/avatar1.jpg',
     profileImage: '/images/providers/stock3.jpg',
@@ -118,7 +116,6 @@ const sampleRinsers = [
     locations: { latitude: 38.5816, longitude: -121.4944 },
   },
   {
-    id: 3,
     name: 'Alice Johnson',
     avatar: '',
     profileImage: '/images/providers/stock4.jpg',
