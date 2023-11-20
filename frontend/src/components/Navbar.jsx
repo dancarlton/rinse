@@ -99,7 +99,7 @@ const Navbar = () => {
                   <summary>Register</summary>
                   <ul className='p-2'>
                     <li>
-                      <Link to='/register'>Detailer</Link>
+                      <Link to='/provider/Emily%20Davis'>Detailer</Link>
                     </li>
                     <li>
                       <Link to='/register'>Customer</Link>
