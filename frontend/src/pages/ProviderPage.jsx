@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import sampleRinsers from "../data/sampleRinsers";
+import {sampleUsers} from "../data/users";
 import { useParams } from "react-router-dom";
 import Avatar from "../components/Avatar";
 
@@ -11,7 +11,7 @@ const ProviderPage = () => {
     // Simulating an asynchronous data fetch
     setTimeout(() => {
       // Find the provider in dummy data based on the name from the URL
-      const foundProvider = sampleRinsers.find(
+      const foundProvider = sampleUsers.find(
         (provider) => provider.name === name
       );
 
