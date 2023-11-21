@@ -31,6 +31,7 @@ function createUsers(numUsers = 100) {
 
 // Generate 100 user objects
 // const sampleUsers = createUsers(10000);
+// const sampleUsers = createUsers(10000);
 
 const sampleUsers = [
   {
