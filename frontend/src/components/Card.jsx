@@ -1,8 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import '../index.css'
-import { Link } from 'react-router-dom'
-import sampleRinsers from '../data/sampleRinsers'
+import React from "react";
+import PropTypes from "prop-types";
+import "../index.css";
+import { Link } from "react-router-dom";
 
 const Card = ({
   id,
@@ -14,7 +13,9 @@ const Card = ({
   serviceArea,
 }) => {
   return (
-    <Link to={`/provider/${name}`} className='card-link'>
+    <Link
+      to={`/provider/${name}`}
+      className='card-link'>
       {/* Option 1 (built from scratch) */}
       <div className='contacts'>
         <div className='carousel-item rounded-box card-container flex-col'>
@@ -40,50 +41,8 @@ const Card = ({
         </div>
       </div>
     </Link>
-
-    // From Scrimba
-    // <div className='contacts'>
-    //   <div className='contact-card'>
-    //     <img src={profileImage} alt={altText} />
-    //     <h3>{services.name} ({reviews.length})</h3>
-    //     <h3>{name}</h3>
-    //     <h1>{services.price}</h1>
-    //     <p>{serviceArea}</p>
-    //   </div>
-    // </div>
-
-    // Option 2
-    // <div className='card w-96 bg-base-100 shadow-xl image-full'>
-    //   <figure>
-    //     <img
-    //       src='/images/providers/stock3.jpg'
-    //       alt='Shoes'
-    //     />
-    //   </figure>
-    //   <div className='card-body'>
-    //     <h2 className='card-title'>Shoes!</h2>
-    //     <p>If a dog chews shoes whose shoes does he choose?</p>
-    //     <div className='card-actions justify-end'>
-    //       <button className='btn btn-primary'>Buy Now</button>
-    //     </div>
-    //   </div>
-    // </div>
-
-    // Option 3
-    // <div className='card w-96 glass'>
-    //   <figure>
-    //     <img src='/images/providers/stock3.jpg' alt='car!' />
-    //   </figure>
-    //   <div className='card-body'>
-    //     <h2 className='card-title'>Life hack</h2>
-    //     <p>How to park your car at your garage?</p>
-    //     <div className='card-actions justify-end'>
-    //       <button className='btn btn-primary'>Learn now!</button>
-    //     </div>
-    //   </div>
-    // </div>
-  )
-}
+  );
+};
 
 Card.propTypes = {
   id: PropTypes.string.isRequired,
@@ -99,6 +58,6 @@ Card.propTypes = {
   ).isRequired,
   reviews: PropTypes.string.isRequired,
   serviceArea: PropTypes.string.isRequired,
-}
+};
 
-export default Card
+export default Card;
