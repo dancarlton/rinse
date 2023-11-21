@@ -1,32 +1,32 @@
-import bcrypt from 'bcryptjs'
+import bcrypt from "bcryptjs";
 
 function generateRandomString(length = 6) {
   // Generates a random string of specified length
-  const characters = 'abcdefghijklmnopqrstuvwxyz0123456789'
-  let result = ''
-  const charactersLength = characters.length
+  const characters = "abcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  const charactersLength = characters.length;
   for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength))
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
-  return result
+  return result;
 }
 
 function createUsers(numUsers = 100) {
   // Creates a specified number of user objects
-  const users = []
+  const users = [];
   for (let i = 0; i < numUsers; i++) {
-    const name = generateRandomString()
-    const email = `${name}@email.com`
-    const password = 'simulatedBcryptHash' // Placeholder for bcrypt hash
-    const role = 'user'
+    const name = generateRandomString();
+    const email = `${name}@email.com`;
+    const password = "simulatedBcryptHash"; // Placeholder for bcrypt hash
+    const role = "user";
     users.push({
       name,
       email,
       password,
       role,
-    })
+    });
   }
-  return users
+  return users;
 }
 
 // Generate 100 user objects
@@ -35,10 +35,10 @@ function createUsers(numUsers = 100) {
 
 export const sampleUsers = [
   {
-    name: 'admin',
-    email: 'admin@email.com',
-    password: bcrypt.hashSync('123456', 10),
-    role: 'admin',
+    name: "admin",
+    email: "admin@email.com",
+    password: bcrypt.hashSync("123456", 10),
+    role: "admin",
   },
   {
     name: "johnd",
