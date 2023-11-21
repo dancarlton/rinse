@@ -2,8 +2,8 @@ import PropTypes from "prop-types";
 
 const Avatar = ({ source, name }) => {
   return (
-    <div className="avatar online">
-      <div className="w-24 h-24 rounded-full overflow-hidden">
+    <div className="avatar online mr-2">
+      <div className="w-12 h-12 rounded-full overflow-hidden ml-5">
         <img
           src={source || "/images/icons/avatar-missing.jpg"}
           alt={`${name}'s Avatar`}
