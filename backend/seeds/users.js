@@ -11,13 +11,13 @@ function generateRandomString(length = 6) {
   return result;
 }
 
-function createUsers(numUsers = 100) {
+function createUsers(numUsers = 3) {
   // Creates a specified number of user objects
   const users = [];
   for (let i = 0; i < numUsers; i++) {
     const name = generateRandomString();
     const email = `${name}@email.com`;
-    const password = "simulatedBcryptHash"; // Placeholder for bcrypt hash
+    const password = bcrypt.hashSync("123456", 10);
     const role = "user";
     users.push({
       name,
@@ -37,21 +37,18 @@ export const sampleUsers = [
     name: "admin",
     email: "admin@email.com",
     password: bcrypt.hashSync("123456", 10),
-    isAdmin: true,
     role: "admin",
   },
   {
     name: "johnd",
     email: "john@email.com",
     password: bcrypt.hashSync("123456", 10),
-    isAdmin: false,
     role: "user",
   },
   {
     name: "janed",
     email: "jane@email.com",
     password: bcrypt.hashSync("123456", 10),
-    isAdmin: false,
     role: "user",
   },
   {
