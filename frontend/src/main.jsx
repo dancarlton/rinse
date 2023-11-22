@@ -21,6 +21,7 @@ import RegisterPage from "./pages/RegisterPage";
 import MapPage from "./pages/MapPage";
 import ProviderPage from "./pages/ProviderPage.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
+import DashboardLayout from "./layouts/DashboardLayout.jsx";
 
 // Route Modifiers
 // import AdminRoute from "./components/AdminRoute.tsx";
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path:"/dashboard",
+    element: <DashboardLayout />,
+  }
 ]);
 
 // Render the React app

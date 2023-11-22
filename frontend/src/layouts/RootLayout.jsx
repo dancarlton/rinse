@@ -25,7 +25,7 @@ function App() {
       <header>
         <Navbar />
       </header>
-      <main className={navigation.state === "loading" ? "loading" : ""}>
+      <main className={navigation.state === "loading" ? "loading" : "loaded"}>
         <Outlet />
       </main>
       <ToastContainer />

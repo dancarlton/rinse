@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
-import { useRouteError } from "react-router-dom";
+import { Link, useRouteError, useNavigate } from "react-router-dom";
 
 const ErrorPage = () => {
   const error = useRouteError();
   console.error(error);
+  const navigate = useNavigate();
+
   return (
     <>
       <div
@@ -35,15 +36,22 @@ const ErrorPage = () => {
           Let&apos;s get you back{" "}
           <Link
             to="/"
-            className="text-blue-500">
+            className="link">
             home
           </Link>
           .
         </p>
+        <button
+          type="button" // HTML way of saying e.preventDefault()
+          className="btn btn-primary mt-4"
+          onClick={() => {
+            navigate(-1);
+          }}>
+          Go Back One Page
+        </button>
       </div>
     </>
   );
 };
 
 export default ErrorPage;
-
