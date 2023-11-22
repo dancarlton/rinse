@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import ThemeSwitch from './ThemeSwitch'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLogoutMutation } from '../slices/usersSlice'
@@ -50,22 +50,22 @@ const Navbar = () => {
             tabIndex={0}
             className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'>
             <li>
-              <Link to='/home'>Home</Link>
+              <NavLink to='/home'>Home</NavLink>
             </li>
             {!userInfo && (
               <>
                 <li>
-                  <Link to='/login'>Log in</Link>
+                  <NavLink to='/login'>Log in</NavLink>
                 </li>
 
                 <li>
                   <button>Register</button>
                   <ul className='p-2'>
                     <li>
-                      <Link to='/register'>Detailer</Link>
+                      <NavLink to='/register'>Detailer</NavLink>
                     </li>
                     <li>
-                      <Link to='/register'>Customer</Link>
+                      <NavLink to='/register'>Customer</NavLink>
                     </li>
                   </ul>
                 </li>
@@ -77,34 +77,34 @@ const Navbar = () => {
               </li>
             )}
             <li>
-              <Link to='/contact'>Contact Us</Link>
+              <NavLink to='/contact'>Contact Us</NavLink>
             </li>
           </ul>
         </div>
-        <Link to='/home' className='normal-case text-2xl link link-hover ml-5 font-extrabold'>
+        <NavLink to='/home' className='normal-case text-2xl link link-hover ml-5 font-extrabold'>
           Rinse
-        </Link>
+        </NavLink>
       </div>
       <div className='navbar-center hidden lg:flex'>
         <ul className='menu menu-horizontal px-1'>
           <li>
-            <Link to='/'>Home</Link>
+            <NavLink to='/'>Home</NavLink>
           </li>
 
           {!userInfo && (
             <>
               <li>
-                <Link to='/login'>Log in</Link>
+                <NavLink to='/login'>Log in</NavLink>
               </li>
               <li tabIndex={0}>
                 <details>
                   <summary>Register</summary>
                   <ul className='p-2'>
                     <li>
-                      <Link to='/provider/Emily%20Davis'>Detailer</Link>
+                      <NavLink to='/provider/Emily%20Davis'>Detailer</NavLink>
                     </li>
                     <li>
-                      <Link to='/register'>Customer</Link>
+                      <NavLink to='/register'>Customer</NavLink>
                     </li>
                   </ul>
                 </details>
@@ -117,7 +117,7 @@ const Navbar = () => {
             </li>
           )}
           <li>
-            <Link to='/contact'>Contact Us</Link>
+            <NavLink to='/contact'>Contact Us</NavLink>
           </li>
         </ul>
       </div>
