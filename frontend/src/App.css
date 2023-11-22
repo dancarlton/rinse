@@ -10,10 +10,8 @@ body {
     monospace !important;
 }
 
-.map-container {
-  height: 100%;
-  width: 100%;
-}
+
+
 
 .custom-vh-sm {
   min-height: 75vh;
@@ -28,24 +26,7 @@ body {
   padding: 5px;
 }
 
-.services-list h2 {
-  font-size: 1.25rem;
-  font-weight: 500;
-}
 
-.min-w-service-search {
-  min-width: 300px; /* Set the minimum width to 100px */
-}
-
-/* Additional styling for a little bigger width */
-.wider-service-search {
-  width: 150px; /* Set a wider width, adjust as needed */
-}
-
-/* .card-body {
-  width: 50%;
-  height: 25rem;
-} */
 
 .card-container {
   width: 12rem;

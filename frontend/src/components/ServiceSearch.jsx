@@ -13,29 +13,17 @@ const ServiceSearch = () => {
   return (
     <div className='flex justify-center items-center min-h-max lg:flex-col lg:w-auto overflow-ellipsis'>
       {isLoaded && (
-        <div className='lg:w-[80] p-5 space-y-8 mr-1.5'>
-          <h1 className='text-5xl lg:text-6xl font-bold mt-0 mb-8 lg:mb-0'>
-            Get Rinsed
-            <p className='text-5xl ml-1'>ya filthy animal</p>
+        <div className='max-lg:w-screen p-5 space-y-8 '>
+          <h1 className='text-left text-4xl lg:text-5xl font-bold lg:mb-1'>
+            Elevate Your Drive
+            <p className='text-left max-sm:text-xl text-3xl'>with On-Demand Car Washes</p>
           </h1>
+          <p className='max-sm:text-sm max-sm: lg:text-sm font-bold'>Select a service, sit back, and let the car wash come to you.</p>
           <div className='flex flex-col gap-4'>
-            <AutoComplete className='input input-bordered input-primary w-full max-w-xs' />
-            <details className='dropdown'>
-              <summary className='m-1 btn'>Choose Service</summary>
-              <ul className='p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52'>
-                <li>
-                  <a>Exterior</a>
-                </li>
-                <li>
-                  <a>Interior</a>
-                </li>
-                <li>
-                  <a>Both</a>
-                </li>
-              </ul>
-            </details>
+            <AutoComplete className='input input-bordered input-primary w-full' />
+
             <Link to='/map'>
-              <button className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg mt-4 lg:mt-0'>
+              <button className='btn btn-md md:btn-md lg:btn-lg mt-2'>
                 See Prices
               </button>
             </Link>

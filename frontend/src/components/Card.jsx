@@ -19,7 +19,7 @@ const Card = ({
         <div className='carousel-item rounded-box card-container flex-col'>
           <div>
             <img
-              src={profileImage}
+              src={profileImage || 'images/icons/service-missing.png'}
               alt={altText}
               className='card-img border-black'
             />

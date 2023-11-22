@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLogoutMutation } from '../slices/usersSlice'
 import { logout } from '../slices/authSlice'
 import { toast } from 'react-toastify'
+import Avatar from './Avatar'
+import Bell from './Bell'
 
 const Navbar = () => {
   const dispatch = useDispatch()
@@ -26,7 +28,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className='navbar bg-base-100 fixed top-0 z-50 '>
+    <div className='navbar bg-base-100 top-0 z-50 p-4 w-full '>
       <div className='navbar-start'>
         <div className='dropdown'>
           <label tabIndex={0} className='btn btn-ghost lg:hidden'>
@@ -79,7 +81,7 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <Link to='/home' className='normal-case text-2xl link link-hover ml-5'>
+        <Link to='/home' className='normal-case text-2xl link link-hover ml-5 font-extrabold'>
           Rinse
         </Link>
       </div>
@@ -121,6 +123,9 @@ const Navbar = () => {
       </div>
       <div className='navbar-end'>
         <ThemeSwitch />
+        <Bell />
+        <br />
+        <Avatar />
       </div>
     </div>
   )
