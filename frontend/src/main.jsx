@@ -20,6 +20,7 @@ import ContactPage from './pages/ContactPage'
 import RegisterPage from './pages/RegisterPage'
 import MapPage from './pages/MapPage'
 import ProviderPage from './pages/ProviderPage.jsx'
+import NotFoundPage from './pages/NotFoundPage.jsx'
 
 // Route Modifiers
 // import AdminRoute from "./components/AdminRoute.tsx";
@@ -29,6 +30,8 @@ import ProviderPage from './pages/ProviderPage.jsx'
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
+      {/* 404 page */}
+      <Route path='*' element={<NotFoundPage />}/>
       {/* Public Routes */}
       <Route index={true} path='/' element={<HomePage />} />
       {/* The below two routes will be for searching and displaying service providers */}

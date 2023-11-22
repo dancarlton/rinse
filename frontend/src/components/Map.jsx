@@ -17,14 +17,19 @@ const Map = () => {
     [latitude, longitude]
   );
 
-
   return (
     <>
       <GoogleMap
-        options={{ styles: mapStyle }}
+        // https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions
+        options={{
+          styles: mapStyle,
+          disableDefaultUI: true,
+          zoomControl: true,
+          fullscreenControl: true,
+        }}
         mapContainerClassName="rounded"
         center={center}
-        zoom={14}>
+        zoom={12}>
         <MarkerF
           position={center}
           icon={{

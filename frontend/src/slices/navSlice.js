@@ -6,8 +6,8 @@ const initialState = {
     id: "",
     formattedAddress: "",
     location: {
-      latitude: 0,
-      longitude: 0,
+      latitude: 40.7128,
+      longitude: -74.006,
     },
   },
   destination: null,
