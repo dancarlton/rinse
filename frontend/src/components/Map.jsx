@@ -1,6 +1,6 @@
 import { GoogleMap, InfoWindowF, MarkerF } from "@react-google-maps/api";
 import { useMemo, useState } from "react";
-import "../App.css";
+import "../assets/styling/Root.css"
 import { useSelector } from "react-redux";
 import { handle } from "express/lib/router";
 import { map } from "ramda";
