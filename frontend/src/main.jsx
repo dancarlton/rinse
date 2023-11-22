@@ -21,7 +21,7 @@ import RegisterPage from "./pages/RegisterPage";
 import MapPage from "./pages/MapPage";
 import ProviderPage from "./pages/ProviderPage.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
-import DashboardLayout from "./layouts/DashboardLayout.jsx";
+import DashboardLayout from "./layouts/dashboard/DashboardLayout.jsx";
 
 // Route Modifiers
 // import AdminRoute from "./components/AdminRoute.tsx";
