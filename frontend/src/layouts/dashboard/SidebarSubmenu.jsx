@@ -1,6 +1,7 @@
 import ChevronDownIcon from "@heroicons/react/24/outline/ChevronDownIcon";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 
 function SidebarSubmenu({ submenu, name, icon }) {
   const location = useLocation();
@@ -53,5 +54,11 @@ function SidebarSubmenu({ submenu, name, icon }) {
     </div>
   );
 }
+
+SidebarSubmenu.propTypes = {
+  submenu: PropTypes.array.isRequired,
+  name: PropTypes.string.isRequired,
+  icon: PropTypes.element.isRequired,
+};
 
 export default SidebarSubmenu;

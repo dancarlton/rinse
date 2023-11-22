@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { MODAL_BODY_TYPES } from "../utils/globalConstantUtil";
 import { useSelector, useDispatch } from "react-redux";
 import { closeModal } from "../features/common/modalSlice";
