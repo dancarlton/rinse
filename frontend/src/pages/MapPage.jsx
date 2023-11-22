@@ -26,9 +26,6 @@ const MapPage = () => {
       {latitude !== 0 && <ServiceList className="my-4 mx-2" />}
       {isLoaded && (
         <div className="lg:flex lg:w-[60%] space-y-4">
-          {/* <div className="md:m-32 m-3 p-5 rounded max-h-64">
-            <AutoComplete className="grid grow-2 h-full mx-32 my-32" />
-          </div> */}
           <div className="grid grow md:h-[89vh] lg:h-[80vh] lg:w-[60%] mx-3">
             <Map />
           </div>
