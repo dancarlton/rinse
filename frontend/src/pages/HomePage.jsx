@@ -1,11 +1,11 @@
-// import Hero from '../components/Hero'
+import React from 'react'
 import ServiceSearch from '../components/ServiceSearch'
 import coverPhoto from '../assets/images/rinse-cover.jpeg'
 
 const HomePage = () => (
-  <div className='flex flex-col lg:flex-row p-6 w-full xl:items-center '>
+  <div className='flex flex-col lg:flex-row w-full px-2 lg:p-8'>
     {/* Search For Services */}
-    <div className='lg:order-1 xl:w-[600px] 2xl:w-[1000px]'>
+    <div className='lg:order-1 lg:items-center grow'>
       <ServiceSearch />
     </div>
 
@@ -14,7 +14,7 @@ const HomePage = () => (
       <img
         src={coverPhoto}
         alt='Cover'
-        className='w-full h-full object-cover max-h-screen inset-0 rounded-md overflow-hidden xl:max-h-screen xl:w-auto xl:h-auto 2xl:mr-10 xl:mt-[-50px]'
+        className='object-cover max-h-screen w-11/12 rounded-md overflow-hidden m-4'
       />
     </div>
   </div>

@@ -30,13 +30,13 @@ const ServiceList = () => {
   return (
     <div className='services-list max-w-xl'>
       {/* --------- Vertical Carousel -------- */}
-      <div className='h-96 carousel carousel-vertical rounded-box'>
-      {/* --------Choose a Wash------- */}
-      <h1 className='text-3xl lg:text-4xl font-bold'>Choose a Wash</h1>
+      <div className='h-screen w-screen carousel carousel-vertical rounded-box overflow-y-auto'>
+        {/* --------Choose a Wash------- */}
+        <h1 className='text-3xl lg:text-4xl font-bold'>Choose a Wash</h1>
         {/* <div className="carousel-item h-full"> */}
 
         {/* -------Recommended--------- */}
-        <h2 className='text-3xl font-bold'>Recommended</h2>
+        <h2 className='text-2xl font-bold'>Recommended</h2>
         <div className='carousel rounded-box  carousel-item'>
           {users.map(user => (
             <Card
@@ -52,7 +52,7 @@ const ServiceList = () => {
           ))}
         </div>
         {/* --------- Best Deals --------- */}
-        <h2 className='text-3xl font-bold'>Best Deals</h2>
+        <h2 className='text-2xl font-bold'>Best Deals</h2>
         <div className='carousel rounded-box carousel-item'>
           {users.map(user => (
             <Card
@@ -66,7 +66,7 @@ const ServiceList = () => {
           ))}
         </div>
         {/* -------- Quickest ---------- */}
-        <h2 className='text-3xl font-bold'>Quickest Service</h2>
+        <h2 className='text-2xl font-bold'>Quickest Service</h2>
         <div className='carousel rounded-box  carousel-item'>
           {users.map(user => (
             <Card
@@ -79,7 +79,6 @@ const ServiceList = () => {
             />
           ))}
         </div>
-
       </div>
     </div>
   )

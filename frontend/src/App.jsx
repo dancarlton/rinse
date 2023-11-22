@@ -23,7 +23,7 @@ function App() {
       <header>
         <Navbar />
       </header>
-      <main className='flex items-center justify-centerflex-col mt-14 md:mt-20 lg:mt-32 sm:m-5 md:m-8 lg:m-8 '>
+      <main className='flex justify-center'>
         <Outlet />
       </main>
       <ToastContainer />

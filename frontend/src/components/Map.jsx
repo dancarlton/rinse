@@ -15,10 +15,16 @@ const Map = () => {
     [latitude, longitude]
   )
 
+
+  // Check if the 'google' object is available
+  if (!window.google) {
+    console.log('Not loading Google script in Map Component')
+  }
+
   return (
     <>
       <GoogleMap
-        mapContainerClassName='max-w-sm rounded px-3'
+        mapContainerClassName='rounded'
         center={center}
         zoom={14}>
         <MarkerF
