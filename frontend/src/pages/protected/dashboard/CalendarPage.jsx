@@ -1,9 +1,9 @@
 import { useState } from "react";
-import CalendarView from "../../components/CalendarView";
+import CalendarView from "../../../components/CalendarView";
 import moment from "moment";
-import { CALENDAR_INITIAL_EVENTS } from "../../utils/dummyData";
+import { CALENDAR_INITIAL_EVENTS } from "../../../utils/globalConstantUtil";
 import { useDispatch } from "react-redux";
-import { openRightDrawer } from "../common/rightDrawerSlice";
+import { openRightDrawer } from "../../../slices/rightDrawerSlice"
 import { RIGHT_DRAWER_TYPES } from "../../utils/globalConstantUtil";
 import { showNotification } from "../common/headerSlice";
 

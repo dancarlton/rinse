@@ -1,4 +1,5 @@
-import { CALENDAR_EVENT_STYLE } from "../../components/CalendarView/util";
+import { CALENDAR_EVENT_STYLE } from "components/dashboard/CalendarView/util";
+import PropTypes from "prop-types";
 
 const THEME_BG = CALENDAR_EVENT_STYLE;
 
@@ -19,5 +20,10 @@ function CalendarEventsBodyRightDrawer({ filteredEvents }) {
     </>
   );
 }
+
+CalendarEventsBodyRightDrawer.propTypes = {
+  filteredEvents: PropTypes.array.isRequired,
+};
+
 
 export default CalendarEventsBodyRightDrawer;

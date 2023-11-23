@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import routes from "../routes";
 import { useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
-import ErrorPage from "../pages/ErrorPage";
+import ErrorPage from "../../pages/ErrorPage";
 
 function PageContent() {
   const mainContentRef = useRef(null);
