@@ -1,24 +1,23 @@
-/* eslint-disable import/no-named-as-default-member */
-import sanitize from "mongo-sanitize";
-import passport from "passport";
-import dayjs from "dayjs";
+import sanitize from 'mongo-sanitize';
+import passport from 'passport';
+import dayjs from 'dayjs';
 import {
   validateEmail,
   validateLoginInput,
   validatePassword,
-} from "../validations/userValidation.js";
+} from '../validations/userValidation.js';
 
-import UserService from "../services/userServices.js";
-import TokenService from "../services/tokenServices.js";
+import UserService from '../services/userServices.js';
+import TokenService from '../services/tokenServices.js';
 // import LoggerService from "../services/loggerServices.js";
-import EmailService from "../services/emailServices.js";
-import { logger } from "../config/logging.js";
+import EmailService from '../services/emailServices.js';
+import { logger } from '../config/logging.js';
 
 // client host is either deployed base url or local host environment
 const clientHost =
-  process.env.NODE_ENV === "production"
-    ? "https://rinse-copy.onrender.com"
-    : "http://localhost:5173/";
+  process.env.NODE_ENV === 'production'
+    ? 'https://rinse-copy.onrender.com'
+    : 'http://localhost:5173/';
 
 /**
  * @desc Logs out user
@@ -28,9 +27,9 @@ const clientHost =
 export const logoutUser = (req, res) => {
   req.logOut((err) => {
     if (err) {
-      res.status(500).send({ message: "Logout failed", err });
+      res.status(500).send({ message: 'Logout failed', err });
     } else {
-      res.status(200).send({ message: "Logout success" });
+      res.status(200).send({ message: 'Logout success' });
     }
   });
 };
@@ -42,11 +41,7 @@ export const logoutUser = (req, res) => {
  */
 export const googleLogin = (req, res, next) => {
   // scope tells us how much to ask from google
-  passport.authenticate("google", { scope: ["profile", "email"] })(
-    req,
-    res,
-    next,
-  );
+  passport.authenticate('google', { scope: ['profile', 'email'] })(req, res, next);
 };
 
 /**
@@ -55,7 +50,7 @@ export const googleLogin = (req, res, next) => {
  * @method GET
  */
 export const googleCallback = (req, res) => {
-  passport.authenticate("google", {
+  passport.authenticate('google', {
     failureRedirect: clientHost,
     successMessage: true,
     failureMessage: true,
@@ -74,7 +69,7 @@ export const localLogin = (req, res, next) => {
   // check for proper input from client
   const { error } = validateLoginInput(req.body);
 
-  if (error) return res.status(400).send({ message: "Invalid inputs." });
+  if (error) return res.status(400).send({ message: 'Invalid inputs.' });
 
   // sanitize input for malicious users
   const sanitizedInput = sanitize(req.body);
@@ -82,15 +77,15 @@ export const localLogin = (req, res, next) => {
   sanitizedInput.email = req.body.email.toLowerCase();
 
   // passport authentication
-  passport.authenticate("local", (err, user, info) => {
+  passport.authenticate('local', (err, user, info) => {
     if (err) {
       return next(err);
     }
-    if (info && info.message === "Missing credentials") {
+    if (info && info.message === 'Missing credentials') {
       return res.status(400).send({ info });
     }
     if (!user) {
-      return res.status(400).send({ message: "Invalid email or password." });
+      return res.status(400).send({ message: 'Invalid email or password.' });
     }
     // optional verification
     // if (!user.isVerified) {

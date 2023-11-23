@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
-import "dotenv/config";
-import colors from "colors";
-import sampleUsers from "./seeds/users.js";
-import { User } from "./models/userModel.js";
-import { initDB } from "./config/db.js";
+import mongoose from 'mongoose';
+import 'dotenv/config';
+import colors from 'colors';
+import sampleUsers from './seeds/users.js';
+import { User } from './models/userModel.js';
+import { initDB } from './config/db.js';
 
 initDB();
 
@@ -20,7 +20,7 @@ const importData = async () => {
     await User.insertMany(sampleUsers);
 
     // Log a success message
-    console.log("Data Imported!".green.inverse);
+    console.log('Data Imported!'.green.inverse);
     process.exit();
   } catch (error) {
     // Log any errors
@@ -36,7 +36,7 @@ const destroyData = async () => {
     await User.deleteMany();
 
     // Log a success message
-    console.log("Data Destroyed!".red.inverse);
+    console.log('Data Destroyed!'.red.inverse);
     process.exit();
   } catch (error) {
     // Log any errors
@@ -46,7 +46,7 @@ const destroyData = async () => {
 };
 
 // Check command-line arguments to determine which function to run
-if (process.argv.includes("-D") || process.argv.includes("-d")) {
+if (process.argv.includes('-D') || process.argv.includes('-d')) {
   destroyData();
 } else {
   importData();

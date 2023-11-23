@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import InformationCircleIcon from '@heroicons/react/24/outline/InformationCircleIcon';
+import PropTypes from 'prop-types';
 
 function SelectBox(props) {
   const {
@@ -15,7 +15,7 @@ function SelectBox(props) {
     updateFormValue,
   } = props;
 
-  const [value, setValue] = useState(defaultValue || "");
+  const [value, setValue] = useState(defaultValue || '');
 
   const updateValue = (newValue) => {
     updateFormValue({ updateType, value: newValue });
@@ -28,9 +28,7 @@ function SelectBox(props) {
         <div className="label-text">
           {labelTitle}
           {labelDescription && (
-            <div
-              className="tooltip tooltip-right"
-              data-tip={labelDescription}>
+            <div className="tooltip tooltip-right" data-tip={labelDescription}>
               <InformationCircleIcon className="w-4 h-4" />
             </div>
           )}
@@ -40,17 +38,14 @@ function SelectBox(props) {
       <select
         className="select select-bordered w-full"
         value={value}
-        onChange={(e) => updateValue(e.target.value)}>
-        <option
-          disabled
-          value="PLACEHOLDER">
+        onChange={(e) => updateValue(e.target.value)}
+      >
+        <option disabled value="PLACEHOLDER">
           {placeholder}
         </option>
         {options.map((o, k) => {
           return (
-            <option
-              value={o.value || o.name}
-              key={k}>
+            <option value={o.value || o.name} key={k}>
               {o.name}
             </option>
           );

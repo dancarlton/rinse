@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 function ErrorText({ styleClass, children }) {
   return <p className={`text-center  text-error ${styleClass}`}>{children}</p>;

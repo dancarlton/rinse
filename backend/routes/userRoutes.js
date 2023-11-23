@@ -1,15 +1,14 @@
-/* eslint-disable import/no-named-as-default-member */
-import { Router } from "express";
-import UserController from "../controllers/userController.js";
+import { Router } from 'express';
+import UserController from '../controllers/userController.js';
 
 const router = Router();
 
-router.get("/", UserController.getAllUsers);
-router.post("/local", UserController.createUserLocal);
-router.get("/current", UserController.getCurrentUser);
-router.get("/:id", UserController.getUserById);
-router.put("/:id", UserController.updateUserById);
-router.delete("/:id", UserController.deleteUserById);
+router.get('/', UserController.getAllUsers);
+router.post('/local', UserController.createUserLocal);
+router.get('/current', UserController.getCurrentUser);
+router.get('/:id', UserController.getUserById);
+router.put('/:id', UserController.updateUserById);
+router.delete('/:id', UserController.deleteUserById);
 
 //  Input : username, email, password via body;
 //  HTTP Success : 200 and message.

@@ -1,5 +1,5 @@
-import { CALENDAR_EVENT_STYLE } from "./util";
-import PropTypes from "prop-types";
+import { CALENDAR_EVENT_STYLE } from './util';
+import PropTypes from 'prop-types';
 
 const THEME_BG = CALENDAR_EVENT_STYLE;
 
@@ -8,11 +8,7 @@ function CalendarEventsBodyRightDrawer({ filteredEvents }) {
     <>
       {filteredEvents.map((e, k) => {
         return (
-          <div
-            key={k}
-            className={`grid mt-3 card  rounded-box p-3 ${
-              THEME_BG[e.theme] || ""
-            }`}>
+          <div key={k} className={`grid mt-3 card  rounded-box p-3 ${THEME_BG[e.theme] || ''}`}>
             {e.title}
           </div>
         );
@@ -24,6 +20,5 @@ function CalendarEventsBodyRightDrawer({ filteredEvents }) {
 CalendarEventsBodyRightDrawer.propTypes = {
   filteredEvents: PropTypes.array.isRequired,
 };
-
 
 export default CalendarEventsBodyRightDrawer;

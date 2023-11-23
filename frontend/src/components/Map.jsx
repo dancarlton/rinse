@@ -1,8 +1,8 @@
-import { GoogleMap, MarkerF } from "@react-google-maps/api";
-import { useMemo } from "react";
-import "../assets/styling/Root.css"
-import { useSelector } from "react-redux";
-import { mapStyle } from "../assets/styling/mapStyling";
+import { GoogleMap, MarkerF } from '@react-google-maps/api';
+import { useMemo } from 'react';
+import '../assets/styling/Root.css';
+import { useSelector } from 'react-redux';
+import { mapStyle } from '../assets/styling/mapStyling';
 
 // Combination of https://github.com/JustFly1984/react-google-maps-api/tree/master/packages/react-google-maps-api
 // and https://tomchentw.github.io/react-google-maps/
@@ -10,10 +10,7 @@ import { mapStyle } from "../assets/styling/mapStyling";
 const Map = () => {
   const latitude = useSelector((state) => state.nav.origin.location.latitude);
   const longitude = useSelector((state) => state.nav.origin.location.longitude);
-  const center = useMemo(
-    () => ({ lat: latitude, lng: longitude }),
-    [latitude, longitude]
-  );
+  const center = useMemo(() => ({ lat: latitude, lng: longitude }), [latitude, longitude]);
 
   return (
     <>
@@ -27,13 +24,15 @@ const Map = () => {
         }}
         mapContainerClassName="rounded"
         center={center}
-        zoom={12}>
+        zoom={12}
+      >
         <MarkerF
           position={center}
           icon={{
-            url: "/images/icons/google-pin.png",
+            url: '/images/icons/google-pin.png',
             scaledSize: new window.google.maps.Size(35, 35),
-          }}></MarkerF>
+          }}
+        ></MarkerF>
       </GoogleMap>
     </>
   );

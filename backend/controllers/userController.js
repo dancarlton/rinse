@@ -1,16 +1,12 @@
-/* eslint-disable import/no-named-as-default-member */
-import sanitize from "mongo-sanitize";
-import bcrypt from "bcryptjs";
-import {
-  validateEmail,
-  validateRegisterInput,
-} from "../validations/userValidation.js";
+import sanitize from 'mongo-sanitize';
+import bcrypt from 'bcryptjs';
+import { validateEmail, validateRegisterInput } from '../validations/userValidation.js';
 
-import UserService from "../services/userServices.js";
-import TokenService from "../services/tokenServices.js";
-import EmailService from "../services/emailServices.js";
-import User from "../models/userModel.js";
-import { logger } from "../config/logging.js";
+import UserService from '../services/userServices.js';
+import TokenService from '../services/tokenServices.js';
+import EmailService from '../services/emailServices.js';
+import User from '../models/userModel.js';
+import { logger } from '../config/logging.js';
 // export const getUser = (req, res) => {
 //   const { user } = req;
 
@@ -36,7 +32,7 @@ export const getAllUsers = async (req, res) => {
  */
 export const getCurrentUser = async (req, res) => {
   if (!req.user) {
-    return res.status(404).send({ message: "No current user" });
+    return res.status(404).send({ message: 'No current user' });
   }
   return res.status(200).json(req.user);
 };
@@ -50,7 +46,7 @@ export const getUserById = async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id);
   if (!user) {
-    return res.status(404).send("User not found");
+    return res.status(404).send('User not found');
   }
   return res.status(200).json(user);
 };
@@ -69,9 +65,7 @@ export const updateUserById = async (req, res) => {
   if (email) user.email = email;
   if (password) user.password = bcrypt.hashSync(password, 10);
   await user.save();
-  return res
-    .status(200)
-    .json({ message: "user information updated successfully." });
+  return res.status(200).json({ message: 'user information updated successfully.' });
 };
 
 /**
@@ -97,7 +91,7 @@ export const createUserLocal = async (req, res) => {
   const { error } = validateRegisterInput(req.body);
   if (error) {
     return res.status(400).send({
-      message: "Invalid inputs.",
+      message: 'Invalid inputs.',
     });
   }
 
@@ -109,7 +103,7 @@ export const createUserLocal = async (req, res) => {
 
   if (user) {
     return res.status(400).send({
-      message: "Email already in use.",
+      message: 'Email already in use.',
     });
   }
 

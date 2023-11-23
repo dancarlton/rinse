@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import CalendarView from "../../components/CalendarView";
-import moment from "moment";
-import { RIGHT_DRAWER_TYPES } from "../../utils/globalConstantUtil";
-import { CALENDAR_INITIAL_EVENTS } from "../../utils/dummyData";
-import { useDispatch } from "react-redux";
-import { openRightDrawer } from "../../slices/rightDrawerSlice";
-import { setPageTitle, showNotification } from "../../slices/headerSlice";
+import { useEffect, useState } from 'react';
+import CalendarView from '../../components/CalendarView';
+import moment from 'moment';
+import { RIGHT_DRAWER_TYPES } from '../../utils/globalConstantUtil';
+import { CALENDAR_INITIAL_EVENTS } from '../../utils/dummyData';
+import { useDispatch } from 'react-redux';
+import { openRightDrawer } from '../../slices/rightDrawerSlice';
+import { setPageTitle, showNotification } from '../../slices/headerSlice';
 
 const INITIAL_EVENTS = CALENDAR_INITIAL_EVENTS;
 
@@ -21,14 +21,14 @@ function Calendar() {
     let newEventObj = {
       title: randomEvent.title,
       theme: randomEvent.theme,
-      startTime: moment(date).startOf("day"),
-      endTime: moment(date).endOf("day"),
+      startTime: moment(date).startOf('day'),
+      endTime: moment(date).endOf('day'),
     };
     setEvents([...events, newEventObj]);
-    dispatch(showNotification({ message: "New Event Added!", status: 1 }));
+    dispatch(showNotification({ message: 'New Event Added!', status: 1 }));
   };
   useEffect(() => {
-    dispatch(setPageTitle({ title: "Calendar" }));
+    dispatch(setPageTitle({ title: 'Calendar' }));
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, []);
 

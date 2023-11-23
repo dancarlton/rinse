@@ -1,10 +1,10 @@
-import Header from "./Header";
-import { Route, Routes } from "react-router-dom";
-import routes from "../../routes/dashboardRoutes";
-import { useSelector } from "react-redux";
-import { useEffect, useRef, Suspense } from "react";
-import ErrorPage from "../../pages/ErrorPage";
-import SuspenseContent from "../../components/SuspenseContent";
+import Header from './Header';
+import { Route, Routes } from 'react-router-dom';
+import routes from '../../routes/dashboardRoutes';
+import { useSelector } from 'react-redux';
+import { useEffect, useRef, Suspense } from 'react';
+import ErrorPage from '../../pages/ErrorPage';
+import SuspenseContent from '../../components/SuspenseContent';
 
 function PageContent() {
   const mainContentRef = useRef(null);
@@ -14,16 +14,14 @@ function PageContent() {
   useEffect(() => {
     mainContentRef.current.scroll({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   }, [pageTitle]);
 
   return (
     <div className="drawer-content flex flex-col ">
       <Header />
-      <main
-        className="flex-1 overflow-y-auto pt-8 px-6  bg-base-200"
-        ref={mainContentRef}>
+      <main className="flex-1 overflow-y-auto pt-8 px-6  bg-base-200" ref={mainContentRef}>
         <Suspense fallback={<SuspenseContent />}>
           <Routes>
             {routes.map((route, key) => {
@@ -38,10 +36,7 @@ function PageContent() {
               );
             })}
             {/* Redirecting unknown url to 404 page */}
-            <Route
-              path="*"
-              element={<ErrorPage />}
-            />
+            <Route path="*" element={<ErrorPage />} />
           </Routes>
         </Suspense>
         <div className="h-16"></div>

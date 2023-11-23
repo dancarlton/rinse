@@ -1,18 +1,18 @@
-import moment from "moment";
-import { useEffect, useState } from "react";
-import TitleCard from "../../components/Cards/TitleCard";
-import { RECENT_TRANSACTIONS } from "../../utils/dummyData";
-import SearchBar from "../../components/Input/SearchBar";
-import PropType from "prop-types";
-import { setPageTitle } from "../../slices/headerSlice";
-import { useDispatch } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilter, faXmark } from "@fortawesome/free-solid-svg-icons";
+import moment from 'moment';
+import { useEffect, useState } from 'react';
+import TitleCard from '../../components/Cards/TitleCard';
+import { RECENT_TRANSACTIONS } from '../../utils/dummyData';
+import SearchBar from '../../components/Input/SearchBar';
+import PropType from 'prop-types';
+import { setPageTitle } from '../../slices/headerSlice';
+import { useDispatch } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilter, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
-  const [filterParam, setFilterParam] = useState("");
-  const [searchText, setSearchText] = useState("");
-  const locationFilters = ["Paris", "London", "Canada", "Peru", "Tokyo"];
+  const [filterParam, setFilterParam] = useState('');
+  const [searchText, setSearchText] = useState('');
+  const locationFilters = ['Paris', 'London', 'Canada', 'Peru', 'Tokyo'];
 
   const showFiltersAndApply = (params) => {
     applyFilter(params);
@@ -21,44 +21,40 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
 
   const removeAppliedFilter = () => {
     removeFilter();
-    setFilterParam("");
-    setSearchText("");
+    setFilterParam('');
+    setSearchText('');
   };
 
   useEffect(() => {
-    if (searchText === "") {
+    if (searchText === '') {
       removeAppliedFilter();
     } else {
       applySearch(searchText);
     }
-  /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [searchText]);
 
   return (
     <div className="inline-block float-right">
-      <SearchBar
-        searchText={searchText}
-        styleClass="mr-4"
-        setSearchText={setSearchText}
-      />
-      {filterParam !== "" && (
+      <SearchBar searchText={searchText} styleClass="mr-4" setSearchText={setSearchText} />
+      {filterParam !== '' && (
         <button
           onClick={() => removeAppliedFilter()}
-          className="btn btn-xs mr-2 btn-active btn-ghost normal-case">
+          className="btn btn-xs mr-2 btn-active btn-ghost normal-case"
+        >
           {filterParam}
           <FontAwesomeIcon icon={faXmark} className="w-4 ml-2" />
         </button>
       )}
       <div className="dropdown dropdown-bottom dropdown-end">
-        <label
-          tabIndex={0}
-          className="btn btn-sm btn-outline">
+        <label tabIndex={0} className="btn btn-sm btn-outline">
           <FontAwesomeIcon icon={faFilter} className="w-5 mr-2" />
           Filter
         </label>
         <ul
           tabIndex={0}
-          className="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52">
+          className="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52"
+        >
           {locationFilters.map((l, k) => {
             return (
               <li key={k}>
@@ -101,11 +97,11 @@ function Transactions() {
     setTrans(filteredTransactions);
   };
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-      dispatch(setPageTitle({ title: "Transactions" }));
-      /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, []); 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setPageTitle({ title: 'Transactions' }));
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  }, []);
 
   return (
     <>
@@ -118,7 +114,8 @@ function Transactions() {
             applyFilter={applyFilter}
             removeFilter={removeFilter}
           />
-        }>
+        }
+      >
         {/* Team Member list in table format loaded constant */}
         <div className="overflow-x-auto w-full">
           <table className="table w-full">
@@ -139,10 +136,7 @@ function Transactions() {
                       <div className="flex items-center space-x-3">
                         <div className="avatar">
                           <div className="mask mask-circle w-12 h-12">
-                            <img
-                              src={l.avatar}
-                              alt="Avatar"
-                            />
+                            <img src={l.avatar} alt="Avatar" />
                           </div>
                         </div>
                         <div>
@@ -153,7 +147,7 @@ function Transactions() {
                     <td>{l.email}</td>
                     <td>{l.location}</td>
                     <td>${l.amount}</td>
-                    <td>{moment(l.date).format("D MMM")}</td>
+                    <td>{moment(l.date).format('D MMM')}</td>
                   </tr>
                 );
               })}

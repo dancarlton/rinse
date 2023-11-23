@@ -1,79 +1,75 @@
-import { useEffect, useState } from "react";
-import moment from "moment";
-import { CALENDAR_EVENT_STYLE } from "./util";
-import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from 'react';
+import moment from 'moment';
+import { CALENDAR_EVENT_STYLE } from './util';
+import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const THEME_BG = CALENDAR_EVENT_STYLE;
 
 function CalendarView({ calendarEvents, addNewEvent, openDayDetail }) {
-  const today = moment().startOf("day");
-  const weekdays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+  const today = moment().startOf('day');
+  const weekdays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
   const colStartClasses = [
-    "",
-    "col-start-2",
-    "col-start-3",
-    "col-start-4",
-    "col-start-5",
-    "col-start-6",
-    "col-start-7",
+    '',
+    'col-start-2',
+    'col-start-3',
+    'col-start-4',
+    'col-start-5',
+    'col-start-6',
+    'col-start-7',
   ];
 
-  const [firstDayOfMonth, setFirstDayOfMonth] = useState(
-    moment().startOf("month")
-  );
+  const [firstDayOfMonth, setFirstDayOfMonth] = useState(moment().startOf('month'));
   const [events, setEvents] = useState([]);
   /* eslint-disable-next-line no-unused-vars */
-  const [currMonth, setCurrMonth] = useState(() =>
-    moment(today).format("MMM-yyyy")
-  );
+  const [currMonth, setCurrMonth] = useState(() => moment(today).format('MMM-yyyy'));
 
   useEffect(() => {
     setEvents(calendarEvents);
   }, [calendarEvents]);
 
   const allDaysInMonth = () => {
-    let start = moment(firstDayOfMonth).startOf("week");
-    let end = moment(moment(firstDayOfMonth).endOf("month")).endOf("week");
+    let start = moment(firstDayOfMonth).startOf('week');
+    let end = moment(moment(firstDayOfMonth).endOf('month')).endOf('week');
     var days = [];
     var day = start;
     while (day <= end) {
       days.push(day.toDate());
-      day = day.clone().add(1, "d");
+      day = day.clone().add(1, 'd');
     }
     return days;
   };
 
   const getEventsForCurrentDate = (date) => {
     let filteredEvents = events.filter((e) => {
-      return moment(date).isSame(moment(e.startTime), "day");
+      return moment(date).isSame(moment(e.startTime), 'day');
     });
     if (filteredEvents.length > 2) {
       let originalLength = filteredEvents.length;
       filteredEvents = filteredEvents.slice(0, 2);
       filteredEvents.push({
         title: `${originalLength - 2} more`,
-        theme: "MORE",
+        theme: 'MORE',
       });
     }
     return filteredEvents;
   };
 
   const openAllEventsDetail = (date, theme) => {
-    if (theme !== "MORE") return 1;
+    if (theme !== 'MORE') return 1;
     let filteredEvents = events
       .filter((e) => {
-        return moment(date).isSame(moment(e.startTime), "day");
+        return moment(date).isSame(moment(e.startTime), 'day');
       })
       .map((e) => {
         return { title: e.title, theme: e.theme };
       });
-    openDayDetail({ filteredEvents, title: moment(date).format("D MMM YYYY") });
+    openDayDetail({ filteredEvents, title: moment(date).format('D MMM YYYY') });
   };
 
   const isToday = (date) => {
-    return moment(date).isSame(moment(), "day");
+    return moment(date).isSame(moment(), 'day');
   };
 
   const isDifferentMonth = (date) => {
@@ -81,25 +77,21 @@ function CalendarView({ calendarEvents, addNewEvent, openDayDetail }) {
   };
 
   const getPrevMonth = (event) => {
-    const firstDayOfPrevMonth = moment(firstDayOfMonth)
-      .add(-1, "M")
-      .startOf("month");
+    const firstDayOfPrevMonth = moment(firstDayOfMonth).add(-1, 'M').startOf('month');
     setFirstDayOfMonth(firstDayOfPrevMonth);
-    setCurrMonth(moment(firstDayOfPrevMonth).format("MMM-yyyy"));
+    setCurrMonth(moment(firstDayOfPrevMonth).format('MMM-yyyy'));
   };
 
   const getCurrentMonth = (event) => {
-    const firstDayOfCurrMonth = moment().startOf("month");
+    const firstDayOfCurrMonth = moment().startOf('month');
     setFirstDayOfMonth(firstDayOfCurrMonth);
-    setCurrMonth(moment(firstDayOfCurrMonth).format("MMM-yyyy"));
+    setCurrMonth(moment(firstDayOfCurrMonth).format('MMM-yyyy'));
   };
 
   const getNextMonth = (event) => {
-    const firstDayOfNextMonth = moment(firstDayOfMonth)
-      .add(1, "M")
-      .startOf("month");
+    const firstDayOfNextMonth = moment(firstDayOfMonth).add(1, 'M').startOf('month');
     setFirstDayOfMonth(firstDayOfNextMonth);
-    setCurrMonth(moment(firstDayOfNextMonth).format("MMM-yyyy"));
+    setCurrMonth(moment(firstDayOfNextMonth).format('MMM-yyyy'));
   };
 
   return (
@@ -108,30 +100,22 @@ function CalendarView({ calendarEvents, addNewEvent, openDayDetail }) {
         <div className="flex items-center justify-between">
           <div className="flex  justify-normal gap-2 sm:gap-4">
             <p className="font-semibold text-xl w-48">
-              {moment(firstDayOfMonth).format("MMMM yyyy").toString()}
+              {moment(firstDayOfMonth).format('MMMM yyyy').toString()}
               <span className="text-xs ml-2 ">Beta</span>
             </p>
 
-            <button
-              className="btn  btn-square btn-sm btn-ghost"
-              onClick={getPrevMonth}>
+            <button className="btn  btn-square btn-sm btn-ghost" onClick={getPrevMonth}>
               <FontAwesomeIcon icon={faChevronLeft} className="w-5 h-5" />
             </button>
-            <button
-              className="btn  btn-sm btn-ghost normal-case"
-              onClick={getCurrentMonth}>
+            <button className="btn  btn-sm btn-ghost normal-case" onClick={getCurrentMonth}>
               Current Month
             </button>
-            <button
-              className="btn btn-square btn-sm btn-ghost"
-              onClick={getNextMonth}>
+            <button className="btn btn-square btn-sm btn-ghost" onClick={getNextMonth}>
               <FontAwesomeIcon icon={faChevronRight} className="w-5 h-5" />
             </button>
           </div>
           <div>
-            <button
-              className="btn  btn-sm btn-ghost btn-outline normal-case"
-              onClick={addNewEvent}>
+            <button className="btn  btn-sm btn-ghost btn-outline normal-case" onClick={addNewEvent}>
               Add New Event
             </button>
           </div>
@@ -140,9 +124,7 @@ function CalendarView({ calendarEvents, addNewEvent, openDayDetail }) {
         <div className="grid grid-cols-7 gap-6 sm:gap-12 place-items-center">
           {weekdays.map((day, key) => {
             return (
-              <div
-                className="text-xs capitalize"
-                key={key}>
+              <div className="text-xs capitalize" key={key}>
                 {day}
               </div>
             );
@@ -156,28 +138,26 @@ function CalendarView({ calendarEvents, addNewEvent, openDayDetail }) {
                 key={idx}
                 className={
                   colStartClasses[moment(day).day().toString()] +
-                  " border border-solid w-full h-28  "
-                }>
+                  ' border border-solid w-full h-28  '
+                }
+              >
                 <p
                   className={`inline-block flex items-center  justify-center h-8 w-8 rounded-full mx-1 mt-1 text-sm cursor-pointer hover:bg-base-300 ${
                     isToday(day) &&
-                    " bg-blue-100 dark:bg-blue-400 dark:hover:bg-base-300 dark:text-white"
-                  } ${
-                    isDifferentMonth(day) &&
-                    " text-slate-400 dark:text-slate-600"
-                  }`}
-                  onClick={() => addNewEvent(day)}>
-                  {" "}
-                  {moment(day).format("D")}
+                    ' bg-blue-100 dark:bg-blue-400 dark:hover:bg-base-300 dark:text-white'
+                  } ${isDifferentMonth(day) && ' text-slate-400 dark:text-slate-600'}`}
+                  onClick={() => addNewEvent(day)}
+                >
+                  {' '}
+                  {moment(day).format('D')}
                 </p>
                 {getEventsForCurrentDate(day).map((e, k) => {
                   return (
                     <p
                       key={k}
                       onClick={() => openAllEventsDetail(day, e.theme)}
-                      className={`text-xs px-2 mt-1 truncate  ${
-                        THEME_BG[e.theme] || ""
-                      }`}>
+                      className={`text-xs px-2 mt-1 truncate  ${THEME_BG[e.theme] || ''}`}
+                    >
                       {e.title}
                     </p>
                   );

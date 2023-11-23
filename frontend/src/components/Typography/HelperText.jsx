@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 function HelperText({ className, children }) {
   return <div className={`text-slate-400 ${className}`}>{children}</div>;

@@ -1,18 +1,18 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
-import { useLocalRegisterMutation } from "../slices/usersSlice";
-import { useDispatch } from "react-redux";
-import { setCredentials } from "../slices/authSlice";
-import { toast } from "react-toastify";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
+import { useLocalRegisterMutation } from '../slices/usersSlice';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '../slices/authSlice';
+import { toast } from 'react-toastify';
 
 const RegisterPage = () => {
   // form state
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [verifyPassword, setVerifyPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [verifyPassword, setVerifyPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   // changes password input from password to text and vice versa
@@ -34,7 +34,7 @@ const RegisterPage = () => {
   // TODO: change the link here
   const handleGoogleLogin = async (e) => {
     e.preventDefault();
-    await window.open("http://localhost:5000/api/auth/google", "_self");
+    await window.open('http://localhost:5000/api/auth/google', '_self');
   };
 
   const handleLocalRegister = async (e) => {
@@ -42,16 +42,16 @@ const RegisterPage = () => {
 
     // Check for password match
     if (password !== verifyPassword) {
-      toast.error("Passwords do not match.");
+      toast.error('Passwords do not match.');
       return;
     } else {
       try {
         // Attempt to register and set local credentials
-        const res = await register({email, password }).unwrap();
+        const res = await register({ email, password }).unwrap();
         console.log(res);
         dispatch(setCredentials({ ...res }));
-        navigate("/");
-        toast.success("Registration Successful. Welcome to the club.");
+        navigate('/');
+        toast.success('Registration Successful. Welcome to the club.');
       } catch (err) {
         console.error(err);
         toast.error(err?.data?.message || err?.error);
@@ -73,14 +73,9 @@ const RegisterPage = () => {
           </h2>
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm form-control">
-          <form
-            className="space-y-6"
-            action="/"
-            method="POST">
+          <form className="space-y-6" action="/" method="POST">
             <div>
-              <label
-                htmlFor="email"
-                className="label">
+              <label htmlFor="email" className="label">
                 <span className="label-text">Email address</span>
               </label>
               <div className="mt-2">
@@ -98,13 +93,9 @@ const RegisterPage = () => {
 
             <div>
               <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="label">
+                <label htmlFor="password" className="label">
                   <span className="label-text">Password</span>
-                  <button
-                    className="mx-3"
-                    onClick={handlePasswordVisibility}>
+                  <button className="mx-3" onClick={handlePasswordVisibility}>
                     {passwordVisible ? (
                       <FontAwesomeIcon icon={faEyeSlash} />
                     ) : (
@@ -139,13 +130,9 @@ const RegisterPage = () => {
             </div>
             <div>
               <div className="flex items-center justify-between">
-                <label
-                  htmlFor="verify-password"
-                  className="label">
+                <label htmlFor="verify-password" className="label">
                   <span className="label-text">Verify Password</span>
-                  <button
-                    className="mx-3"
-                    onClick={handlePasswordVisibility}>
+                  <button className="mx-3" onClick={handlePasswordVisibility}>
                     {passwordVisible ? (
                       <FontAwesomeIcon icon={faEyeSlash} />
                     ) : (
@@ -183,7 +170,8 @@ const RegisterPage = () => {
               <button
                 type="submit"
                 className="btn btn-block btn-primary"
-                onClick={handleLocalRegister}>
+                onClick={handleLocalRegister}
+              >
                 Register
               </button>
             </div>
@@ -192,8 +180,9 @@ const RegisterPage = () => {
               <button
                 type="submit"
                 className="btn btn-block btn-secondary"
-                onClick={handleGoogleLogin}>
-                Register with{" "}
+                onClick={handleGoogleLogin}
+              >
+                Register with{' '}
                 <i className="pl-1">
                   <FontAwesomeIcon icon={faGoogle} />
                 </i>
@@ -201,11 +190,12 @@ const RegisterPage = () => {
             </div>
           </form>
           <p className="mt-10 text-center text-sm text-gray-500">
-            Already have an account?{" "}
+            Already have an account?{' '}
             <Link
               to="/login"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-              {" "}
+              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+            >
+              {' '}
               Login Here
             </Link>
           </p>

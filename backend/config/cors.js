@@ -1,4 +1,4 @@
-import cors from "cors";
+import cors from 'cors';
 
 export function initCORS(app) {
   app.use(
@@ -7,10 +7,10 @@ export function initCORS(app) {
         `https://${process.env.HOST}`,
         `http://${process.env.HOST}`,
         `${process.env.HOST}`,
-        "http://localhost:5173", // frontend for development purposes
+        'http://localhost:5173', // frontend for development purposes
       ],
-      methods: ["GET", "POST", "PUT", "OPTIONS", "DELETE"],
+      methods: ['GET', 'POST', 'PUT', 'OPTIONS', 'DELETE'],
       credentials: true, // enable set cookie
-    }),
+    })
   );
 }

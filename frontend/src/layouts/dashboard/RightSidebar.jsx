@@ -1,15 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
-import NotificationBodyRightDrawer from "../../components/NotificationBodyRightDrawer"
-import { closeRightDrawer } from "../../slices/rightDrawerSlice";
-import { RIGHT_DRAWER_TYPES } from "../../utils/globalConstantUtil";
-import CalendarEventsBodyRightDrawer from "../../components/CalendarView/CalendarEventsBodyRightDrawer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from 'react-redux';
+import NotificationBodyRightDrawer from '../../components/NotificationBodyRightDrawer';
+import { closeRightDrawer } from '../../slices/rightDrawerSlice';
+import { RIGHT_DRAWER_TYPES } from '../../utils/globalConstantUtil';
+import CalendarEventsBodyRightDrawer from '../../components/CalendarView/CalendarEventsBodyRightDrawer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 function RightSidebar() {
-  const { isOpen, bodyType, extraObject, header } = useSelector(
-    (state) => state.rightDrawer
-  );
+  const { isOpen, bodyType, extraObject, header } = useSelector((state) => state.rightDrawer);
   const dispatch = useDispatch();
 
   const close = (e) => {
@@ -19,26 +17,26 @@ function RightSidebar() {
   return (
     <div
       className={
-        " fixed overflow-hidden z-20 bg-gray-900 bg-opacity-25 inset-0 transform ease-in-out " +
+        ' fixed overflow-hidden z-20 bg-gray-900 bg-opacity-25 inset-0 transform ease-in-out ' +
         (isOpen
-          ? " transition-opacity opacity-100 duration-500 translate-x-0  "
-          : " transition-all delay-500 opacity-0 translate-x-full  ")
-      }>
+          ? ' transition-opacity opacity-100 duration-500 translate-x-0  '
+          : ' transition-all delay-500 opacity-0 translate-x-full  ')
+      }
+    >
       <section
         className={
-          "w-80 md:w-96  right-0 absolute bg-base-100 h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform  " +
-          (isOpen ? " translate-x-0 " : " translate-x-full ")
-        }>
+          'w-80 md:w-96  right-0 absolute bg-base-100 h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform  ' +
+          (isOpen ? ' translate-x-0 ' : ' translate-x-full ')
+        }
+      >
         <div className="relative  pb-5 flex flex-col  h-full">
           {/* Header */}
           <div className="navbar   flex pl-4 pr-4   shadow-md ">
             <button
               className="float-left btn btn-circle btn-outline btn-sm"
-              onClick={() => close()}>
-              <FontAwesomeIcon
-                icon={faXmark}
-                className="h-5 w-5"
-              />
+              onClick={() => close()}
+            >
+              <FontAwesomeIcon icon={faXmark} className="h-5 w-5" />
             </button>
             <span className="ml-2 font-bold text-xl">{header}</span>
           </div>
@@ -50,10 +48,7 @@ function RightSidebar() {
               {
                 {
                   [RIGHT_DRAWER_TYPES.NOTIFICATION]: (
-                    <NotificationBodyRightDrawer
-                      {...extraObject}
-                      closeRightDrawer={close}
-                    />
+                    <NotificationBodyRightDrawer {...extraObject} closeRightDrawer={close} />
                   ),
                   [RIGHT_DRAWER_TYPES.CALENDAR_EVENTS]: (
                     <CalendarEventsBodyRightDrawer
@@ -70,9 +65,7 @@ function RightSidebar() {
         </div>
       </section>
 
-      <section
-        className=" w-screen h-full cursor-pointer "
-        onClick={() => close()}></section>
+      <section className=" w-screen h-full cursor-pointer " onClick={() => close()}></section>
     </div>
   );
 }

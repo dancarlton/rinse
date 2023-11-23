@@ -1,13 +1,12 @@
-/* eslint-disable import/no-named-as-default-member */
-import { Router } from "express";
+import { Router } from 'express';
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.send("login here");
+router.get('/', (req, res) => {
+  res.send('login here');
 });
-router.get("/dashboard", (req, res) => {
-  res.send("dashboard");
+router.get('/dashboard', (req, res) => {
+  res.send('dashboard');
 });
 
 //  Input : username, email, password via body;

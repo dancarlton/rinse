@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 function SidebarSubmenu({ submenu, name, icon }) {
   const location = useLocation();
@@ -21,21 +21,19 @@ function SidebarSubmenu({ submenu, name, icon }) {
   return (
     <div className="flex-col">
       {/** Route header */}
-      <div
-        className="w-full"
-        onClick={() => setIsExpanded(!isExpanded)}>
+      <div className="w-full" onClick={() => setIsExpanded(!isExpanded)}>
         {icon} {name}
         <FontAwesomeIcon
-		icon={faChevronDown}
+          icon={faChevronDown}
           className={
-            "w-5 h-5 mt-1 float-right delay-400 duration-500 transition-all  " +
-            (isExpanded ? "rotate-180" : "")
+            'w-5 h-5 mt-1 float-right delay-400 duration-500 transition-all  ' +
+            (isExpanded ? 'rotate-180' : '')
           }
         />
       </div>
 
       {/** Submenu list */}
-      <div className={` w-full ` + (isExpanded ? "" : "hidden")}>
+      <div className={` w-full ` + (isExpanded ? '' : 'hidden')}>
         <ul className={`menu menu-compact`}>
           {submenu.map((m, k) => {
             return (
@@ -45,7 +43,8 @@ function SidebarSubmenu({ submenu, name, icon }) {
                   {location.pathname === m.path ? (
                     <span
                       className="absolute mt-1 mb-1 inset-y-0 left-0 w-1 rounded-tr-md rounded-br-md bg-primary "
-                      aria-hidden="true"></span>
+                      aria-hidden="true"
+                    ></span>
                   ) : null}
                 </Link>
               </li>

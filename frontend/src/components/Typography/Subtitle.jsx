@@ -1,9 +1,7 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 function Subtitle({ styleClass, children }) {
-  return (
-    <div className={`text-xl font-semibold ${styleClass}`}>{children}</div>
-  );
+  return <div className={`text-xl font-semibold ${styleClass}`}>{children}</div>;
 }
 
 Subtitle.propTypes = {

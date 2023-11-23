@@ -1,47 +1,47 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
-import { useLocalLoginMutation } from "../slices/usersSlice";
-import { useDispatch } from "react-redux";
-import { setCredentials } from "../slices/authSlice";
-import { toast } from "react-toastify";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
+import { useLocalLoginMutation } from '../slices/usersSlice';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '../slices/authSlice';
+import { toast } from 'react-toastify';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleGoogleLogin = async (e) => {
-    e.preventDefault()
-    await window.open("http://localhost:5000/api/auth/google", "_self");
+    e.preventDefault();
+    await window.open('http://localhost:5000/api/auth/google', '_self');
   };
   // Fetching login state
   const [login] = useLocalLoginMutation();
 
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Function to handle form submission
-	const handleLocalLogin = async (e) => {
-		e.preventDefault();
+  const handleLocalLogin = async (e) => {
+    e.preventDefault();
 
-		try {
-			// Attempt to login
-			const res = await login({ email, password }).unwrap();
+    try {
+      // Attempt to login
+      const res = await login({ email, password }).unwrap();
 
-			// Update credentials in local storage
-			dispatch(setCredentials({ ...res }));
-			// Navigate to home
-			navigate("/");
-      toast.success("Login Successful");
-		} catch (err) {
-			// Show error toast if login fails.
-			console.error(err);
+      // Update credentials in local storage
+      dispatch(setCredentials({ ...res }));
+      // Navigate to home
+      navigate('/');
+      toast.success('Login Successful');
+    } catch (err) {
+      // Show error toast if login fails.
+      console.error(err);
       toast.error(err.data.message || err.error);
-		}
-	};
+    }
+  };
 
   const handlePasswordVisibility = (event) => {
     event.preventDefault();
@@ -66,14 +66,9 @@ const LoginPage = () => {
           </h2>
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm form-control">
-          <form
-            className="space-y-6"
-            action="/"
-            method="POST">
+          <form className="space-y-6" action="/" method="POST">
             <div>
-              <label
-                htmlFor="email"
-                className="label">
+              <label htmlFor="email" className="label">
                 <span className="label-text">Email address</span>
               </label>
               <div className="mt-2">
@@ -91,13 +86,9 @@ const LoginPage = () => {
 
             <div>
               <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="label">
+                <label htmlFor="password" className="label">
                   <span className="label-text">Password</span>
-                  <button
-                    className="mx-3"
-                    onClick={handlePasswordVisibility}>
+                  <button className="mx-3" onClick={handlePasswordVisibility}>
                     {passwordVisible ? (
                       <FontAwesomeIcon icon={faEyeSlash} />
                     ) : (
@@ -106,9 +97,7 @@ const LoginPage = () => {
                   </button>
                 </label>
                 <div className="label-text-alt">
-                  <Link
-                    to="/"
-                    className="link hover:text-indigo-500">
+                  <Link to="/" className="link hover:text-indigo-500">
                     Forgot password?
                   </Link>
                 </div>
@@ -142,7 +131,8 @@ const LoginPage = () => {
               <button
                 type="submit"
                 className="btn btn-block btn-primary"
-                onClick={handleLocalLogin}>
+                onClick={handleLocalLogin}
+              >
                 Sign in
               </button>
             </div>
@@ -151,8 +141,9 @@ const LoginPage = () => {
               <button
                 type="submit"
                 className="btn btn-block btn-secondary"
-                onClick={handleGoogleLogin}>
-                Sign in with{" "}
+                onClick={handleGoogleLogin}
+              >
+                Sign in with{' '}
                 <i className="pl-1">
                   <FontAwesomeIcon icon={faGoogle} />
                 </i>
@@ -160,11 +151,9 @@ const LoginPage = () => {
             </div>
           </form>
           <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{" "}
-            <Link
-              to="/"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-              {" "}
+            Not a member?{' '}
+            <Link to="/" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+              {' '}
               Register Now
             </Link>
           </p>

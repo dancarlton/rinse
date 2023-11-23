@@ -1,39 +1,33 @@
-import { useDispatch } from "react-redux";
-import TitleCard from "../../components/Cards/TitleCard";
-import { setPageTitle, showNotification } from "../../slices/headerSlice";
-import InputText from "../../components/Input/InputText";
-import TextAreaInput from "../../components/Input/TextAreaInput";
-import ToggleInput from "../../components/Input/ToggleInput";
-import { useEffect } from "react";
+import { useDispatch } from 'react-redux';
+import TitleCard from '../../components/Cards/TitleCard';
+import { setPageTitle, showNotification } from '../../slices/headerSlice';
+import InputText from '../../components/Input/InputText';
+import TextAreaInput from '../../components/Input/TextAreaInput';
+import ToggleInput from '../../components/Input/ToggleInput';
+import { useEffect } from 'react';
 
 function ProfileSettings() {
   const dispatch = useDispatch();
 
   // Call API to update profile settings changes
   const updateProfile = () => {
-    dispatch(showNotification({ message: "Profile Updated", status: 1 }));
+    dispatch(showNotification({ message: 'Profile Updated', status: 1 }));
   };
 
   const updateFormValue = ({ updateType, value }) => {
     console.log(updateType);
   };
 
-    useEffect(() => {
-      dispatch(setPageTitle({ title: "Profile Settings" }));
-      /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, []); 
+  useEffect(() => {
+    dispatch(setPageTitle({ title: 'Profile Settings' }));
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  }, []);
 
   return (
     <>
-      <TitleCard
-        title="Profile Settings"
-        topMargin="mt-2">
+      <TitleCard title="Profile Settings" topMargin="mt-2">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <InputText
-            labelTitle="Name"
-            defaultValue="Alex"
-            updateFormValue={updateFormValue}
-          />
+          <InputText labelTitle="Name" defaultValue="Alex" updateFormValue={updateFormValue} />
           <InputText
             labelTitle="Email Id"
             defaultValue="alex@dashwind.com"
@@ -63,11 +57,7 @@ function ProfileSettings() {
             defaultValue="English"
             updateFormValue={updateFormValue}
           />
-          <InputText
-            labelTitle="Timezone"
-            defaultValue="IST"
-            updateFormValue={updateFormValue}
-          />
+          <InputText labelTitle="Timezone" defaultValue="IST" updateFormValue={updateFormValue} />
           <ToggleInput
             updateType="syncData"
             labelTitle="Sync Data"
@@ -77,9 +67,7 @@ function ProfileSettings() {
         </div>
 
         <div className="mt-16">
-          <button
-            className="btn btn-primary float-right"
-            onClick={() => updateProfile()}>
+          <button className="btn btn-primary float-right" onClick={() => updateProfile()}>
             Update
           </button>
         </div>

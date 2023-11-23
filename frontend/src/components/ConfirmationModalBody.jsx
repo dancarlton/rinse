@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 function ConfirmationModalBody({ extraObject, closeModal }) {
   const { message } = extraObject;
@@ -12,15 +12,11 @@ function ConfirmationModalBody({ extraObject, closeModal }) {
       <p className=" text-xl mt-8 text-center">{message}</p>
 
       <div className="modal-action mt-12">
-        <button
-          className="btn btn-outline   "
-          onClick={() => closeModal()}>
+        <button className="btn btn-outline   " onClick={() => closeModal()}>
           Cancel
         </button>
 
-        <button
-          className="btn btn-primary w-36"
-          onClick={() => proceedWithYes()}>
+        <button className="btn btn-primary w-36" onClick={() => proceedWithYes()}>
           Yes
         </button>
       </div>

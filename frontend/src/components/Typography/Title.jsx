@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 function Title({ className, children }) {
   return <p className={`text-2xl font-bold  ${className}`}>{children}</p>;

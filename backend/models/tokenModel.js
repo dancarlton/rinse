@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import { model, Schema } from 'mongoose';
 
 /* eslint-disable-next-line prefer-destructuring */
 const ObjectId = Schema.Types.ObjectId;
@@ -7,7 +7,7 @@ const tokenSchema = new Schema({
   _userId: {
     type: ObjectId,
     required: true,
-    ref: "User",
+    ref: 'User',
   },
   token: { type: String, required: true },
   createdAt: {
@@ -18,6 +18,6 @@ const tokenSchema = new Schema({
   },
 });
 
-export const Token = model("Token", tokenSchema);
+export const Token = model('Token', tokenSchema);
 
 export default Token;

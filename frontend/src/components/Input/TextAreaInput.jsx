@@ -1,5 +1,5 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 function TextAreaInput({
   labelTitle,
@@ -21,15 +21,14 @@ function TextAreaInput({
   return (
     <div className={`form-control w-full ${containerStyle}`}>
       <label className="label">
-        <span className={"label-text text-base-content " + labelStyle}>
-          {labelTitle}
-        </span>
+        <span className={'label-text text-base-content ' + labelStyle}>{labelTitle}</span>
       </label>
       <textarea
         value={value}
         className="textarea textarea-bordered w-full"
-        placeholder={placeholder || ""}
-        onChange={(e) => updateInputValue(e.target.value)}></textarea>
+        placeholder={placeholder || ''}
+        onChange={(e) => updateInputValue(e.target.value)}
+      ></textarea>
     </div>
   );
 }

@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export const headerSlice = createSlice({
-  name: "header",
+  name: 'header',
   initialState: {
-    pageTitle: "Home", // current page title state management
+    pageTitle: 'Home', // current page title state management
     noOfNotifications: 15, // no of unread notifications
-    newNotificationMessage: "", // message of notification to be shown
+    newNotificationMessage: '', // message of notification to be shown
     newNotificationStatus: 1, // to check the notification type -  success/ error/ info
   },
   reducers: {
@@ -14,7 +14,7 @@ export const headerSlice = createSlice({
     },
 
     removeNotificationMessage: (state, action) => {
-      state.newNotificationMessage = "";
+      state.newNotificationMessage = '';
     },
 
     showNotification: (state, action) => {
@@ -24,7 +24,6 @@ export const headerSlice = createSlice({
   },
 });
 
-export const { setPageTitle, removeNotificationMessage, showNotification } =
-  headerSlice.actions;
+export const { setPageTitle, removeNotificationMessage, showNotification } = headerSlice.actions;
 
 export default headerSlice.reducer;

@@ -1,18 +1,12 @@
-import { Helmet } from "react-helmet-async";
-import PropTypes from "prop-types";
+import { Helmet } from 'react-helmet-async';
+import PropTypes from 'prop-types';
 
 const Meta = ({ title, description, keywords }) => {
   return (
     <Helmet>
       <title>{title}</title>
-      <meta
-        name="description"
-        content={description}
-      />
-      <meta
-        name="keywords"
-        content={keywords}
-      />
+      <meta name="description" content={description} />
+      <meta name="keywords" content={keywords} />
     </Helmet>
   );
 };
@@ -24,8 +18,8 @@ Meta.propTypes = {
 };
 
 Meta.defaultProps = {
-  title: "Rinse - Lorem Ipsum",
-  description: "Rinse me",
-  keywords: "cars",
+  title: 'Rinse - Lorem Ipsum',
+  description: 'Rinse me',
+  keywords: 'cars',
 };
 export default Meta;

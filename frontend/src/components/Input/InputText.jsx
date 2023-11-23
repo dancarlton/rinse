@@ -1,5 +1,5 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 function InputText({
   labelTitle,
@@ -21,14 +21,12 @@ function InputText({
   return (
     <div className={`form-control w-full ${containerStyle}`}>
       <label className="label">
-        <span className={"label-text text-base-content " + labelStyle}>
-          {labelTitle}
-        </span>
+        <span className={'label-text text-base-content ' + labelStyle}>{labelTitle}</span>
       </label>
       <input
-        type={type || "text"}
+        type={type || 'text'}
         value={value}
-        placeholder={placeholder || ""}
+        placeholder={placeholder || ''}
         onChange={(e) => updateInputValue(e.target.value)}
         className="input  input-bordered w-full "
       />
