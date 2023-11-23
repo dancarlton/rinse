@@ -10,12 +10,21 @@ const ErrorPage = () => {
       <div
         className="text-center"
         id="error-page">
-        <h1 className="mb-4 text-6xl font-semibold text-red-500">
-          {error.status}
-        </h1>
-        <p>
-          <i>{error.statusText || error.message}</i>
-        </p>
+        {error ? (
+          <>
+            <h1 className="mb-4 text-6xl font-semibold text-red-500">
+              {error.status}
+            </h1>
+            <p>
+              <i>{error.statusText || error.message}</i>
+            </p>
+          </>
+        ) : (
+          <>
+            <h1 className="mb-4 text-6xl font-semibold text-red-500">404</h1>
+            <p>Not Found. No specific error was provided.</p>
+          </>
+        )}
         <p className="mb-4 text-lg text-gray-600">
           Oops! Looks like something went wrong.
         </p>
@@ -41,9 +50,10 @@ const ErrorPage = () => {
           </Link>
           .
         </p>
+        <h3 >OR</h3>
         <button
           type="button" // HTML way of saying e.preventDefault()
-          className="btn btn-primary mt-4"
+          className="btn btn-primary mt-2"
           onClick={() => {
             navigate(-1);
           }}>
