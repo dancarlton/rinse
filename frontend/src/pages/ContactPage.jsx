@@ -1,5 +1,4 @@
-import ContactForm from "../components/ContactForm";
-import ToggleButton from "../components/ToggleButton";
+import ContactForm from '../components/ContactForm';
 
 const ContactPage = () => (
   <>

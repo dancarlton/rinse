@@ -1,8 +1,6 @@
 // took this from this website https://codesandbox.io/p/sandbox/notifications-bell-hhmrb?file=%2Fsrc%2Fentry.js%3A17%2C12
 
-
-
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 // import className from "classnames";
 
 const Bell = () => {
@@ -15,9 +13,9 @@ const Bell = () => {
     setNotifications([
       {
         ObjectId: 1,
-        title: "Tenant Process Started",
-        startedAt: "04/12/2020 at 2:00pm by Kelly Redd",
-        percentage: "64"
+        title: 'Tenant Process Started',
+        startedAt: '04/12/2020 at 2:00pm by Kelly Redd',
+        percentage: '64',
       },
       // Add more notifications as needed
     ]);
@@ -53,16 +51,11 @@ const Bell = () => {
       </div>
       {isVisible && (
         <div className="notification-list">
-          {/* <ul>
+          <ul>
             {notifications.map((notification) => (
-              <Entry
-                key={notification.ObjectId}
-                title={notification.title}
-                startedAt={notification.startedAt}
-                percentage={notification.percentage}
-              />
+              <div key={notification.ObjectId}> {notification.title}</div>
             ))}
-          </ul> */}
+          </ul>
         </div>
       )}
     </div>

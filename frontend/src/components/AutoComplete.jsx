@@ -1,7 +1,7 @@
-import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-import { setOrigin } from "../slices/navSlice";
-import { useDispatch } from "react-redux";
-import { useLazyGetPlaceDetailsQuery } from "../slices/navSlice";
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import { setOrigin } from '../slices/navSlice';
+import { useDispatch } from 'react-redux';
+import { useLazyGetPlaceDetailsQuery } from '../slices/navSlice';
 
 // https://developers.google.com/maps/documentation/places/web-service/autocomplete
 // I think initially we can get current users location and set that as the center of the map instead of initial state which is 0,0
@@ -17,11 +17,11 @@ const AutoComplete = () => {
         console.log(res);
         dispatch(setOrigin(res));
       } catch (e) {
-        console.log("catch error: e");
+        console.log('catch error: e');
         console.error(e);
-        console.log("error from useLazyGetPlaceDetailsQuery: ");
+        console.log('error from useLazyGetPlaceDetailsQuery: ');
         console.error(error);
-        console.log("data from useLazyGetPlaceDetailsQuery: ");
+        console.log('data from useLazyGetPlaceDetailsQuery: ');
         console.log(data);
       }
     }
@@ -32,7 +32,7 @@ const AutoComplete = () => {
       <GooglePlacesAutocomplete
         selectProps={{
           onChange: handleSelect,
-          placeholder: "select location",
+          placeholder: 'select location',
         }}
         nearbyPlacesAPI="GooglePlacesSearch"
         debounce={400}

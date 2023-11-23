@@ -15,8 +15,8 @@ export function errorHandler(err, req, res, next) {
   let { message } = err;
 
   // Check for a Mongoose CastError related to ObjectId
-  if (err.name === "CastError" && err.kind === "ObjectId") {
-    message = "Resource not found.";
+  if (err.name === 'CastError' && err.kind === 'ObjectId') {
+    message = 'Resource not found.';
     statusCode = 404;
   }
 
@@ -24,7 +24,7 @@ export function errorHandler(err, req, res, next) {
   // and optionally the error stack if not in production
   res.status(statusCode).json({
     message,
-    stack: process.env.NODE_ENV === "production" ? "Pancake Stack" : err.stack,
+    stack: process.env.NODE_ENV === 'production' ? 'Pancake Stack' : err.stack,
   });
   next();
 }

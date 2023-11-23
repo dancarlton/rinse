@@ -1,5 +1,5 @@
-import { USERS_URL, AUTH_URL } from "../constants";
-import { apiSlice } from "./apiSlice";
+import { USERS_URL, AUTH_URL } from '../constants';
+import { apiSlice } from './apiSlice';
 
 // Extend the base apiSlice with additional endpoints related to users
 export const usersApiSlice = apiSlice.injectEndpoints({
@@ -8,7 +8,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     localLogin: builder.mutation({
       query: (data) => ({
         url: `${AUTH_URL}/login/local`,
-        method: "POST",
+        method: 'POST',
         body: data,
       }),
     }),
@@ -16,14 +16,14 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     logout: builder.mutation({
       query: () => ({
         url: `${AUTH_URL}/logout`,
-        method: "POST",
+        method: 'POST',
       }),
     }),
     // Mutation for user registration
     localRegister: builder.mutation({
       query: (data) => ({
         url: `${USERS_URL}/local`,
-        method: "POST",
+        method: 'POST',
         body: data,
       }),
     }),
@@ -31,7 +31,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     profile: builder.mutation({
       query: (data) => ({
         url: `${USERS_URL}/profile`,
-        method: "PUT",
+        method: 'PUT',
         body: data,
       }),
     }),
@@ -40,14 +40,14 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       query: ({ pageNumber }) => ({
         url: `${USERS_URL}`,
       }),
-      providesTags: ["User"],
+      providesTags: ['User'],
       keepUnusedDataFor: 5,
     }),
     // Query to get a single user by ID
     getOneUser: builder.query({
       query: (id) => ({
         url: `${USERS_URL}/${id}`,
-        method: "GET",
+        method: 'GET',
       }),
       keepUnusedDataFor: 5,
     }),
@@ -55,24 +55,24 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     getCurrentUser: builder.query({
       query: () => ({
         url: `${USERS_URL}/current`,
-        method: "GET",
+        method: 'GET',
       }),
     }),
     // Mutation to delete a user by ID
     deleteUser: builder.mutation({
       query: (id) => ({
         url: `${USERS_URL}/${id}`,
-        method: "DELETE",
+        method: 'DELETE',
       }),
     }),
     // Mutation to update a user's information
     updateUser: builder.mutation({
       query: (data) => ({
         url: `${USERS_URL}/${data.userId}`,
-        method: "PUT",
+        method: 'PUT',
         body: data,
       }),
-      invalidatesTags: ["User"],
+      invalidatesTags: ['User'],
     }),
   }),
 });

@@ -1,8 +1,8 @@
-import passport from "passport";
-import Local from "passport-local";
-import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import passport from 'passport';
+import Local from 'passport-local';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 // import mongoose from "mongoose";
-import { User } from "../models/userModel.js";
+import { User } from '../models/userModel.js';
 // import { logger } from "./logging.js";
 
 export function initPassportJS() {
@@ -12,8 +12,8 @@ export function initPassportJS() {
   passport.use(
     new Local.Strategy(
       {
-        usernameField: "email", // using email instead of username
-        passwordField: "password",
+        usernameField: 'email', // using email instead of username
+        passwordField: 'password',
       },
       async (email, password, cb) => {
         try {
@@ -21,13 +21,13 @@ export function initPassportJS() {
           // if user does not exist
           if (!user) {
             return cb(null, false, {
-              message: "Incorrect username or password",
+              message: 'Incorrect username or password',
             });
           }
           // if password is incorrect
           if (!user.comparePassword(password)) {
             return cb(null, false, {
-              message: "Incorrect username or password",
+              message: 'Incorrect username or password',
             });
           }
           // else return the user
@@ -35,8 +35,8 @@ export function initPassportJS() {
         } catch (err) {
           return cb(err);
         }
-      },
-    ),
+      }
+    )
   );
 
   // https://www.passportjs.org/packages/passport-google-oauth20/
@@ -45,7 +45,7 @@ export function initPassportJS() {
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "http://localhost:5000/api/auth/google/callback",
+        callbackURL: 'http://localhost:5000/api/auth/google/callback',
         passReqToCallback: true,
       },
       // find user by google id or create user
@@ -65,8 +65,8 @@ export function initPassportJS() {
         } catch (err) {
           return done(err);
         }
-      },
-    ),
+      }
+    )
   );
 
   // passes user id to client side
