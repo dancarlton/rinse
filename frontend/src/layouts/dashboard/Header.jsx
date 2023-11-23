@@ -20,9 +20,9 @@ function Header() {
     themeChange(false);
     if (currentTheme === null) {
       if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        setCurrentTheme('dark');
+        setCurrentTheme('black');
       } else {
-        setCurrentTheme('light');
+        setCurrentTheme('lofi');
       }
     }
     // 👆 false parameter is required for react project
@@ -78,18 +78,18 @@ function Header() {
             <input type="checkbox" />
             <FontAwesomeIcon
               icon={faSun}
-              data-set-theme="light"
+              data-set-theme="lofi"
               data-act-class="ACTIVECLASS"
               className={
-                'fill-current w-6 h-6 ' + (currentTheme === 'dark'  ? 'swap-on' : 'swap-off')
+                'fill-current w-6 h-6 ' + (currentTheme === 'black'  ? 'swap-on' : 'swap-off')
               }
             />
             <FontAwesomeIcon
               icon={faMoon}
-              data-set-theme="dark"
+              data-set-theme="black"
               data-act-class="ACTIVECLASS"
               className={
-                'fill-current w-6 h-6 ' + (currentTheme === 'light' ? 'swap-on' : 'swap-off')
+                'fill-current w-6 h-6 ' + (currentTheme === 'lofi' ? 'swap-on' : 'swap-off')
               }
             />
           </label>
