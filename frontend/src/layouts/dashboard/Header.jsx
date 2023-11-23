@@ -68,12 +68,10 @@ function Header() {
 
           <select
             className="select select-sm mr-4"
+            defaultValue={currentTheme}
+            onChange={(e) => setCurrentTheme(e.target.value)}
             data-choose-theme>
-            <option
-              disabled
-              selected>
-              Theme
-            </option>
+            <option disabled>Theme</option>
             <option value="light">Default</option>
             <option value="dark">Dark</option>
             <option value="corporate">Corporate</option>

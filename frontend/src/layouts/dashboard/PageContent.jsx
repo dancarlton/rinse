@@ -1,6 +1,6 @@
 import Header from "./Header";
 import { Route, Routes } from "react-router-dom";
-import routes from "../../routes/sidebarRoutes";
+import routes from "../../routes/dashboardRoutes";
 import { useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
 import ErrorPage from "../../pages/ErrorPage";

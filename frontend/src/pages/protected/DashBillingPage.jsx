@@ -1,6 +1,8 @@
 import moment from "moment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {useDispatch} from "react-redux";
 import TitleCard from "../../components/Cards/TitleCard";
+import { setPageTitle } from "../../slices/headerSlice";
 
 const BILLS = [
   {
@@ -115,6 +117,12 @@ function Billing() {
       return <div className="badge badge-primary">{status}</div>;
     else return <div className="badge badge-ghost">{status}</div>;
   };
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setPageTitle({ title: "Billing" }));
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  }, []); 
 
   return (
     <>

@@ -1,8 +1,8 @@
 import moment from "moment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import TitleCard from "../../components/Cards/TitleCard";
-import { showNotification } from "../../common/headerSlice";
+import { setPageTitle, showNotification } from "../../slices/headerSlice";
 
 const TopSideButtons = () => {
   const dispatch = useDispatch();
@@ -101,6 +101,12 @@ function Team() {
       return <div className="badge badge-accent">{role}</div>;
     else return <div className="badge badge-ghost">{role}</div>;
   };
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(setPageTitle({ title: "Your Team" }));
+      /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, []); 
 
   return (
     <>

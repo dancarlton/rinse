@@ -35,7 +35,10 @@ function RightSidebar() {
             <button
               className="float-left btn btn-circle btn-outline btn-sm"
               onClick={() => close()}>
-              <FontAwesomeIcon icon={faXmark} className="h-5 w-5" />
+              <FontAwesomeIcon
+                icon={faXmark}
+                className="h-5 w-5"
+              />
             </button>
             <span className="ml-2 font-bold text-xl">{header}</span>
           </div>
@@ -54,7 +57,7 @@ function RightSidebar() {
                   ),
                   [RIGHT_DRAWER_TYPES.CALENDAR_EVENTS]: (
                     <CalendarEventsBodyRightDrawer
-                      {...extraObject}
+                      filteredEvents={extraObject.filteredEvents} // Pass filteredEvents explicitly
                       closeRightDrawer={close}
                     />
                   ),

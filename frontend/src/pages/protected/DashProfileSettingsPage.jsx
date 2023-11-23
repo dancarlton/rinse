@@ -1,9 +1,10 @@
 import { useDispatch } from "react-redux";
 import TitleCard from "../../components/Cards/TitleCard";
-import { showNotification } from "../../slices/headerSlice";
+import { setPageTitle, showNotification } from "../../slices/headerSlice";
 import InputText from "../../components/Input/InputText";
 import TextAreaInput from "../../components/Input/TextAreaInput";
-import ToogleInput from "../../components/Input/ToogleInput";
+import ToggleInput from "../../components/Input/ToggleInput";
+import { useEffect } from "react";
 
 function ProfileSettings() {
   const dispatch = useDispatch();
@@ -16,6 +17,11 @@ function ProfileSettings() {
   const updateFormValue = ({ updateType, value }) => {
     console.log(updateType);
   };
+
+    useEffect(() => {
+      dispatch(setPageTitle({ title: "Profile Settings" }));
+      /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, []); 
 
   return (
     <>
@@ -62,7 +68,7 @@ function ProfileSettings() {
             defaultValue="IST"
             updateFormValue={updateFormValue}
           />
-          <ToogleInput
+          <ToggleInput
             updateType="syncData"
             labelTitle="Sync Data"
             defaultValue={true}

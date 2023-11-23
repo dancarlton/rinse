@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import ChevronLeftIcon from "@heroicons/react/24/solid/ChevronLeftIcon";
-import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 import moment from "moment";
 import { CALENDAR_EVENT_STYLE } from "./util";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 const THEME_BG = CALENDAR_EVENT_STYLE;
 
@@ -115,7 +115,7 @@ function CalendarView({ calendarEvents, addNewEvent, openDayDetail }) {
             <button
               className="btn  btn-square btn-sm btn-ghost"
               onClick={getPrevMonth}>
-              <ChevronLeftIcon className="w-5 h-5" />
+              <FontAwesomeIcon icon={faChevronLeft} className="w-5 h-5" />
             </button>
             <button
               className="btn  btn-sm btn-ghost normal-case"
@@ -125,7 +125,7 @@ function CalendarView({ calendarEvents, addNewEvent, openDayDetail }) {
             <button
               className="btn btn-square btn-sm btn-ghost"
               onClick={getNextMonth}>
-              <ChevronRightIcon className="w-5 h-5" />
+              <FontAwesomeIcon icon={faChevronRight} className="w-5 h-5" />
             </button>
           </div>
           <div>

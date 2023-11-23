@@ -2,10 +2,12 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import TitleCard from "../../components/Cards/TitleCard";
 import { RECENT_TRANSACTIONS } from "../../utils/dummyData";
-import FunnelIcon from "@heroicons/react/24/outline/FunnelIcon";
-import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import SearchBar from "../../components/Input/SearchBar";
 import PropType from "prop-types";
+import { setPageTitle } from "../../slices/headerSlice";
+import { useDispatch } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilter, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
   const [filterParam, setFilterParam] = useState("");
@@ -44,14 +46,14 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
           onClick={() => removeAppliedFilter()}
           className="btn btn-xs mr-2 btn-active btn-ghost normal-case">
           {filterParam}
-          <XMarkIcon className="w-4 ml-2" />
+          <FontAwesomeIcon icon={faXmark} className="w-4 ml-2" />
         </button>
       )}
       <div className="dropdown dropdown-bottom dropdown-end">
         <label
           tabIndex={0}
           className="btn btn-sm btn-outline">
-          <FunnelIcon className="w-5 mr-2" />
+          <FontAwesomeIcon icon={faFilter} className="w-5 mr-2" />
           Filter
         </label>
         <ul
@@ -98,6 +100,12 @@ function Transactions() {
     });
     setTrans(filteredTransactions);
   };
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(setPageTitle({ title: "Transactions" }));
+      /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, []); 
 
   return (
     <>

@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CalendarView from "../../components/CalendarView";
 import moment from "moment";
-import { CALENDAR_INITIAL_EVENTS, RIGHT_DRAWER_TYPES } from "../../utils/globalConstantUtil";
+import { RIGHT_DRAWER_TYPES } from "../../utils/globalConstantUtil";
+import { CALENDAR_INITIAL_EVENTS } from "../../utils/dummyData";
 import { useDispatch } from "react-redux";
-import { openRightDrawer } from "../../slices/rightDrawerSlice"
-import { showNotification } from "../../slices/headerSlice";
+import { openRightDrawer } from "../../slices/rightDrawerSlice";
+import { setPageTitle, showNotification } from "../../slices/headerSlice";
 
 const INITIAL_EVENTS = CALENDAR_INITIAL_EVENTS;
 
@@ -26,6 +27,10 @@ function Calendar() {
     setEvents([...events, newEventObj]);
     dispatch(showNotification({ message: "New Event Added!", status: 1 }));
   };
+  useEffect(() => {
+    dispatch(setPageTitle({ title: "Calendar" }));
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  }, []);
 
   // Open all events of current day in sidebar
   const openDayDetail = ({ filteredEvents, title }) => {

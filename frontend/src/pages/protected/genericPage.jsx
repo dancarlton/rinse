@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setPageTitle } from "../../features/common/headerSlice";
-import Generic from "../../features/generic";
+import { setPageTitle } from "../../slices/headerSlice";
 
 function InternalPage() {
   const dispatch = useDispatch();
@@ -11,7 +10,7 @@ function InternalPage() {
   /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, []);
 
-  return <Generic />;
+  return <div>Generic Page</div>;
 }
 
 export default InternalPage;
