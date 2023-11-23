@@ -10,6 +10,8 @@ import { faBell, faMoon, faSun } from '@fortawesome/free-regular-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 function Header() {
+  const darkThemeOptions = [ 'dark', 'luxury', 'black']
+  const lightThemeOptinos = ['light', 'corporate', 'lofi']
   const dispatch = useDispatch();
   const { noOfNotifications, pageTitle } = useSelector((state) => state.header);
   const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('theme'));
@@ -56,7 +58,7 @@ function Header() {
           {/* Multiple theme selection, uncomment this if you want to enable multiple themes selection, 
                 also includes corporate and retro themes in tailwind.config file */}
 
-          <select
+          {/* <select
             className="select select-sm mr-4"
             defaultValue={currentTheme}
             onChange={(e) => setCurrentTheme(e.target.value)}
@@ -69,7 +71,7 @@ function Header() {
             <option value="luxury">Luxury</option>
             <option value="lofi">Lofi</option>
             <option value="black">Black</option>
-          </select>
+          </select> */}
 
           {/* Light and dark theme selection toogle **/}
           <label className="swap ">
@@ -79,7 +81,7 @@ function Header() {
               data-set-theme="light"
               data-act-class="ACTIVECLASS"
               className={
-                'fill-current w-6 h-6 ' + (currentTheme === 'dark' ? 'swap-on' : 'swap-off')
+                'fill-current w-6 h-6 ' + (currentTheme === 'dark'  ? 'swap-on' : 'swap-off')
               }
             />
             <FontAwesomeIcon

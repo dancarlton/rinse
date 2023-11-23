@@ -2,10 +2,32 @@ import { useDispatch, useSelector } from 'react-redux';
 import NotificationBodyRightDrawer from '../../components/NotificationBodyRightDrawer';
 import { closeRightDrawer } from '../../slices/rightDrawerSlice';
 import { RIGHT_DRAWER_TYPES } from '../../utils/globalConstantUtil';
-import CalendarEventsBodyRightDrawer from '../../components/CalendarView/CalendarEventsBodyRightDrawer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
+
+/* 
+To add new content follow these steps:
+1. Create new component file containing main body of your content that you want to appear in the right drawer
+An example we have is in components/NotificationBodyRightDrawer
+2. Create new variable in /utils/globalConstantUtils.js file under RIGHT_DRAWER_TYPES variable. Follow the same naming convention as in the file.
+3. Now include the file mapped with the new variable in /layouts/dashboard/RightSidebar.js file (the file you're currently in) using the ternary that is set up.
+For ex- If you new component name is TestRightSideBar.js and the RIGHT_DRAWER_TYPES variable name is TEST_RIGHT_SIDEBAR, then add following code inside ternary code block
+  {
+    [RIGHT_DRAWER_TYPES.NOTIFICATION]: (
+      <NotificationBodyRightDrawer {...extraObject} closeRightDrawer={close} />
+    ),
+    [RIGHT_DRAWER_TYPES.TEST_RIGHT_SIDEBAR] : (
+      <TestRightSideBar {...extraObject} closeRightDrawer={close}/>
+    ),
+    [RIGHT_DRAWER_TYPES.DEFAULT]: <div></div>,
+  }[bodyType]
+                
+Here extraObject has variables that are passed from parent component while calling openRightDrawer method
+4. Now the last step, call dispatch method as follows wherever you want to open the right drawer. 
+  For instance notification icon in layouts/dashboard/header.js file opens the notification drawer
+ dispatch(openRightDrawer({header : "Test Right Drawer", bodyType : RIGHT_DRAWER_TYPES.TEST_RIGHT_SIDEBAR}))
+*/
 function RightSidebar() {
   const { isOpen, bodyType, extraObject, header } = useSelector((state) => state.rightDrawer);
   const dispatch = useDispatch();
@@ -49,12 +71,6 @@ function RightSidebar() {
                 {
                   [RIGHT_DRAWER_TYPES.NOTIFICATION]: (
                     <NotificationBodyRightDrawer {...extraObject} closeRightDrawer={close} />
-                  ),
-                  [RIGHT_DRAWER_TYPES.CALENDAR_EVENTS]: (
-                    <CalendarEventsBodyRightDrawer
-                      filteredEvents={extraObject.filteredEvents} // Pass filteredEvents explicitly
-                      closeRightDrawer={close}
-                    />
                   ),
                   [RIGHT_DRAWER_TYPES.DEFAULT]: <div></div>,
                 }[bodyType]

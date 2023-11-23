@@ -5,7 +5,7 @@ const Avatar = ({ source, name }) => {
     <div className="avatar online mr-2">
       <div className="w-12 h-12 rounded-full overflow-hidden ml-5">
         <img
-          src={source || '/images/icons/avatar-missing.jpg'}
+          src={source || 'https://picsum.photos/80/80'}
           alt={`${name}'s Avatar`}
           className="object-cover w-full h-full"
         />

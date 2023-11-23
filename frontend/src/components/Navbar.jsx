@@ -125,11 +125,15 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         <ThemeSwitch />
-        <Bell />
-        <br />
-        <Link to={'/dashboard'}>
-          <Avatar />
-        </Link>
+        {userInfo && (
+          <>
+            <Bell />
+            <br />
+            <Link to={'/dashboard'}>
+              <Avatar />
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );
