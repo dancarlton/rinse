@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import ThemeSwitch from './ThemeSwitch'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLogoutMutation } from '../slices/usersSlice'
@@ -125,7 +125,9 @@ const Navbar = () => {
         <ThemeSwitch />
         <Bell />
         <br />
-        <Avatar />
+        <Link to={"/dashboard"}>
+          <Avatar />
+        </Link>
       </div>
     </div>
   )

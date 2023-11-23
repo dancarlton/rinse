@@ -12,7 +12,7 @@ function LeftSidebar() {
   };
 
   return (
-    <div className="drawer-side ">
+    <div className="drawer-side">
       <label
         htmlFor="left-sidebar-drawer"
         className="drawer-overlay"></label>
@@ -27,11 +27,11 @@ function LeftSidebar() {
         </button>
 
         <li className="mb-2 font-semibold text-xl">
-          <Link to={"/dashboard/generic"}>
+          <Link to={"/"}>
             <img
               className="mask mask-squircle w-10"
               src="https://picsum.photos/80/80"
-              alt="DashWind Logo"
+              alt="Rinse Logo"
             />
             Rinse
           </Link>{" "}

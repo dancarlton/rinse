@@ -26,7 +26,7 @@ const submenuIconClasses = `h-5 w-5`;
 
 const routes = [
   {
-    path: "/welcome",
+    path: "/dashboard",
     icon: (
       <FontAwesomeIcon
         icon={faTableList}
@@ -35,18 +35,9 @@ const routes = [
     ),
     name: "Dashboard",
   },
+
   {
-    path: "/leads", // url
-    icon: (
-      <FontAwesomeIcon
-        icon={faInbox}
-        className={iconClasses}
-      />
-    ),
-    name: "Leads", // name that appear in Sidebar
-  },
-  {
-    path: "/transactions", // url
+    path: "/dashboard/transactions", // url
     icon: (
       <FontAwesomeIcon
         icon={faDollarSign}
@@ -56,27 +47,7 @@ const routes = [
     name: "Transactions", // name that appear in Sidebar
   },
   {
-    path: "/charts", // url
-    icon: (
-      <FontAwesomeIcon
-        icon={faChartBar}
-        className={iconClasses}
-      />
-    ),
-    name: "Analytics", // name that appear in Sidebar
-  },
-  {
-    path: "/integration", // url
-    icon: (
-      <FontAwesomeIcon
-        icon={faBoltLightning}
-        className={iconClasses}
-      />
-    ),
-    name: "Integration", // name that appear in Sidebar
-  },
-  {
-    path: "/calendar", // url
+    path: "/dashboard/calendar", // url
     icon: (
       <FontAwesomeIcon
         icon={faCalendar}
@@ -84,49 +55,6 @@ const routes = [
       />
     ),
     name: "Calendar", // name that appear in Sidebar
-  },
-
-  {
-    path: "", //no url needed as this has submenu
-    icon: (
-      <FontAwesomeIcon
-        icon={faFile}
-        className={iconClasses}
-      />
-    ),
-    name: "Pages", // name that appear in Sidebar
-    submenu: [
-      {
-        path: "/login",
-        icon: (
-          <FontAwesomeIcon
-            icon={faArrowRightToBracket}
-            className={submenuIconClasses}
-          />
-        ),
-        name: "Login",
-      },
-      {
-        path: "/register", //url
-        icon: (
-          <FontAwesomeIcon
-            icon={faUser}
-            className={submenuIconClasses}
-          />
-        ),
-        name: "Register", // name that appear in Sidebar
-      },
-      {
-        path: "/forgot-password",
-        icon: (
-          <FontAwesomeIcon
-            icon={faKey}
-            className={submenuIconClasses}
-          />
-        ),
-        name: "Forgot Password",
-      },
-    ],
   },
   {
     path: "", //no url needed as this has submenu
@@ -139,7 +67,7 @@ const routes = [
     name: "Settings", // name that appear in Sidebar
     submenu: [
       {
-        path: "/settings-profile", //url
+        path: "/dashboard/settings-profile", //url
         icon: (
           <FontAwesomeIcon
             icon={faUserAlt}
@@ -149,7 +77,7 @@ const routes = [
         name: "Profile", // name that appear in Sidebar
       },
       {
-        path: "/settings-billing",
+        path: "/dashboard/settings-billing",
         icon: (
           <FontAwesomeIcon
             icon={faWallet}
@@ -159,7 +87,7 @@ const routes = [
         name: "Billing",
       },
       {
-        path: "/settings-team", // url
+        path: "/dashboard/settings-team", // url
         icon: (
           <FontAwesomeIcon
             icon={faPeopleGroup}
@@ -167,47 +95,6 @@ const routes = [
           />
         ),
         name: "Team Members", // name that appear in Sidebar
-      },
-    ],
-  },
-  {
-    path: "", //no url needed as this has submenu
-    icon: (
-      <FontAwesomeIcon
-        icon={faFileAlt}
-        className={`${iconClasses} inline`}
-      />
-    ), // icon component    name: "Documentation", // name that appear in Sidebar
-    submenu: [
-      {
-        path: "/getting-started", // url
-        icon: (
-          <FontAwesomeIcon
-            icon={faFile}
-            className={submenuIconClasses}
-          />
-        ),
-        name: "Getting Started", // name that appear in Sidebar
-      },
-      {
-        path: "/features",
-        icon: (
-          <FontAwesomeIcon
-            icon={faTableCells}
-            className={submenuIconClasses}
-          />
-        ),
-        name: "Features",
-      },
-      {
-        path: "/components",
-        icon: (
-          <FontAwesomeIcon
-            icon={faCodeBranch}
-            className={submenuIconClasses}
-          />
-        ),
-        name: "Components",
       },
     ],
   },
