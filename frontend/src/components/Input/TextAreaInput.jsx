@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 function TextAreaInput({
   labelTitle,
@@ -32,5 +33,16 @@ function TextAreaInput({
     </div>
   );
 }
+
+TextAreaInput.propTypes = {
+  labelTitle: PropTypes.string.isRequired,
+  labelStyle: PropTypes.string,
+  type: PropTypes.string,
+  containerStyle: PropTypes.string,
+  defaultValue: PropTypes.string,
+  placeholder: PropTypes.string,
+  updateFormValue: PropTypes.func.isRequired,
+  updateType: PropTypes.string.isRequired,
+};
 
 export default TextAreaInput;

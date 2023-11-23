@@ -2,6 +2,7 @@ import axios from "axios";
 import capitalize from "capitalize-the-first-letter";
 import React, { useState, useEffect } from "react";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
+import PropTypes from "prop-types";
 
 function SelectBox(props) {
   const {
@@ -60,5 +61,17 @@ function SelectBox(props) {
     </div>
   );
 }
+
+SelectBox.propTypes = {
+  labelTitle: PropTypes.string.isRequired,
+  labelDescription: PropTypes.string,
+  defaultValue: PropTypes.string,
+  containerStyle: PropTypes.string,
+  placeholder: PropTypes.string,
+  labelStyle: PropTypes.string,
+  options: PropTypes.array.isRequired,
+  updateType: PropTypes.string.isRequired,
+  updateFormValue: PropTypes.func.isRequired,
+};
 
 export default SelectBox;

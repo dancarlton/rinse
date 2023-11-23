@@ -3,6 +3,7 @@ import ChevronLeftIcon from "@heroicons/react/24/solid/ChevronLeftIcon";
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 import moment from "moment";
 import { CALENDAR_EVENT_STYLE } from "./util";
+import PropTypes from "prop-types";
 
 const THEME_BG = CALENDAR_EVENT_STYLE;
 
@@ -188,5 +189,11 @@ function CalendarView({ calendarEvents, addNewEvent, openDayDetail }) {
     </>
   );
 }
+
+CalendarView.propTypes = {
+  calendarEvents: PropTypes.array.isRequired,
+  addNewEvent: PropTypes.func.isRequired,
+  openDayDetail: PropTypes.func.isRequired,
+};
 
 export default CalendarView;

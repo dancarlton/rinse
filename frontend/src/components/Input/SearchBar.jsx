@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 
 function SearchBar({ searchText, styleClass, placeholderText, setSearchText }) {
   const updateSearchInput = (value) => {
@@ -19,5 +20,12 @@ function SearchBar({ searchText, styleClass, placeholderText, setSearchText }) {
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  searchText: PropTypes.string.isRequired,
+  styleClass: PropTypes.string,
+  placeholderText: PropTypes.string,
+  setSearchText: PropTypes.func.isRequired,
+};
 
 export default SearchBar;

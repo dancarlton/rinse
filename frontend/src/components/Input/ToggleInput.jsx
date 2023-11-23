@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types"
 
 function ToogleInput({
   labelTitle,
@@ -33,5 +34,16 @@ function ToogleInput({
     </div>
   );
 }
+
+ToogleInput.propTypes = {
+  labelTitle: PropTypes.string.isRequired,
+  labelStyle: PropTypes.string,
+  type: PropTypes.string,
+  containerStyle: PropTypes.string,
+  defaultValue: PropTypes.bool,
+  placeholder: PropTypes.string,
+  updateFormValue: PropTypes.func.isRequired,
+  updateType: PropTypes.string.isRequired,
+};
 
 export default ToogleInput;

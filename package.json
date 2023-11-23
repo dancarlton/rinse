@@ -33,6 +33,7 @@
         "@fortawesome/fontawesome-free": "^6.4.2",
         "@sendgrid/mail": "^6.5.5",
         "bcryptjs": "^2.4.3",
+        "capitalize-the-first-letter": "^1.0.8",
         "colors": "^1.4.0",
         "compression": "^1.7.4",
         "connect-mongo": "^5.1.0",

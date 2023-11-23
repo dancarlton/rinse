@@ -1,4 +1,5 @@
 import Subtitle from "../Typography/Subtitle";
+import PropTypes from "prop-types";
 
 function TitleCard({ title, children, topMargin, TopSideButtons }) {
   return (
@@ -23,5 +24,12 @@ function TitleCard({ title, children, topMargin, TopSideButtons }) {
     </div>
   );
 }
+
+TitleCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  topMargin: PropTypes.string,
+  TopSideButtons: PropTypes.node,
+};
 
 export default TitleCard;
