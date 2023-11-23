@@ -1,11 +1,9 @@
-import moment from "moment";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import TitleCard from "../../../components/Cards/TitleCard";
-import { showNotification } from "../../common/headerSlice";
-import InputText from "../../../components/Input/InputText";
-import TextAreaInput from "../../../components/Input/TextAreaInput";
-import ToogleInput from "../../../components/Input/ToogleInput";
+import { useDispatch } from "react-redux";
+import TitleCard from "../../components/Cards/TitleCard";
+import { showNotification } from "../../slices/headerSlice";
+import InputText from "../../components/Input/InputText";
+import TextAreaInput from "../../components/Input/TextAreaInput";
+import ToogleInput from "../../components/Input/ToogleInput";
 
 function ProfileSettings() {
   const dispatch = useDispatch();

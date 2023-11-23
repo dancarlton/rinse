@@ -1,12 +1,11 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { showNotification } from "../common/headerSlice";
 import TitleCard from "../../components/Cards/TitleCard";
 import { RECENT_TRANSACTIONS } from "../../utils/dummyData";
 import FunnelIcon from "@heroicons/react/24/outline/FunnelIcon";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import SearchBar from "../../components/Input/SearchBar";
+import PropType from "prop-types";
 
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
   const [filterParam, setFilterParam] = useState("");
@@ -39,7 +38,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
         styleClass="mr-4"
         setSearchText={setSearchText}
       />
-      {filterParam != "" && (
+      {filterParam !== "" && (
         <button
           onClick={() => removeAppliedFilter()}
           className="btn btn-xs mr-2 btn-active btn-ghost normal-case">
@@ -156,5 +155,11 @@ function Transactions() {
     </>
   );
 }
+
+TopSideButtons.propTypes = {
+  removeFilter: PropType.func,
+  applyFilter: PropType.func,
+  applySearch: PropType.func,
+};
 
 export default Transactions;

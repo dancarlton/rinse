@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import NotificationBodyRightDrawer from "../../components/NotificationBodyRightDrawer"
 import { closeRightDrawer } from "../../slices/rightDrawerSlice";
 import { RIGHT_DRAWER_TYPES } from "../../utils/globalConstantUtil";
-import CalendarEventsBodyRightDrawer from "../../pages/protected/dashboard/CalendarEventsBodyRightDrawer";
+import CalendarEventsBodyRightDrawer from "../../components/CalendarView/CalendarEventsBodyRightDrawer";
 
 function RightSidebar() {
   const { isOpen, bodyType, extraObject, header } = useSelector(
