@@ -1,7 +1,8 @@
 import routes from "../../routes/sidebarRoutes"
 import { NavLink, Link, useLocation } from "react-router-dom";
 import SidebarSubmenu from "./SidebarSubmenu";
-import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 function LeftSidebar() {
   const location = useLocation();
@@ -19,7 +20,7 @@ function LeftSidebar() {
         <button
           className="btn btn-ghost bg-base-300  btn-circle z-50 top-0 right-0 mt-4 mr-2 absolute lg:hidden"
           onClick={() => close()}>
-          <XMarkIcon className="h-5 inline-block w-5" />
+          <FontAwesomeIcon icon={faXmark} className="h-5 inline-block w-5" />
         </button>
 
         <li className="mb-2 font-semibold text-xl">

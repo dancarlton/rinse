@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 
 function ConfirmationModalBody({ extraObject, closeModal }) {

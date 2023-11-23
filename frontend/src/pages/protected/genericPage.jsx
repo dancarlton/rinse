@@ -8,6 +8,7 @@ function InternalPage() {
 
   useEffect(() => {
     dispatch(setPageTitle({ title: "Generic" }));
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, []);
 
   return <Generic />;

@@ -1,5 +1,4 @@
 import React from 'react'
-import AutoComplete from '../components/AutoComplete'
 import { useLoadScript } from '@react-google-maps/api'
 
 import Map from '../components/Map'

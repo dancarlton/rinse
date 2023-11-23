@@ -88,6 +88,7 @@ const TEAM_MEMBERS = [
 ];
 
 function Team() {
+  /* eslint-disable-next-line no-unused-vars */
   const [members, setMembers] = useState(TEAM_MEMBERS);
 
   const getRoleComponent = (role) => {

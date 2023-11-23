@@ -1,4 +1,4 @@
-import { CALENDAR_EVENT_STYLE } from "components/dashboard/CalendarView/util";
+import { CALENDAR_EVENT_STYLE } from "./util";
 import PropTypes from "prop-types";
 
 const THEME_BG = CALENDAR_EVENT_STYLE;

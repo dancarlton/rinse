@@ -1,8 +1,7 @@
 import { MODAL_BODY_TYPES } from "../../utils/globalConstantUtil";
 import { useSelector, useDispatch } from "react-redux";
 import { closeModal } from "../../slices/modalSlice";
-import AddLeadModalBody from "../../components/addLeadModalBody"
-import ConfirmationModalBody from "../../components/confirmationModalBody"
+import ConfirmationModalBody from "../../components/ConfirmationModalBody"
 
 function ModalLayout() {
   const { isOpen, bodyType, size, extraObject, title } = useSelector(
@@ -32,10 +31,7 @@ function ModalLayout() {
           {
             {
               [MODAL_BODY_TYPES.LEAD_ADD_NEW]: (
-                <AddLeadModalBody
-                  closeModal={close}
-                  extraObject={extraObject}
-                />
+                <div className="p-4">Modal</div>
               ),
               [MODAL_BODY_TYPES.CONFIRMATION]: (
                 <ConfirmationModalBody

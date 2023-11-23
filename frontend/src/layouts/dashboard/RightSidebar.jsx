@@ -1,9 +1,10 @@
-import XMarkIcon from "@heroicons/react/24/solid/XMarkIcon";
 import { useDispatch, useSelector } from "react-redux";
 import NotificationBodyRightDrawer from "../../components/NotificationBodyRightDrawer"
 import { closeRightDrawer } from "../../slices/rightDrawerSlice";
 import { RIGHT_DRAWER_TYPES } from "../../utils/globalConstantUtil";
 import CalendarEventsBodyRightDrawer from "../../components/CalendarView/CalendarEventsBodyRightDrawer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 function RightSidebar() {
   const { isOpen, bodyType, extraObject, header } = useSelector(
@@ -34,7 +35,7 @@ function RightSidebar() {
             <button
               className="float-left btn btn-circle btn-outline btn-sm"
               onClick={() => close()}>
-              <XMarkIcon className="h-5 w-5" />
+              <FontAwesomeIcon icon={faXmark} className="h-5 w-5" />
             </button>
             <span className="ml-2 font-bold text-xl">{header}</span>
           </div>

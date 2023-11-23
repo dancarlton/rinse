@@ -105,6 +105,7 @@ const BILLS = [
 ];
 
 function Billing() {
+  /* eslint-disable-next-line no-unused-vars */
   const [bills, setBills] = useState(BILLS);
 
   const getPaymentStatus = (status) => {

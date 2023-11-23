@@ -1,9 +1,7 @@
-import { GoogleMap, InfoWindowF, MarkerF } from "@react-google-maps/api";
-import { useMemo, useState } from "react";
+import { GoogleMap, MarkerF } from "@react-google-maps/api";
+import { useMemo } from "react";
 import "../assets/styling/Root.css"
 import { useSelector } from "react-redux";
-import { handle } from "express/lib/router";
-import { map } from "ramda";
 import { mapStyle } from "../assets/styling/mapStyling";
 
 // Combination of https://github.com/JustFly1984/react-google-maps-api/tree/master/packages/react-google-maps-api

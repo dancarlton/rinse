@@ -24,11 +24,12 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
   };
 
   useEffect(() => {
-    if (searchText == "") {
+    if (searchText === "") {
       removeAppliedFilter();
     } else {
       applySearch(searchText);
     }
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [searchText]);
 
   return (
@@ -59,13 +60,13 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
           {locationFilters.map((l, k) => {
             return (
               <li key={k}>
-                <a onClick={() => showFiltersAndApply(l)}>{l}</a>
+                <button onClick={() => showFiltersAndApply(l)}>{l}</button>
               </li>
             );
           })}
           <div className="divider mt-0 mb-0"></div>
           <li>
-            <a onClick={() => removeAppliedFilter()}>Remove Filter</a>
+            <button onClick={() => removeAppliedFilter()}>Remove Filter</button>
           </li>
         </ul>
       </div>
@@ -82,7 +83,7 @@ function Transactions() {
 
   const applyFilter = (params) => {
     let filteredTransactions = RECENT_TRANSACTIONS.filter((t) => {
-      return t.location == params;
+      return t.location === params;
     });
     setTrans(filteredTransactions);
   };

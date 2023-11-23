@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 
 function SearchBar({ searchText, styleClass, placeholderText, setSearchText }) {
