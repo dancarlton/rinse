@@ -1,4 +1,4 @@
-import { themeChange } from 'theme-change';
+// import { themeChange } from 'theme-change';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { openRightDrawer } from '../../slices/rightDrawerSlice';
@@ -10,23 +10,23 @@ import { faBell, faMoon, faSun } from '@fortawesome/free-regular-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 function Header() {
-  const darkThemeOptions = [ 'dark', 'luxury', 'black']
-  const lightThemeOptinos = ['light', 'corporate', 'lofi']
+  const darkThemeOptions = ['dark', 'luxury', 'black'];
+  const lightThemeOptinos = ['light', 'corporate', 'lofi'];
   const dispatch = useDispatch();
   const { noOfNotifications, pageTitle } = useSelector((state) => state.header);
   const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('theme'));
 
-  useEffect(() => {
-    themeChange(false);
-    if (currentTheme === null) {
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        setCurrentTheme('black');
-      } else {
-        setCurrentTheme('lofi');
-      }
-    }
-    // 👆 false parameter is required for react project
-  }, [currentTheme]);
+  // useEffect(() => {
+  //   themeChange(false);
+  //   if (currentTheme === null) {
+  //     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  //       setCurrentTheme('black');
+  //     } else {
+  //       setCurrentTheme('lofi');
+  //     }
+  //   }
+  //   // 👆 false parameter is required for react project
+  // }, [currentTheme]);
 
   // Opening right sidebar for notification
   const openNotification = () => {
@@ -55,7 +55,7 @@ function Header() {
         </div>
 
         <div className="order-last">
-          {/* Multiple theme selection, uncomment this if you want to enable multiple themes selection, 
+          {/* Multiple theme selection, uncomment this if you want to enable multiple themes selection,
                 also includes corporate and retro themes in tailwind.config file */}
 
           {/* <select
@@ -81,7 +81,7 @@ function Header() {
               data-set-theme="lofi"
               data-act-class="ACTIVECLASS"
               className={
-                'fill-current w-6 h-6 ' + (currentTheme === 'black'  ? 'swap-on' : 'swap-off')
+                'fill-current w-6 h-6 ' + (currentTheme === 'black' ? 'swap-on' : 'swap-off')
               }
             />
             <FontAwesomeIcon

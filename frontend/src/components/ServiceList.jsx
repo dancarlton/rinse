@@ -30,14 +30,14 @@ const ServiceList = () => {
   return (
     <div className="services-list max-w-xl">
       {/* --------- Vertical Carousel -------- */}
-      <div className="h-screen w-screen carousel carousel-vertical rounded-box overflow-y-auto">
+      <div className=" w-screen carousel carousel-vertical rounded-box overflow-y-auto">
         {/* --------Choose a Wash------- */}
-        <h1 className="text-3xl lg:text-4xl font-bold">Choose a Wash</h1>
+        <h1 className="text-lg text-center lg:text-4xl lg:text-left font-bold">Choose a Wash</h1>
         {/* <div className="carousel-item h-full"> */}
 
         {/* -------Recommended--------- */}
         <h2 className="text-2xl font-bold">Recommended</h2>
-        <div className="carousel rounded-box  carousel-item">
+        <div className="carousel rounded-box carousel-item">
           {users.map((user) => (
             <Card
               key={user.id}

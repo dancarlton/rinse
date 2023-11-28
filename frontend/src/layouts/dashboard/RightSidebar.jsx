@@ -5,7 +5,6 @@ import { RIGHT_DRAWER_TYPES } from '../../utils/globalConstantUtil';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
-
 /* 
 To add new content follow these steps:
 1. Create new component file containing main body of your content that you want to appear in the right drawer
