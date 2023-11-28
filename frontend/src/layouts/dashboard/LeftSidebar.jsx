@@ -12,22 +12,22 @@ function LeftSidebar() {
   };
 
   return (
-    <div className="drawer-side">
-      <label htmlFor="left-sidebar-drawer" className="drawer-overlay"></label>
-      <ul className="menu  pt-2 w-80 bg-base-100 text-base-content">
+    <div className='drawer-side'>
+      <label htmlFor='left-sidebar-drawer' className='drawer-overlay'></label>
+      <ul className='menu  pt-2 w-80 bg-base-100 text-base-content'>
         <button
-          className="btn btn-ghost bg-base-300  btn-circle z-50 top-0 right-0 mt-4 mr-2 absolute lg:hidden"
+          className='btn btn-ghost bg-base-300  btn-circle z-50 top-0 right-0 mt-4 mr-2 absolute lg:hidden'
           onClick={() => close()}
         >
-          <FontAwesomeIcon icon={faXmark} className="h-5 inline-block w-5" />
+          <FontAwesomeIcon icon={faXmark} className='h-5 inline-block w-5' />
         </button>
 
-        <li className="mb-2 font-semibold text-xl">
+        <li className='mb-2 font-semibold text-xl'>
           <Link to={'/'}>
             <img
-              className="mask mask-squircle w-10"
-              src="https://picsum.photos/80/80"
-              alt="Rinse Logo"
+              className='mask mask-squircle w-10'
+              src='https://picsum.photos/80/80'
+              alt='Rinse Logo'
             />
             Rinse
           </Link>{' '}
@@ -48,8 +48,8 @@ function LeftSidebar() {
                   {route.icon} {route.name}
                   {location.pathname === route.path ? (
                     <span
-                      className="absolute inset-y-0 left-0 w-1 rounded-tr-md rounded-br-md bg-primary"
-                      aria-hidden="true"
+                      className='absolute inset-y-0 left-0 w-1 rounded-tr-md rounded-br-md bg-primary'
+                      aria-hidden='true'
                     ></span>
                   ) : null}
                 </NavLink>

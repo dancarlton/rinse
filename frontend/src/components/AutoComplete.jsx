@@ -34,7 +34,7 @@ const AutoComplete = () => {
           onChange: handleSelect,
           placeholder: 'select location',
         }}
-        nearbyPlacesAPI="GooglePlacesSearch"
+        nearbyPlacesAPI='GooglePlacesSearch'
         debounce={400}
         minLengthAutocomplete={2}
       />

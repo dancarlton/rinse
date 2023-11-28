@@ -12,9 +12,9 @@ const TopSideButtons = () => {
   };
 
   return (
-    <div className="inline-block float-right">
+    <div className='inline-block float-right'>
       <button
-        className="btn px-6 btn-sm normal-case btn-primary"
+        className='btn px-6 btn-sm normal-case btn-primary'
         onClick={() => addNewTeamMember()}
       >
         Invite New
@@ -91,11 +91,11 @@ function Team() {
   const [members, setMembers] = useState(TEAM_MEMBERS);
 
   const getRoleComponent = (role) => {
-    if (role === 'Admin') return <div className="badge badge-secondary">{role}</div>;
-    if (role === 'Manager') return <div className="badge">{role}</div>;
-    if (role === 'Owner') return <div className="badge badge-primary">{role}</div>;
-    if (role === 'Support') return <div className="badge badge-accent">{role}</div>;
-    else return <div className="badge badge-ghost">{role}</div>;
+    if (role === 'Admin') return <div className='badge badge-secondary'>{role}</div>;
+    if (role === 'Manager') return <div className='badge'>{role}</div>;
+    if (role === 'Owner') return <div className='badge badge-primary'>{role}</div>;
+    if (role === 'Support') return <div className='badge badge-accent'>{role}</div>;
+    else return <div className='badge badge-ghost'>{role}</div>;
   };
 
   const dispatch = useDispatch();
@@ -106,10 +106,10 @@ function Team() {
 
   return (
     <>
-      <TitleCard title="Active Members" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
+      <TitleCard title='Active Members' topMargin='mt-2' TopSideButtons={<TopSideButtons />}>
         {/* Team Member list in table format loaded constant */}
-        <div className="overflow-x-auto w-full">
-          <table className="table w-full">
+        <div className='overflow-x-auto w-full'>
+          <table className='table w-full'>
             <thead>
               <tr>
                 <th>Name</th>
@@ -124,14 +124,14 @@ function Team() {
                 return (
                   <tr key={k}>
                     <td>
-                      <div className="flex items-center space-x-3">
-                        <div className="avatar">
-                          <div className="mask mask-circle w-12 h-12">
-                            <img src={l.avatar} alt="Avatar" />
+                      <div className='flex items-center space-x-3'>
+                        <div className='avatar'>
+                          <div className='mask mask-circle w-12 h-12'>
+                            <img src={l.avatar} alt='Avatar' />
                           </div>
                         </div>
                         <div>
-                          <div className="font-bold">{l.name}</div>
+                          <div className='font-bold'>{l.name}</div>
                         </div>
                       </div>
                     </td>

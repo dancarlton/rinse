@@ -19,9 +19,9 @@ function SidebarSubmenu({ submenu, name, icon }) {
   }, [location.pathname, submenu]);
 
   return (
-    <div className="flex-col">
+    <div className='flex-col'>
       {/** Route header */}
-      <div className="w-full" onClick={() => setIsExpanded(!isExpanded)}>
+      <div className='w-full' onClick={() => setIsExpanded(!isExpanded)}>
         {icon} {name}
         <FontAwesomeIcon
           icon={faChevronDown}
@@ -42,8 +42,8 @@ function SidebarSubmenu({ submenu, name, icon }) {
                   {m.icon} {m.name}
                   {location.pathname === m.path ? (
                     <span
-                      className="absolute mt-1 mb-1 inset-y-0 left-0 w-1 rounded-tr-md rounded-br-md bg-primary "
-                      aria-hidden="true"
+                      className='absolute mt-1 mb-1 inset-y-0 left-0 w-1 rounded-tr-md rounded-br-md bg-primary '
+                      aria-hidden='true'
                     ></span>
                   ) : null}
                 </Link>

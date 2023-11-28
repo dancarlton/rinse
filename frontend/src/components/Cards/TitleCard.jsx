@@ -9,13 +9,13 @@ function TitleCard({ title, children, topMargin, TopSideButtons }) {
         {title}
 
         {/* Top side button, show only if present */}
-        {TopSideButtons && <div className="inline-block float-right">{TopSideButtons}</div>}
+        {TopSideButtons && <div className='inline-block float-right'>{TopSideButtons}</div>}
       </Subtitle>
 
-      <div className="divider mt-2"></div>
+      <div className='divider mt-2'></div>
 
       {/** Card Body */}
-      <div className="h-full w-full pb-6 bg-base-100">{children}</div>
+      <div className='h-full w-full pb-6 bg-base-100'>{children}</div>
     </div>
   );
 }

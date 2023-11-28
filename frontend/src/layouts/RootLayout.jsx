@@ -21,7 +21,7 @@ function App() {
     }
   }, [currentUser, dispatch]); // Only re-run if currentUser or dispatch changes
   return (
-    <div className="overflow-hidden">
+    <div className='overflow-hidden'>
       <header>
         <Navbar />
       </header>

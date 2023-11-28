@@ -20,17 +20,18 @@ const MapPage = () => {
     <div className="flex flex-col-reverse justify-center lg:flex-row w-full relative ">
 
       {/* Search for Services */}
+
       <div className="">
         <ServiceSearchMap />
       </div>
 
       {/* Render the Service List */}
-      {latitude !== 0 && <ServiceList className="w-full"/>}
+      {latitude !== 0 && <ServiceList className="" />}
 
       {/* Render Map Component */}
       {isLoaded && (
         <div>
-          <div className="grid grow h-[75vh] fixed inset w-full lg:w-[500px] -z-10 lg:z-10">
+          <div className="grid grow h-[75vh] lg:w-[500px]">
             <Map />
           </div>
         </div>

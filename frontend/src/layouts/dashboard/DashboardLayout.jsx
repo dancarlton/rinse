@@ -7,8 +7,8 @@ function Layout() {
   return (
     <>
       {/* Left drawer - containing page content and side bar (always open) */}
-      <div className="drawer drawer-mobile lg:drawer-open">
-        <input id="left-sidebar-drawer" type="checkbox" className="drawer-toggle" />
+      <div className='drawer drawer-mobile lg:drawer-open'>
+        <input id='left-sidebar-drawer' type='checkbox' className='drawer-toggle' />
         <PageContent />
         <LeftSidebar />
       </div>
