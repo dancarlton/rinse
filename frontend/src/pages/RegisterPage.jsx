@@ -61,41 +61,41 @@ const RegisterPage = () => {
 
   return (
     <>
-      <div className="flex min-h-full flex-col justify-center px-6 pb-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className='flex min-h-full flex-col justify-center px-6 pb-12 lg:px-8'>
+        <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
           {/* <img
             className="mx-auto h-10 w-auto"
             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
             alt="Your Company"
           /> */}
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight">
+          <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight'>
             Register for an account!
           </h2>
         </div>
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm form-control">
-          <form className="space-y-6" action="/" method="POST">
+        <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm form-control'>
+          <form className='space-y-6' action='/' method='POST'>
             <div>
-              <label htmlFor="email" className="label">
-                <span className="label-text">Email address</span>
+              <label htmlFor='email' className='label'>
+                <span className='label-text'>Email address</span>
               </label>
-              <div className="mt-2">
+              <div className='mt-2'>
                 <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  placeholder="email@example.com"
-                  className="input input-bordered w-full block"
+                  id='email'
+                  name='email'
+                  type='email'
+                  autoComplete='email'
+                  placeholder='email@example.com'
+                  className='input input-bordered w-full block'
                   onChange={({ target }) => setEmail(target.value)}
                 />
               </div>
             </div>
 
             <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="label">
-                  <span className="label-text">Password</span>
-                  <button className="mx-3" onClick={handlePasswordVisibility}>
+              <div className='flex items-center justify-between'>
+                <label htmlFor='password' className='label'>
+                  <span className='label-text'>Password</span>
+                  <button className='mx-3' onClick={handlePasswordVisibility}>
                     {passwordVisible ? (
                       <FontAwesomeIcon icon={faEyeSlash} />
                     ) : (
@@ -104,35 +104,35 @@ const RegisterPage = () => {
                   </button>
                 </label>
               </div>
-              <div className="mt-2">
+              <div className='mt-2'>
                 {passwordVisible ? (
                   <input
-                    id="password"
-                    name="password"
-                    type="text" // this is difference
-                    autoComplete="current-password"
-                    placeholder="Enter Password Here"
-                    className="input input-bordered w-full block"
+                    id='password'
+                    name='password'
+                    type='text' // this is difference
+                    autoComplete='current-password'
+                    placeholder='Enter Password Here'
+                    className='input input-bordered w-full block'
                     onChange={({ target }) => setPassword(target.value)}
                   />
                 ) : (
                   <input
-                    id="password"
-                    name="password"
-                    type="password" // this is difference
-                    autoComplete="current-password"
-                    placeholder="Enter Password Here"
-                    className="input input-bordered w-full block"
+                    id='password'
+                    name='password'
+                    type='password' // this is difference
+                    autoComplete='current-password'
+                    placeholder='Enter Password Here'
+                    className='input input-bordered w-full block'
                     onChange={({ target }) => setPassword(target.value)}
                   />
                 )}
               </div>
             </div>
             <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="verify-password" className="label">
-                  <span className="label-text">Verify Password</span>
-                  <button className="mx-3" onClick={handlePasswordVisibility}>
+              <div className='flex items-center justify-between'>
+                <label htmlFor='verify-password' className='label'>
+                  <span className='label-text'>Verify Password</span>
+                  <button className='mx-3' onClick={handlePasswordVisibility}>
                     {passwordVisible ? (
                       <FontAwesomeIcon icon={faEyeSlash} />
                     ) : (
@@ -141,25 +141,25 @@ const RegisterPage = () => {
                   </button>
                 </label>
               </div>
-              <div className="mt-2">
+              <div className='mt-2'>
                 {passwordVisible ? (
                   <input
-                    id="verify-password"
-                    name="verify-password"
-                    type="text" // this is difference
-                    autoComplete="current-password"
-                    placeholder="Retype Password Here"
-                    className="input input-bordered w-full block"
+                    id='verify-password'
+                    name='verify-password'
+                    type='text' // this is difference
+                    autoComplete='current-password'
+                    placeholder='Retype Password Here'
+                    className='input input-bordered w-full block'
                     onChange={({ target }) => setVerifyPassword(target.value)}
                   />
                 ) : (
                   <input
-                    id="verify-password"
-                    name="verify-password"
-                    type="password" // this is difference
-                    autoComplete="current-password"
-                    placeholder="Retype Password Here"
-                    className="input input-bordered w-full block"
+                    id='verify-password'
+                    name='verify-password'
+                    type='password' // this is difference
+                    autoComplete='current-password'
+                    placeholder='Retype Password Here'
+                    className='input input-bordered w-full block'
                     onChange={({ target }) => setVerifyPassword(target.value)}
                   />
                 )}
@@ -168,8 +168,8 @@ const RegisterPage = () => {
 
             <div>
               <button
-                type="submit"
-                className="btn btn-block btn-primary"
+                type='submit'
+                className='btn btn-block btn-primary'
                 onClick={handleLocalRegister}
               >
                 Register
@@ -178,22 +178,22 @@ const RegisterPage = () => {
             <hr />
             <div>
               <button
-                type="submit"
-                className="btn btn-block btn-secondary"
+                type='submit'
+                className='btn btn-block btn-secondary'
                 onClick={handleGoogleLogin}
               >
                 Register with{' '}
-                <i className="pl-1">
+                <i className='pl-1'>
                   <FontAwesomeIcon icon={faGoogle} />
                 </i>
               </button>
             </div>
           </form>
-          <p className="mt-10 text-center text-sm text-gray-500">
+          <p className='mt-10 text-center text-sm text-gray-500'>
             Already have an account?{' '}
             <Link
-              to="/login"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+              to='/login'
+              className='font-semibold leading-6 text-indigo-600 hover:text-indigo-500'
             >
               {' '}
               Login Here

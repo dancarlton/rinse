@@ -7,7 +7,7 @@ const ServiceList = () => {
 
   async function fetchData() {
     try {
-      const response = await fetch('http://localhost:5100/api/users');
+      const response = await fetch('http://localhost:5000/api/users');
       const data = await response.json();
 
       // Corrected the variable name here
@@ -28,16 +28,16 @@ const ServiceList = () => {
   console.log(users);
 
   return (
-    <div className="services-list max-w-xl">
+    <div className='services-list max-w-xl'>
       {/* --------- Vertical Carousel -------- */}
-      <div className="h-screen w-screen carousel carousel-vertical rounded-box overflow-y-auto">
+      <div className='h-screen w-screen carousel carousel-vertical rounded-box overflow-y-auto'>
         {/* --------Choose a Wash------- */}
-        <h1 className="text-3xl lg:text-4xl font-bold">Choose a Wash</h1>
+        <h1 className='text-3xl lg:text-4xl font-bold'>Choose a Wash</h1>
         {/* <div className="carousel-item h-full"> */}
 
         {/* -------Recommended--------- */}
-        <h2 className="text-2xl font-bold">Recommended</h2>
-        <div className="carousel rounded-box  carousel-item">
+        <h2 className='text-2xl font-bold'>Recommended</h2>
+        <div className='carousel rounded-box  carousel-item'>
           {users.map((user) => (
             <Card
               key={user.id}
@@ -52,8 +52,8 @@ const ServiceList = () => {
           ))}
         </div>
         {/* --------- Best Deals --------- */}
-        <h2 className="text-2xl font-bold">Best Deals</h2>
-        <div className="carousel rounded-box carousel-item">
+        <h2 className='text-2xl font-bold'>Best Deals</h2>
+        <div className='carousel rounded-box carousel-item'>
           {users.map((user) => (
             <Card
               key={user.id}
@@ -66,8 +66,8 @@ const ServiceList = () => {
           ))}
         </div>
         {/* -------- Quickest ---------- */}
-        <h2 className="text-2xl font-bold">Quickest Service</h2>
-        <div className="carousel rounded-box  carousel-item">
+        <h2 className='text-2xl font-bold'>Quickest Service</h2>
+        <div className='carousel rounded-box  carousel-item'>
           {users.map((user) => (
             <Card
               key={user.id}

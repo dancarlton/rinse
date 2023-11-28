@@ -111,9 +111,9 @@ function Billing() {
   const [bills, setBills] = useState(BILLS);
 
   const getPaymentStatus = (status) => {
-    if (status === 'Paid') return <div className="badge badge-success">{status}</div>;
-    if (status === 'Pending') return <div className="badge badge-primary">{status}</div>;
-    else return <div className="badge badge-ghost">{status}</div>;
+    if (status === 'Paid') return <div className='badge badge-success'>{status}</div>;
+    if (status === 'Pending') return <div className='badge badge-primary'>{status}</div>;
+    else return <div className='badge badge-ghost'>{status}</div>;
   };
 
   const dispatch = useDispatch();
@@ -124,10 +124,10 @@ function Billing() {
 
   return (
     <>
-      <TitleCard title="Billing History" topMargin="mt-2">
+      <TitleCard title='Billing History' topMargin='mt-2'>
         {/* Invoice list in table format loaded constant */}
-        <div className="overflow-x-auto w-full">
-          <table className="table w-full">
+        <div className='overflow-x-auto w-full'>
+          <table className='table w-full'>
             <thead>
               <tr>
                 <th>Invoice No</th>

@@ -9,14 +9,14 @@ function ConfirmationModalBody({ extraObject, closeModal }) {
 
   return (
     <>
-      <p className=" text-xl mt-8 text-center">{message}</p>
+      <p className=' text-xl mt-8 text-center'>{message}</p>
 
-      <div className="modal-action mt-12">
-        <button className="btn btn-outline   " onClick={() => closeModal()}>
+      <div className='modal-action mt-12'>
+        <button className='btn btn-outline   ' onClick={() => closeModal()}>
           Cancel
         </button>
 
-        <button className="btn btn-primary w-36" onClick={() => proceedWithYes()}>
+        <button className='btn btn-primary w-36' onClick={() => proceedWithYes()}>
           Yes
         </button>
       </div>

@@ -22,7 +22,7 @@ const Map = () => {
           zoomControl: true,
           fullscreenControl: true,
         }}
-        mapContainerClassName="rounded"
+        mapContainerClassName='rounded'
         center={center}
         zoom={12}
       >

@@ -43,14 +43,14 @@ const Bell = () => {
   // );
 
   return (
-    <div className="notification-bell">
-      <div className="bell-icon w-7 h-7" onClick={toggleVisibility}>
-        <img src="/images/icons/bell-white.png" alt="White Notification Bell" />
+    <div className='notification-bell'>
+      <div className='bell-icon w-7 h-7' onClick={toggleVisibility}>
+        <img src='/images/icons/bell-white.png' alt='White Notification Bell' />
         {/* <img src="/images/icons/bell-black.png" alt="Black Notification Bell" /> */}
         {/* <span className="bell-count">{notifications.length}</span> */}
       </div>
       {isVisible && (
-        <div className="notification-list">
+        <div className='notification-list'>
           <ul>
             {notifications.map((notification) => (
               <div key={notification.ObjectId}> {notification.title}</div>

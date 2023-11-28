@@ -35,25 +35,25 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
   }, [searchText]);
 
   return (
-    <div className="inline-block float-right">
-      <SearchBar searchText={searchText} styleClass="mr-4" setSearchText={setSearchText} />
+    <div className='inline-block float-right'>
+      <SearchBar searchText={searchText} styleClass='mr-4' setSearchText={setSearchText} />
       {filterParam !== '' && (
         <button
           onClick={() => removeAppliedFilter()}
-          className="btn btn-xs mr-2 btn-active btn-ghost normal-case"
+          className='btn btn-xs mr-2 btn-active btn-ghost normal-case'
         >
           {filterParam}
-          <FontAwesomeIcon icon={faXmark} className="w-4 ml-2" />
+          <FontAwesomeIcon icon={faXmark} className='w-4 ml-2' />
         </button>
       )}
-      <div className="dropdown dropdown-bottom dropdown-end">
-        <label tabIndex={0} className="btn btn-sm btn-outline">
-          <FontAwesomeIcon icon={faFilter} className="w-5 mr-2" />
+      <div className='dropdown dropdown-bottom dropdown-end'>
+        <label tabIndex={0} className='btn btn-sm btn-outline'>
+          <FontAwesomeIcon icon={faFilter} className='w-5 mr-2' />
           Filter
         </label>
         <ul
           tabIndex={0}
-          className="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52"
+          className='dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52'
         >
           {locationFilters.map((l, k) => {
             return (
@@ -62,7 +62,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
               </li>
             );
           })}
-          <div className="divider mt-0 mb-0"></div>
+          <div className='divider mt-0 mb-0'></div>
           <li>
             <button onClick={() => removeAppliedFilter()}>Remove Filter</button>
           </li>
@@ -106,8 +106,8 @@ function Transactions() {
   return (
     <>
       <TitleCard
-        title="Recent Transactions"
-        topMargin="mt-2"
+        title='Recent Transactions'
+        topMargin='mt-2'
         TopSideButtons={
           <TopSideButtons
             applySearch={applySearch}
@@ -117,8 +117,8 @@ function Transactions() {
         }
       >
         {/* Team Member list in table format loaded constant */}
-        <div className="overflow-x-auto w-full">
-          <table className="table w-full">
+        <div className='overflow-x-auto w-full'>
+          <table className='table w-full'>
             <thead>
               <tr>
                 <th>Name</th>
@@ -133,14 +133,14 @@ function Transactions() {
                 return (
                   <tr key={k}>
                     <td>
-                      <div className="flex items-center space-x-3">
-                        <div className="avatar">
-                          <div className="mask mask-circle w-12 h-12">
-                            <img src={l.avatar} alt="Avatar" />
+                      <div className='flex items-center space-x-3'>
+                        <div className='avatar'>
+                          <div className='mask mask-circle w-12 h-12'>
+                            <img src={l.avatar} alt='Avatar' />
                           </div>
                         </div>
                         <div>
-                          <div className="font-bold">{l.name}</div>
+                          <div className='font-bold'>{l.name}</div>
                         </div>
                       </div>
                     </td>

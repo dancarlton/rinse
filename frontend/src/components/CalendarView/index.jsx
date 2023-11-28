@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
-
 const THEME_BG = CALENDAR_EVENT_STYLE;
 
 function CalendarView({ calendarEvents, addNewEvent, openDayDetail }) {
@@ -97,42 +96,42 @@ function CalendarView({ calendarEvents, addNewEvent, openDayDetail }) {
 
   return (
     <>
-      <div className="w-full  bg-base-100 p-4 rounded-lg">
-        <div className="flex items-center justify-between">
-          <div className="flex  justify-normal gap-2 sm:gap-4">
-            <p className="font-semibold text-xl w-48">
+      <div className='w-full  bg-base-100 p-4 rounded-lg'>
+        <div className='flex items-center justify-between'>
+          <div className='flex  justify-normal gap-2 sm:gap-4'>
+            <p className='font-semibold text-xl w-48'>
               {moment(firstDayOfMonth).format('MMMM yyyy').toString()}
-              <span className="text-xs ml-2 ">Beta</span>
+              <span className='text-xs ml-2 '>Beta</span>
             </p>
 
-            <button className="btn  btn-square btn-sm btn-ghost" onClick={getPrevMonth}>
-              <FontAwesomeIcon icon={faChevronLeft} className="w-5 h-5" />
+            <button className='btn  btn-square btn-sm btn-ghost' onClick={getPrevMonth}>
+              <FontAwesomeIcon icon={faChevronLeft} className='w-5 h-5' />
             </button>
-            <button className="btn  btn-sm btn-ghost normal-case" onClick={getCurrentMonth}>
+            <button className='btn  btn-sm btn-ghost normal-case' onClick={getCurrentMonth}>
               Current Month
             </button>
-            <button className="btn btn-square btn-sm btn-ghost" onClick={getNextMonth}>
-              <FontAwesomeIcon icon={faChevronRight} className="w-5 h-5" />
+            <button className='btn btn-square btn-sm btn-ghost' onClick={getNextMonth}>
+              <FontAwesomeIcon icon={faChevronRight} className='w-5 h-5' />
             </button>
           </div>
           <div>
-            <button className="btn  btn-sm btn-ghost btn-outline normal-case" onClick={addNewEvent}>
+            <button className='btn  btn-sm btn-ghost btn-outline normal-case' onClick={addNewEvent}>
               Add New Event
             </button>
           </div>
         </div>
-        <div className="my-4 divider" />
-        <div className="grid grid-cols-7 gap-6 sm:gap-12 place-items-center">
+        <div className='my-4 divider' />
+        <div className='grid grid-cols-7 gap-6 sm:gap-12 place-items-center'>
           {weekdays.map((day, key) => {
             return (
-              <div className="text-xs capitalize" key={key}>
+              <div className='text-xs capitalize' key={key}>
                 {day}
               </div>
             );
           })}
         </div>
 
-        <div className="grid grid-cols-7 mt-1  place-items-center">
+        <div className='grid grid-cols-7 mt-1  place-items-center'>
           {allDaysInMonth().map((day, idx) => {
             return (
               <div

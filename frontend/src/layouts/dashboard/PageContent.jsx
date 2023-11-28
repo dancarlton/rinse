@@ -19,9 +19,9 @@ function PageContent() {
   }, [pageTitle]);
 
   return (
-    <div className="drawer-content flex flex-col ">
+    <div className='drawer-content flex flex-col '>
       <Header />
-      <main className="flex-1 overflow-y-auto pt-8 px-6  bg-base-200" ref={mainContentRef}>
+      <main className='flex-1 overflow-y-auto pt-8 px-6  bg-base-200' ref={mainContentRef}>
         <Suspense fallback={<SuspenseContent />}>
           <Routes>
             {routes.map((route, key) => {
@@ -36,10 +36,10 @@ function PageContent() {
               );
             })}
             {/* Redirecting unknown url to 404 page */}
-            <Route path="*" element={<ErrorPage />} />
+            <Route path='*' element={<ErrorPage />} />
           </Routes>
         </Suspense>
-        <div className="h-16"></div>
+        <div className='h-16'></div>
       </main>
     </div>
   );

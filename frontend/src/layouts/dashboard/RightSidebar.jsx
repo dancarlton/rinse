@@ -5,7 +5,6 @@ import { RIGHT_DRAWER_TYPES } from '../../utils/globalConstantUtil';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
-
 /* 
 To add new content follow these steps:
 1. Create new component file containing main body of your content that you want to appear in the right drawer
@@ -51,21 +50,21 @@ function RightSidebar() {
           (isOpen ? ' translate-x-0 ' : ' translate-x-full ')
         }
       >
-        <div className="relative  pb-5 flex flex-col  h-full">
+        <div className='relative  pb-5 flex flex-col  h-full'>
           {/* Header */}
-          <div className="navbar   flex pl-4 pr-4   shadow-md ">
+          <div className='navbar   flex pl-4 pr-4   shadow-md '>
             <button
-              className="float-left btn btn-circle btn-outline btn-sm"
+              className='float-left btn btn-circle btn-outline btn-sm'
               onClick={() => close()}
             >
-              <FontAwesomeIcon icon={faXmark} className="h-5 w-5" />
+              <FontAwesomeIcon icon={faXmark} className='h-5 w-5' />
             </button>
-            <span className="ml-2 font-bold text-xl">{header}</span>
+            <span className='ml-2 font-bold text-xl'>{header}</span>
           </div>
 
           {/* ------------------ Content Start ------------------ */}
-          <div className="overflow-y-scroll pl-4 pr-4">
-            <div className="flex flex-col w-full">
+          <div className='overflow-y-scroll pl-4 pr-4'>
+            <div className='flex flex-col w-full'>
               {/* Loading drawer body according to different drawer type */}
               {
                 {
@@ -81,7 +80,7 @@ function RightSidebar() {
         </div>
       </section>
 
-      <section className=" w-screen h-full cursor-pointer " onClick={() => close()}></section>
+      <section className=' w-screen h-full cursor-pointer ' onClick={() => close()}></section>
     </div>
   );
 }
