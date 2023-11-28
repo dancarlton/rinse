@@ -17,21 +17,20 @@ const MapPage = () => {
   const latitude = useSelector((state) => state.nav.origin.location.latitude);
 
   return (
-    <div className="flex flex-col-reverse justify-center lg:flex-row w-full relative ">
-
+    <div className='flex flex-col-reverse justify-center lg:flex-row w-full relative '>
       {/* Search for Services */}
 
-      <div className="">
+      <div className=''>
         <ServiceSearchMap />
       </div>
 
       {/* Render the Service List */}
-      {latitude !== 0 && <ServiceList className="" />}
+      {latitude !== 0 && <ServiceList className='' />}
 
       {/* Render Map Component */}
       {isLoaded && (
         <div>
-          <div className="grid grow h-[75vh] lg:w-[500px]">
+          <div className='grid grow h-[75vh] lg:w-[500px]'>
             <Map />
           </div>
         </div>

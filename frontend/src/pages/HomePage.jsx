@@ -3,10 +3,9 @@ import ServiceSearch from '../components/ServiceSearch';
 import coverPhoto from '../assets/images/rinse-cover.jpeg';
 
 const HomePage = () => (
-  <div className='flex flex-col lg:flex-row w-full px-2 lg:p-8'>
-  <div className="flex flex-col lg:flex-row w-full px-2 lg:p-8 lg:pt-20 items-center">
+  <div className='flex flex-col lg:flex-row w-full px-2 lg:p-8 lg:pt-20 items-center'>
     {/* Search For Services */}
-    <div className="lg:order-1 lg:w-8/12 grow">
+    <div className='lg:order-1 lg:w-8/12 grow'>
       <ServiceSearch />
     </div>
 
