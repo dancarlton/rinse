@@ -30,6 +30,7 @@ const Navbar = () => {
   return (
     <div className='navbar bg-base-100 top-0 z-50 p-4 w-full '>
       <div className='navbar-start'>
+        {/* Hamburger */}
         <div className='dropdown'>
           <label tabIndex={0} className='btn btn-ghost lg:hidden'>
             <svg
@@ -51,9 +52,11 @@ const Navbar = () => {
             tabIndex={0}
             className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'
           >
+            {/* This is the mobile menu */}
             <li>
               <NavLink to='/'>Home</NavLink>
             </li>
+            {/* If user NOT logged in */}
             {!userInfo && (
               <>
                 <li>
@@ -73,13 +76,26 @@ const Navbar = () => {
                 </li>
               </>
             )}
+            {/* If user IS logged in */}
             {userInfo && (
-              <li>
-                <button onClick={logoutHandler}>Log out</button>
-              </li>
+              <>
+                <li>
+                  <button onClick={logoutHandler}>Log out</button>
+                </li>
+                <li>
+                  <NavLink to='/dashboard'>Dashboard</NavLink>
+                </li>
+              </>
             )}
+            {/* Always shown */}
             <li>
               <NavLink to='/contact'>Contact Us</NavLink>
+            </li>
+            <li>
+              <NavLink to='/map'>The Map</NavLink>
+            </li>
+            <li>
+              <NavLink to='/provider/John%20Smith'>Generic Provider Page</NavLink>
             </li>
           </ul>
         </div>
@@ -87,12 +103,13 @@ const Navbar = () => {
           Rinse
         </NavLink>
       </div>
+      {/* Desktop view navbar */}
       <div className='navbar-center hidden lg:flex'>
         <ul className='menu menu-horizontal px-1'>
           <li>
             <NavLink to='/'>Home</NavLink>
           </li>
-
+          {/* If user NOT logged in */}
           {!userInfo && (
             <>
               <li>
@@ -113,16 +130,30 @@ const Navbar = () => {
               </li>
             </>
           )}
+          {/* If user IS logged in */}
           {userInfo && (
-            <li>
-              <button onClick={logoutHandler}>Log out</button>
-            </li>
+            <>
+              <li>
+                <button onClick={logoutHandler}>Log out</button>
+              </li>
+              <li>
+                <NavLink to='/dashboard'>Dashboard</NavLink>
+              </li>
+            </>
           )}
+          {/* Always shown */}
           <li>
             <NavLink to='/contact'>Contact Us</NavLink>
           </li>
+          <li>
+            <NavLink to='/map'>The Map</NavLink>
+          </li>
+          <li>
+            <NavLink to='/provider/John%20Smith'>Generic Provider Page</NavLink>
+          </li>
         </ul>
       </div>
+      {/* The right side of the navbar */}
       <div className='navbar-end'>
         <ThemeSwitch />
         {userInfo && (

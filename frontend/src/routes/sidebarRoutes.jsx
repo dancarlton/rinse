@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faDollarSign,
   faGear,
+  faHouse,
   faPeopleGroup,
   faTableList,
   faUserAlt,
@@ -14,11 +15,15 @@ const submenuIconClasses = `h-5 w-5`;
 
 const routes = [
   {
+    path: '/',
+    icon: <FontAwesomeIcon icon={faHouse} className={iconClasses} />,
+    name: 'Home',
+  },
+  {
     path: '/dashboard',
     icon: <FontAwesomeIcon icon={faTableList} className={iconClasses} />,
     name: 'Dashboard',
   },
-
   {
     path: '/dashboard/transactions', // url
     icon: <FontAwesomeIcon icon={faDollarSign} className={iconClasses} />,

@@ -10,8 +10,8 @@ import { faBell, faMoon, faSun } from '@fortawesome/free-regular-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 function Header() {
-  const darkThemeOptions = ['dark', 'luxury', 'black'];
-  const lightThemeOptinos = ['light', 'corporate', 'lofi'];
+  // const darkThemeOptions = ['dark', 'luxury', 'black'];
+  // const lightThemeOptinos = ['light', 'corporate', 'lofi'];
   const dispatch = useDispatch();
   const { noOfNotifications, pageTitle } = useSelector((state) => state.header);
   const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('theme'));
