@@ -3,26 +3,26 @@ import PropTypes from 'prop-types';
 import '../index.css';
 import { Link } from 'react-router-dom';
 
-const Card = ({ id, profileImage, name, altText, services, reviews, serviceArea }) => {
+const Card = ({ service, servicerName, numReviews, serviceArea }) => {
   return (
-    <Link to={`/provider/${name}`} className='card-link'>
+    <Link to={`/provider/${servicerName}`} className='card-link'>
       {/* Option 1 (built from scratch) */}
       <div className='contacts'>
         <div className='carousel-item rounded-box card-container flex-col'>
           <div>
             <img
-              src={profileImage || 'images/icons/service-missing.png'}
-              alt={altText}
+              src={service.photo || 'images/icons/service-missing.png'}
+              alt='A car being serviced'
               className='card-img border-black'
             />
           </div>
           <div className='bg-white'>
             <div className='flex'>
-              <h1 className='card-title font-bold'>{services.name}</h1>
-              <p className='font-light mt-2.5 text-slate-500'>({reviews.length})</p>
+              <h1 className='card-title font-bold'>{service.name}</h1>
+              <p className='font-light mt-2.5 text-slate-500'>({numReviews})</p>
             </div>
             <div className='card-description mt-0'>
-              <p className='font-semibold'>${services.price}</p>
+              <p className='font-semibold'>${service.price}</p>
               <span className='font-normal'>{serviceArea}</span>
             </div>
           </div>
@@ -33,19 +33,17 @@ const Card = ({ id, profileImage, name, altText, services, reviews, serviceArea 
 };
 
 Card.propTypes = {
-  id: PropTypes.string.isRequired,
-  profileImage: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  altText: PropTypes.string.isRequired,
-  services: PropTypes.arrayOf(
-    PropTypes.shape({
-      rating: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-    })
-  ).isRequired,
-  reviews: PropTypes.string.isRequired,
-  serviceArea: PropTypes.string.isRequired,
+  servicerName: PropTypes.string,
+  service: PropTypes.shape({
+    name: PropTypes.string,
+    description: PropTypes.string,
+    estimatedTime: PropTypes.number,
+    photo: PropTypes.string,
+    rating: PropTypes.number,
+    price: PropTypes.number,
+  }),
+  numReviews: PropTypes.number,
+  serviceArea: PropTypes.string,
 };
 
 export default Card;

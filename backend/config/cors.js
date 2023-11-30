@@ -11,6 +11,7 @@ export function initCORS(app) {
       ],
       methods: ['GET', 'POST', 'PUT', 'OPTIONS', 'DELETE'],
       credentials: true, // enable set cookie
+      allowedHeaders: ['Content-Type', 'Authorization'],
     })
   );
 }
