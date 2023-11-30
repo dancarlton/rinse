@@ -18,7 +18,7 @@ const MapPage = () => {
   const latitude = useSelector((state) => state.nav.origin.location.latitude);
 
   return (
-    <div className='flex flex-col-reverse justify-center lg:flex-row w-full'>
+    <div className='flex flex-col-reverse justify-center lg:flex-row w-full relative '>
       {/* Search for Services */}
 
       <div className=''>

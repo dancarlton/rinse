@@ -1,4 +1,4 @@
-import { themeChange } from 'theme-change';
+// import { themeChange } from 'theme-change';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { openRightDrawer } from '../../slices/rightDrawerSlice';
@@ -16,17 +16,17 @@ function Header() {
   const { noOfNotifications, pageTitle } = useSelector((state) => state.header);
   const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('theme'));
 
-  useEffect(() => {
-    themeChange(false);
-    if (currentTheme === null) {
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        setCurrentTheme('black');
-      } else {
-        setCurrentTheme('lofi');
-      }
-    }
-    // 👆 false parameter is required for react project
-  }, [currentTheme]);
+  // useEffect(() => {
+  //   themeChange(false);
+  //   if (currentTheme === null) {
+  //     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  //       setCurrentTheme('black');
+  //     } else {
+  //       setCurrentTheme('lofi');
+  //     }
+  //   }
+  //   // 👆 false parameter is required for react project
+  // }, [currentTheme]);
 
   // Opening right sidebar for notification
   const openNotification = () => {
