@@ -6,9 +6,10 @@ import ServiceSearchMap from '../components/ServiceSearchMap';
 import ServiceList from '../components/ServiceList';
 import { useSelector } from 'react-redux';
 
+const libraries = ['places'];
+
 const MapPage = () => {
   const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-  const libraries = ['places'];
   const { isLoaded } = useLoadScript({
     googleMapsApiKey,
     libraries,

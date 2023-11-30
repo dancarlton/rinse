@@ -25,7 +25,7 @@ const ServiceList = () => {
     fetchData();
   }, []);
 
-  console.log(users)
+  console.log(users);
 
   return (
     <div className='services-list max-w-xl'>

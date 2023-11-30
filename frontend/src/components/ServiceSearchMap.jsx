@@ -2,9 +2,10 @@ import React from 'react';
 import AutoComplete from './AutoComplete';
 import { useLoadScript } from '@react-google-maps/api';
 
+const libraries = ['places'];
+
 const ServiceSearchMap = () => {
   const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-  const libraries = ['places'];
   const { isLoaded } = useLoadScript({
     googleMapsApiKey,
     libraries,

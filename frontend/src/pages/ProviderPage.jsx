@@ -9,7 +9,7 @@ const ProviderPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5100/api/users`);
+        const response = await fetch(`/api/users`);
         const data = await response.json();
 
         // Find the user with the specified name and role "provider"
