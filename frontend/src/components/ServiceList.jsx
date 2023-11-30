@@ -25,8 +25,6 @@ const ServiceList = () => {
     fetchData();
   }, []);
 
-  console.log(users);
-
   return (
     <div className='services-list max-w-xl'>
       {/* --------- Vertical Carousel -------- */}
