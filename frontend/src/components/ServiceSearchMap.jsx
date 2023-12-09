@@ -16,16 +16,20 @@ const ServiceSearchMap = () => {
     //   <h2 className='text-3xl font-bold'>Get Rinsed</h2>
     //   <AutoComplete />
     // </div>
-    <div className='hero bg-base-300'>
+    <div className='hero bg-base-300  w-80 rounded-xl shadow-xs border-slate-800'>
       <div className='flex justify-center gap-4 flex-col lg:flex-row-reverse w-full xl:items-center '>
         {isLoaded && (
           <div className='card w-full max-w-sm shadow-2xl bg-base-100'>
             <form className='card-body max-w-screen'>
               <div className='form-control'>
                 <label className='label'>
-                  <span className='text-2xl font-bold'>Get Rinsed</span>
+                  <span className='text-lg'>Get Rinsed</span>
                 </label>
-                <AutoComplete />
+                <div className='flex-row items-stretch justify-around'>
+                  <AutoComplete className='mb-4' />
+                  <AutoComplete />
+                  <AutoComplete />
+                </div>
               </div>
               {/* <div className='form-control'>
               <AutoComplete />
