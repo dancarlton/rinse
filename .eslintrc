@@ -1,6 +1,5 @@
 {
     "extends": [
-        "airbnb-base",
         "prettier"
     ],
     "parser": "@babel/eslint-parser",
@@ -23,7 +22,8 @@
             "error",
             {
                 "endOfLine": "auto",
-                "tabWidth": 2
+                "tabWidth": 2,
+                "singleQuote": true
             }
         ],
         "import/no-unresolved": 0,

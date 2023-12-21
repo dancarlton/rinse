@@ -1,11 +1,10 @@
-import Joi from "joi";
+import Joi from 'joi';
 
 export function validateUser(user) {
   const schema = Joi.object({
-    username: Joi.string().alphanum().min(3).max(30).required(),
     email: Joi.string().min(5).max(255).required().email(),
     password: Joi.string().min(5).max(255).required(),
-    role: Joi.string().valid("admin", "user", "provider").required(),
+    role: Joi.string().valid('admin', 'user', 'provider').required(),
   });
 
   return schema.validate(user);
@@ -23,12 +22,11 @@ export function validateLoginInput(input) {
 
 export function validateRegisterInput(input) {
   const schema = Joi.object({
-    username: Joi.string().min(3).max(50).required(),
     password: Joi.string()
       .pattern(
         // one uppercase, one lowercase, one digit,
-        // one special character( @ # $ % ^ & + = ) 6-30 characters long
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,30}$/,
+        // one special character( @ $ ! % * ? & ) 6-30 characters long
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,30}$/
       )
       .required(),
     email: Joi.string().min(5).max(255).required().email(),
@@ -51,7 +49,7 @@ export function validatePassword(input) {
       .pattern(
         // one uppercase, one lowercase, one digit,
         // one special character( ! @ # $ % ^ & * ) 6-30 characters long
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*^?&])[A-Za-z\d@$!%^*?&]{6,30}$/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*^?&])[A-Za-z\d@$!%^*?&]{6,30}$/
       )
       .required(),
   });

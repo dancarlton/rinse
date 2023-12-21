@@ -1,5 +1,5 @@
 // @ts-check
-import { isValidObjectId } from "mongoose";
+import { isValidObjectId } from 'mongoose';
 
 /**
  * Checks if the req.params.id is a valid Mongoose ObjectId.

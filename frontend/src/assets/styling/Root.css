@@ -1,0 +1,109 @@
+.App {
+  height: 100px;
+  width: 100px;
+  background: white;
+}
+
+body {
+  font-family:
+    IBM Plex Sans,
+    monospace !important;
+}
+
+
+
+
+.custom-vh-sm {
+  min-height: 75vh;
+}
+
+/* Delete after Cards are complete */
+.carousel-item img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 15px;
+  padding: 5px;
+}
+
+
+
+.card-container {
+  width: 12rem;
+  border-radius: 1rem;
+  /* box-shadow: 0px 5px 4px #999; */
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  height: fit-content;
+  margin-right: 7px;
+}
+
+.card-img {
+  width: 200px;
+  height: 150px;
+  /* box-shadow: 0px 5px 4px #999; */
+  object-fit: cover;
+  border-radius: 1rem;
+  padding: 5px;
+}
+
+.bg-white {
+  background-color: white;
+  border-radius: 0 0 1rem 1rem;
+}
+
+.card-title,
+.card-description {
+  margin: 5px 5%;
+  color: black;
+}
+
+
+/* From Scrimba */
+.contacts {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.contact-card {
+  flex-basis: 225px;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 13px;
+  padding-bottom: 20px;
+  background-color: white;
+}
+
+.contact-card > img {
+  width: 100%;
+  height: auto;
+  align-self: center;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.contact-card > h3 {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.info-group {
+  display: flex;
+  align-items: center;
+}
+
+.info-group > img {
+  height: 11px;
+  margin-right: 8px;
+}
+
+.info-group > p {
+  margin-block: 3px;
+  font-size: 12px;
+  color: #2B283A;
+}

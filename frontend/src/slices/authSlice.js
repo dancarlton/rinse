@@ -1,9 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
+import { createSlice } from '@reduxjs/toolkit';
 
 // Retrieve user info from local storage
-const userInfoFromStorage = localStorage.getItem("userInfo");
-
+const userInfoFromStorage = localStorage.getItem('userInfo');
 
 // If local storage already has user info then we set our initial state to that, otherwise null.
 const initialState = {
@@ -12,18 +10,18 @@ const initialState = {
 
 // Slice which sets or removes current user info based on local storage presence.
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     // Sets current user credentials to both current state/store and local storage
     setCredentials: (state, action) => {
       state.userInfo = action.payload;
-      localStorage.setItem("userInfo", JSON.stringify(action.payload));
+      localStorage.setItem('userInfo', JSON.stringify(action.payload));
     },
     // Removes current user credentials from both current state/store and local storage
     logout: (state) => {
       state.userInfo = null;
-      localStorage.removeItem("userInfo");
+      localStorage.removeItem('userInfo');
     },
   },
 });

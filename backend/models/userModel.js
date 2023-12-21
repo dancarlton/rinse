@@ -1,17 +1,17 @@
-import { model, Schema } from "mongoose";
-import { omit } from "ramda";
-import bcrypt from "bcryptjs";
-import dayjs from "dayjs";
-import mongooseUniqueValidator from "mongoose-unique-validator";
+import { model, Schema } from 'mongoose';
+import { omit } from 'ramda';
+import bcrypt from 'bcryptjs';
+import dayjs from 'dayjs';
+import mongooseUniqueValidator from 'mongoose-unique-validator';
 
 const userSchema = new Schema(
   {
-    username: {
+    name: {
       type: String,
       required: false,
       minlength: 2,
       maxlength: 50,
-      unique: true,
+      unique: false,
     },
     googleId: {
       type: String,
@@ -21,7 +21,7 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
-      required: true,
+      required: false,
       minlength: 5,
       maxlength: 255,
       unique: true,
@@ -30,7 +30,7 @@ const userSchema = new Schema(
       type: String,
       required: false,
     },
-    passwordResetToken: { type: String, default: "" },
+    passwordResetToken: { type: String, default: '' },
     passwordResetExpires: { type: Date, default: dayjs().toDate() },
     isVerified: {
       type: Boolean,
@@ -39,18 +39,40 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
-      default: "user",
+      default: 'user',
       required: true,
-      enum: ["admin", "user", "provider"],
+      enum: ['admin', 'user', 'provider'],
     },
     avatar: {
       type: String,
-      default: "",
+      default: '',
     },
+    rating: {
+      type: Number,
+      required: false,
+    },
+    services: [
+      {
+        name: { type: String, required: true, default: '' },
+        description: { type: String, required: true, default: '' },
+        price: { type: Number, required: true, default: 0 },
+        estimatedTime: { type: Number, required: true, default: 0 },
+        rating: { type: Number, required: true, default: 0 },
+        photo: { type: String, required: false, default: '' },
+      },
+    ],
+    reviews: [
+      {
+        name: { type: String, required: false },
+        avatar: { type: String, default: '/images/icons/default-avatar.jpg' },
+        rating: { type: Number, required: false },
+        comment: { type: String, required: false },
+      },
+    ],
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 userSchema.methods.comparePassword = async function comparePassword(password) {
@@ -77,11 +99,11 @@ userSchema.methods.hashPassword = function hashPassword() {
 };
 
 userSchema.methods.hidePassword = function hidePassword() {
-  return omit(["password", "__v"], this.toObject({ virtuals: true }));
+  return omit(['password', '__v'], this.toObject({ virtuals: true }));
 };
 
 userSchema.plugin(mongooseUniqueValidator);
 
-export const User = model("User", userSchema);
+export const User = model('User', userSchema);
 
 export default User;
