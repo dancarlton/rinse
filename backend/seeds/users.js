@@ -32,6 +32,8 @@ function createUsers(numUsers = 3) {
 // Generate 100 user objects
 // const sampleUsers = createUsers(10000);
 
+// ! added email because of seeder.js error:
+// ! Error: MongoBulkWriteError: E11000 duplicate key error collection: rinse.users index: email_1 dup key: { email: null }
 export const sampleUsers = [
   {
     name: 'admin',
@@ -53,6 +55,8 @@ export const sampleUsers = [
   },
   {
     name: 'John Smith',
+    // ! adding email for sample script
+    email: 'john_smith@rinse-test123.com',
     avatar: '/images/icons/avatar2.jpg',
     profileImage: '/images/providers/stock2.jpg',
     altText: 'Profile Pic',
@@ -110,6 +114,8 @@ export const sampleUsers = [
   },
   {
     name: 'Emily Davis',
+    // ! adding email for sample script
+    email: 'emily_davis@rinse-test123.com',
     avatar: '/images/icons/avatar1.jpg',
     profileImage: '/images/providers/stock3.jpg',
     altText: 'Profile Pic',
@@ -167,6 +173,8 @@ export const sampleUsers = [
   },
   {
     name: 'Alice Johnson',
+    // ! adding email for sample script
+    email: 'alice_johnson@rinse-test123.com',
     avatar: '',
     role: 'provider',
     profileImage: '/images/providers/stock4.jpg',
