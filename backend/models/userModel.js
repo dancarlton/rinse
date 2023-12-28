@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import dayjs from 'dayjs';
 import mongooseUniqueValidator from 'mongoose-unique-validator';
 
+// ! Change schema for additional location fields
 const userSchema = new Schema(
   {
     name: {
@@ -69,6 +70,11 @@ const userSchema = new Schema(
         comment: { type: String, required: false },
       },
     ],
+    // ! added locations for testing sample user locations
+    locations: {
+      latitude: { type: String, required: false },
+      longitude: { type: String, required: false },
+    },
   },
   {
     timestamps: true,
