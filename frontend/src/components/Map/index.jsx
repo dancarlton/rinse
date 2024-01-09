@@ -1,17 +1,20 @@
-import { useState } from 'react';
 import { AdvancedMarker, APIProvider, Map as GoogleMap, Pin } from '@vis.gl/react-google-maps';
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useGetAllUsersQuery } from '../../slices/usersSlice';
+import { setDestination } from '../../slices/navSlice';
 import ProviderMarker from './ProviderMarker';
 import ProviderDetails from './ProviderDetails';
 import Routes from './Routes';
 
 const Map = () => {
+  const dispatch = useDispatch();
+  // Cuurent user position
   const latitude = useSelector((state) => state.nav.origin.location.latitude);
   const longitude = useSelector((state) => state.nav.origin.location.longitude);
   const center = useMemo(() => ({ lat: latitude, lng: longitude }), [latitude, longitude]);
-  const [selectedProvider, setSelectedProvider] = useState();
+
+  const destination = useSelector((state) => state.nav.destination);
 
   const { data: users, isLoading, isSuccess, isError } = useGetAllUsersQuery({ pageNumber: 1 });
 
@@ -37,7 +40,7 @@ const Map = () => {
   return (
     <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
       <div className='flex flex-col'>
-        <div className={`${selectedProvider !== undefined ? 'flex-[0_0_90%]' : 'h-full'}`}>
+        <div className={`${destination ? 'flex-[0_0_90%]' : 'h-full'}`}>
           {/* get a map id here: https://developers.google.com/maps/documentation/get-map-id#create-a-map-id */}
           <GoogleMap zoom={12} center={center} mapId={import.meta.env.VITE_MAP_ID}>
             {/* Marker for user's current map position */}
@@ -49,20 +52,16 @@ const Map = () => {
                 <ProviderMarker
                   key={provider.id}
                   position={provider.position}
-                  selectProvider={() => setSelectedProvider(provider)}
+                  selectProvider={() => dispatch(setDestination(provider))}
                 />
               ))}
-            {
-              // routes render component
-              selectedProvider !== undefined && (
-                <Routes origin={center} destination={selectedProvider.position} />
-              )
-            }
+            {/* Route rendering component */}
+            {destination && <Routes origin={center} destination={destination.position} />}
           </GoogleMap>
         </div>
-        {selectedProvider !== undefined && (
+        {destination && (
           <div className='flex-[0_0_10%]'>
-            <ProviderDetails position={selectedProvider.position} />
+            <ProviderDetails position={destination.position} />
           </div>
         )}
       </div>
