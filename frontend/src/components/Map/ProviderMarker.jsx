@@ -11,9 +11,13 @@ const ProviderMarker = (props) => {
   const handleClick = () => {
     setOpen(false);
   };
+
+  const selectProvider = () => {
+    props.selectProvider();
+  };
   return (
     <>
-      <AdvancedMarker position={props.position} onClick={() => setOpen(true)}>
+      <AdvancedMarker position={props.position} onClick={selectProvider}>
         <FontAwesomeIcon icon={faCarSide} size='xl' />
       </AdvancedMarker>
       {open && (
@@ -33,6 +37,7 @@ ProviderMarker.propTypes = {
     lat: PropTypes.number.isRequired,
     lng: PropTypes.number.isRequired,
   }).isRequired,
+  selectProvider: PropTypes.func.isRequired,
 };
 
 export default ProviderMarker;
