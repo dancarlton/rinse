@@ -230,6 +230,183 @@ export const sampleUsers = [
     travelDistance: 8, // in miles
     locations: { latitude: 37.7749, longitude: -122.4194 },
   },
+  // ! new users added for testing
+  {
+    name: 'Greg Patrick',
+    email: 'greg_patrick@rinse-test123.com',
+    avatar: '',
+    role: 'provider',
+    profileImage: '/images/providers/stock4.jpg',
+    altText: 'Profile Pic',
+    services: [
+      {
+        name: 'Express Wash',
+        description: 'Quick and efficient express wash service.',
+        price: 15.99,
+        estimatedTime: 0.5,
+        rating: 4.3,
+        photo: '/images/providers/stock7.jpg',
+      },
+      {
+        name: 'Full Detailing',
+        description: 'Comprehensive detailing for a complete makeover.',
+        price: 59.99,
+        estimatedTime: 3,
+        rating: 4.7,
+        photo: '/images/providers/stock6.jpg',
+      },
+      {
+        name: 'Polishing',
+        description: 'Professional polishing for a glossy finish.',
+        price: 45.99,
+        estimatedTime: 2,
+        rating: 4.5,
+        photo: '/images/providers/stock3.jpg',
+      },
+    ],
+    serviceArea: 'Green Point Brooklyn',
+    overallRating: 4.6,
+    reviews: [
+      {
+        user: 'Alice Taylor',
+        avatar: '',
+        rating: 4,
+        comment: 'Quick and efficient!',
+      },
+      {
+        user: 'Mark Smith',
+        avatar: '',
+        rating: 5,
+        comment: 'Great attention to detail.',
+      },
+      {
+        user: 'John Thomas',
+        avatar: '',
+        rating: 4,
+        comment: 'Affordable and good service.',
+      },
+    ],
+    travelDistance: 8, // in miles
+    locations: { latitude: 40.73181828627376, longitude: -73.95845221094753 },
+  },
+  {
+    name: 'Paul Dimasi',
+    // ! adding email for sample script
+    email: 'paul_dimasi@rinse-test123.com',
+    avatar: '',
+    role: 'provider',
+    profileImage: '/images/providers/stock4.jpg',
+    altText: 'Profile Pic',
+    services: [
+      {
+        name: 'Express Wash',
+        description: 'Quick and efficient express wash service.',
+        price: 15.99,
+        estimatedTime: 0.5,
+        rating: 4.3,
+        photo: '/images/providers/stock7.jpg',
+      },
+      {
+        name: 'Full Detailing',
+        description: 'Comprehensive detailing for a complete makeover.',
+        price: 59.99,
+        estimatedTime: 3,
+        rating: 4.7,
+        photo: '/images/providers/stock6.jpg',
+      },
+      {
+        name: 'Polishing',
+        description: 'Professional polishing for a glossy finish.',
+        price: 45.99,
+        estimatedTime: 2,
+        rating: 4.5,
+        photo: '/images/providers/stock3.jpg',
+      },
+    ],
+    serviceArea: 'Union City New Jersey',
+    overallRating: 4.6,
+    reviews: [
+      {
+        user: 'Marissa Jones',
+        avatar: '',
+        rating: 4,
+        comment: 'Quick and efficient!',
+      },
+      {
+        user: 'Colleen Murphy',
+        avatar: '',
+        rating: 5,
+        comment: 'Great attention to detail.',
+      },
+      {
+        user: 'Michael Chan',
+        avatar: '',
+        rating: 4,
+        comment: 'Affordable and good service.',
+      },
+    ],
+    travelDistance: 8, // in miles
+    locations: { latitude: 40.7527117261711, longitude: -74.05142012646066 },
+  },
+  {
+    name: 'Dominic Stanfield',
+    // ! adding email for sample script
+    email: 'dominic_stanfield@rinse-test123.com',
+    avatar: '',
+    role: 'provider',
+    profileImage: '/images/providers/stock4.jpg',
+    altText: 'Profile Pic',
+    services: [
+      {
+        name: 'Express Wash',
+        description: 'Quick and efficient express wash service.',
+        price: 15.99,
+        estimatedTime: 0.5,
+        rating: 4.3,
+        photo: '/images/providers/stock7.jpg',
+      },
+      {
+        name: 'Full Detailing',
+        description: 'Comprehensive detailing for a complete makeover.',
+        price: 59.99,
+        estimatedTime: 3,
+        rating: 4.7,
+        photo: '/images/providers/stock6.jpg',
+      },
+      {
+        name: 'Polishing',
+        description: 'Professional polishing for a glossy finish.',
+        price: 45.99,
+        estimatedTime: 2,
+        rating: 4.5,
+        photo: '/images/providers/stock3.jpg',
+      },
+    ],
+    serviceArea: 'Upper West Side Manhattan',
+    overallRating: 4.6,
+    reviews: [
+      {
+        user: 'Colin Cassell',
+        avatar: '',
+        rating: 4,
+        comment: 'Quick and efficient!',
+      },
+      {
+        user: 'Grace Johnson',
+        avatar: '',
+        rating: 5,
+        comment: 'Great attention to detail.',
+      },
+      {
+        user: 'Susan Green',
+        avatar: '',
+        rating: 4,
+        comment: 'Affordable and good service.',
+      },
+    ],
+    travelDistance: 8, // in miles
+    locations: { latitude: 40.760364881510775, longitude: -73.96343176828717 },
+  },
 ];
 
 export default sampleUsers;
