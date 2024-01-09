@@ -5,13 +5,16 @@ import { useSelector } from 'react-redux';
 import { useGetAllUsersQuery } from '../../slices/usersSlice';
 import ProviderMarker from './ProviderMarker';
 import ProviderDetails from './ProviderDetails';
+import Routes from './Routes';
 
 const Map = () => {
   const latitude = useSelector((state) => state.nav.origin.location.latitude);
   const longitude = useSelector((state) => state.nav.origin.location.longitude);
   const center = useMemo(() => ({ lat: latitude, lng: longitude }), [latitude, longitude]);
   const [selectedProvider, setSelectedProvider] = useState();
+
   const { data: users, isLoading, isSuccess, isError } = useGetAllUsersQuery({ pageNumber: 1 });
+
   let locations;
   if (isLoading) {
     return <p>Loading</p>;
@@ -40,15 +43,21 @@ const Map = () => {
             {/* Marker for user's current map position */}
             <AdvancedMarker position={center}>
               <Pin />
-              {locations !== undefined &&
-                locations.map((provider) => (
-                  <ProviderMarker
-                    key={provider._id}
-                    position={provider.position}
-                    selectProvider={() => setSelectedProvider(provider)}
-                  />
-                ))}
             </AdvancedMarker>
+            {locations !== undefined &&
+              locations.map((provider) => (
+                <ProviderMarker
+                  key={provider.id}
+                  position={provider.position}
+                  selectProvider={() => setSelectedProvider(provider)}
+                />
+              ))}
+            {
+              // routes render component
+              selectedProvider !== undefined && (
+                <Routes origin={center} destination={selectedProvider.position} />
+              )
+            }
           </GoogleMap>
         </div>
         {selectedProvider !== undefined && (
