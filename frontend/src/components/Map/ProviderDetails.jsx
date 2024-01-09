@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
+import Geocoder from './Geocoder';
 
 const ProviderDetails = (props) => {
   return (
+    // add styling
     <div>
-      {props.position.lat}
-      {props.position.lng}
+      <Geocoder position={props.position} />
     </div>
   );
 };
