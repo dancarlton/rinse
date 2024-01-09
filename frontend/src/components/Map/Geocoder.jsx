@@ -1,19 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useMapsLibrary } from '@vis.gl/react-google-maps';
 import PropTypes from 'prop-types';
+import useGecoding from '../../hooks/useGeocoding';
 
 // Changes lat lng coordinates into addresses
 // https://developers.google.com/maps/documentation/geocoding
 const Geocoder = (props) => {
   const [result, setResult] = useState(null);
-
-  const geocodingLibrary = useMapsLibrary('geocoding');
-  const [geocodingService, setGeoCodingService] = useState(null);
-
-  useEffect(() => {
-    if (!geocodingLibrary) return;
-    setGeoCodingService(new geocodingLibrary.Geocoder());
-  }, [geocodingLibrary]);
+  const geocodingService = useGecoding();
 
   useEffect(() => {
     if (!geocodingService) return;
@@ -22,9 +15,6 @@ const Geocoder = (props) => {
     // Use "address" key with string value to convert address into coordinates
     geocodingService.geocode({ location: props.position }, (results, status) => {
       if (status === 'OK') {
-        console.log('====================================');
-        console.log('results', results);
-        console.log('====================================');
         setResult(results[0].formatted_address);
       } else {
         // ! handle status
