@@ -13,7 +13,7 @@ const ProviderMarker = (props) => {
   };
   return (
     <>
-      <AdvancedMarker position={props.position}>
+      <AdvancedMarker position={props.position} onClick={() => setOpen(true)}>
         <FontAwesomeIcon icon={faCarSide} size='xl' />
       </AdvancedMarker>
       {open && (
