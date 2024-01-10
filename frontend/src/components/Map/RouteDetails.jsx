@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types';
 
+// Needs styling
 const RouteDetails = (props) => {
+  const { details } = props;
   return (
     <>
       <div>
         <h2>
-          {props.leg.startAddress} to {props.leg.endAddress}
+          {details.startAddress} to {details.endAddress}
         </h2>
-        <div>via {props.summary}</div>
-        <p>Distance: {props.leg?.distance}</p>
-        <p>Duration: {props.leg?.duration}</p>
+        <div>via {details.summary}</div>
+        <p>Distance: {details?.distance}</p>
+        <p>Duration: {details?.duration}</p>
         <button onClick={() => props.directionsRenderer.setMap(null)}>Remove Provider</button>
       </div>
     </>
@@ -17,8 +19,8 @@ const RouteDetails = (props) => {
 };
 
 RouteDetails.propTypes = {
-  summary: PropTypes.string,
-  leg: PropTypes.shape({
+  details: PropTypes.shape({
+    summary: PropTypes.string,
     startAddress: PropTypes.string.isRequired,
     endAddress: PropTypes.string.isRequired,
     distance: PropTypes.string,

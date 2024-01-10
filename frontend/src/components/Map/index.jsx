@@ -10,14 +10,14 @@ import useDirections from '../../hooks/useDirections';
 
 const Map = () => {
   const dispatch = useDispatch();
-  // Cuurent user position
+  // Curent user position
   const latitude = useSelector((state) => state.nav.origin.location.latitude);
   const longitude = useSelector((state) => state.nav.origin.location.longitude);
   const center = useMemo(() => ({ lat: latitude, lng: longitude }), [latitude, longitude]);
 
   const destination = useSelector((state) => state.nav.destination);
   const travelTime = useSelector((state) => state.nav.travelTimeInformation);
-
+  // Instances passed as props to render in Routes and clear routes RouteDetails
   const { directionsService, directionsRenderer, map } = useDirections();
 
   const { data: users, isLoading, isSuccess, isError } = useGetAllUsersQuery({ pageNumber: 1 });
@@ -30,16 +30,13 @@ const Map = () => {
   } else if (isSuccess) {
     locations = users
       .filter((user) => user.locations && user.role === 'provider')
-      .map((provider) => {
-        const obj = {
-          id: provider._id,
-          position: {
-            lat: Number(provider.locations.latitude),
-            lng: Number(provider.locations.longitude),
-          },
-        };
-        return obj;
-      });
+      .map((provider) => ({
+        id: provider._id,
+        position: {
+          lat: Number(provider.locations.latitude),
+          lng: Number(provider.locations.longitude),
+        },
+      }));
   }
   return (
     <div className='flex flex-col'>
@@ -72,11 +69,7 @@ const Map = () => {
       </div>
       {travelTime && (
         <div className='flex-[0_0_05%]'>
-          <RouteDetails
-            directionsRenderer={directionsRenderer}
-            summary={travelTime.summary}
-            leg={travelTime.leg}
-          />
+          <RouteDetails directionsRenderer={directionsRenderer} details={travelTime} />
         </div>
       )}
     </div>

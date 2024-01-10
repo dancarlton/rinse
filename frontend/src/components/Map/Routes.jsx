@@ -26,12 +26,10 @@ const Routes = (props) => {
         // First routes is the fastest
         const route = {
           summary: response.routes[0].summary,
-          leg: {
-            startAddress: response.routes[0].legs[0].start_address,
-            endAddress: response.routes[0].legs[0].end_address,
-            duration: response.routes[0].legs[0]?.duration?.text,
-            distance: response.routes[0].legs[0]?.distance?.text,
-          },
+          startAddress: response.routes[0].legs[0].start_address,
+          endAddress: response.routes[0].legs[0].end_address,
+          duration: response.routes[0].legs[0]?.duration?.text,
+          distance: response.routes[0].legs[0]?.distance?.text,
         };
         dispatch(setTravelTimeInformation(route));
       });
