@@ -4,10 +4,13 @@ const RouteDetails = (props) => {
   return (
     <>
       <div>
-        <h2>{props.summary}</h2>
+        <h2>
+          {props.leg.startAddress} to {props.leg.endAddress}
+        </h2>
+        <div>via {props.summary}</div>
         <p>Distance: {props.leg?.distance}</p>
         <p>Duration: {props.leg?.duration}</p>
-        <button onClick={() => props.directionsRenderer.setMap(null)}>Clear Route</button>
+        <button onClick={() => props.directionsRenderer.setMap(null)}>Remove Provider</button>
       </div>
     </>
   );

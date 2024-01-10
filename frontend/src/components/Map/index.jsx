@@ -1,10 +1,9 @@
-import { AdvancedMarker, APIProvider, Map as GoogleMap, Pin } from '@vis.gl/react-google-maps';
+import { AdvancedMarker, Map as GoogleMap, Pin } from '@vis.gl/react-google-maps';
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetAllUsersQuery } from '../../slices/usersSlice';
 import { setDestination } from '../../slices/navSlice';
 import ProviderMarker from './ProviderMarker';
-import ProviderDetails from './ProviderDetails';
 import Routes from './Routes';
 import RouteDetails from './RouteDetails';
 import useDirections from '../../hooks/useDirections';
@@ -44,7 +43,7 @@ const Map = () => {
   }
   return (
     <div className='flex flex-col'>
-      <div className={`${destination ? 'flex-[0_0_90%]' : 'h-full'}`}>
+      <div className={`${destination ? 'flex-[0_0_80%]' : 'h-full'}`}>
         {/* get a map id here: https://developers.google.com/maps/documentation/get-map-id#create-a-map-id */}
         <GoogleMap zoom={12} center={center} mapId={import.meta.env.VITE_MAP_ID}>
           {/* Marker for user's current map position */}
@@ -71,18 +70,14 @@ const Map = () => {
           )}
         </GoogleMap>
       </div>
-
-      {destination && (
-        <div className='flex-[0_0_05%]'>
-          <ProviderDetails position={destination.position} />
-        </div>
-      )}
       {travelTime && (
-        <RouteDetails
-          directionsRenderer={directionsRenderer}
-          summary={travelTime.summary}
-          leg={travelTime.leg}
-        />
+        <div className='flex-[0_0_05%]'>
+          <RouteDetails
+            directionsRenderer={directionsRenderer}
+            summary={travelTime.summary}
+            leg={travelTime.leg}
+          />
+        </div>
       )}
     </div>
   );
