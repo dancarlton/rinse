@@ -6,6 +6,8 @@ import { setDestination } from '../../slices/navSlice';
 import ProviderMarker from './ProviderMarker';
 import ProviderDetails from './ProviderDetails';
 import Routes from './Routes';
+import RouteDetails from './RouteDetails';
+import useDirections from '../../hooks/useDirections';
 
 const Map = () => {
   const dispatch = useDispatch();
@@ -15,6 +17,9 @@ const Map = () => {
   const center = useMemo(() => ({ lat: latitude, lng: longitude }), [latitude, longitude]);
 
   const destination = useSelector((state) => state.nav.destination);
+  const travelTime = useSelector((state) => state.nav.travelTimeInformation);
+
+  const { directionsService, directionsRenderer, map } = useDirections();
 
   const { data: users, isLoading, isSuccess, isError } = useGetAllUsersQuery({ pageNumber: 1 });
 
@@ -38,34 +43,48 @@ const Map = () => {
       });
   }
   return (
-    <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
-      <div className='flex flex-col'>
-        <div className={`${destination ? 'flex-[0_0_90%]' : 'h-full'}`}>
-          {/* get a map id here: https://developers.google.com/maps/documentation/get-map-id#create-a-map-id */}
-          <GoogleMap zoom={12} center={center} mapId={import.meta.env.VITE_MAP_ID}>
-            {/* Marker for user's current map position */}
-            <AdvancedMarker position={center}>
-              <Pin />
-            </AdvancedMarker>
-            {locations !== undefined &&
-              locations.map((provider) => (
-                <ProviderMarker
-                  key={provider.id}
-                  position={provider.position}
-                  selectProvider={() => dispatch(setDestination(provider))}
-                />
-              ))}
-            {/* Route rendering component */}
-            {destination && <Routes origin={center} destination={destination.position} />}
-          </GoogleMap>
-        </div>
-        {destination && (
-          <div className='flex-[0_0_10%]'>
-            <ProviderDetails position={destination.position} />
-          </div>
-        )}
+    <div className='flex flex-col'>
+      <div className={`${destination ? 'flex-[0_0_90%]' : 'h-full'}`}>
+        {/* get a map id here: https://developers.google.com/maps/documentation/get-map-id#create-a-map-id */}
+        <GoogleMap zoom={12} center={center} mapId={import.meta.env.VITE_MAP_ID}>
+          {/* Marker for user's current map position */}
+          <AdvancedMarker position={center}>
+            <Pin />
+          </AdvancedMarker>
+          {locations !== undefined &&
+            locations.map((provider) => (
+              <ProviderMarker
+                key={provider.id}
+                position={provider.position}
+                selectProvider={() => dispatch(setDestination(provider))}
+              />
+            ))}
+          {/* Route rendering component */}
+          {destination && (
+            <Routes
+              origin={center}
+              destination={destination.position}
+              directionsService={directionsService}
+              directionsRenderer={directionsRenderer}
+              map={map}
+            />
+          )}
+        </GoogleMap>
       </div>
-    </APIProvider>
+
+      {destination && (
+        <div className='flex-[0_0_05%]'>
+          <ProviderDetails position={destination.position} />
+        </div>
+      )}
+      {travelTime && (
+        <RouteDetails
+          directionsRenderer={directionsRenderer}
+          summary={travelTime.summary}
+          leg={travelTime.leg}
+        />
+      )}
+    </div>
   );
 };
 

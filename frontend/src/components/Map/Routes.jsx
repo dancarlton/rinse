@@ -1,27 +1,12 @@
-import { useEffect, useState } from 'react';
-import { useMapsLibrary, useMap } from '@vis.gl/react-google-maps';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { setTravelTimeInformation } from '../../slices/navSlice';
 
 // Renders directions from current position to provider location
 const Routes = (props) => {
-  const map = useMap();
-
-  // load routes google maps library
-  const routesLibrary = useMapsLibrary('routes');
-  const [directionsService, setDirectionsService] = useState();
-  const [directionsRenderer, setDirectionsRenderer] = useState();
-
   const dispatch = useDispatch();
-
-  // init services
-  useEffect(() => {
-    if (!routesLibrary || !map) return;
-    // create instance and set in state
-    setDirectionsService(new routesLibrary.DirectionsService());
-    setDirectionsRenderer(new routesLibrary.DirectionsRenderer({ map }));
-  }, [routesLibrary, map]);
+  const { directionsService, directionsRenderer, map } = props;
 
   // find a route using the directionsService
   useEffect(() => {
@@ -35,6 +20,8 @@ const Routes = (props) => {
         provideRouteAlternatives: true,
       })
       .then((response) => {
+        // set Map instance in case directions are cleared
+        directionsRenderer.setMap(map);
         directionsRenderer.setDirections(response);
         // First routes is the fastest
         const route = {
@@ -48,7 +35,7 @@ const Routes = (props) => {
         };
         dispatch(setTravelTimeInformation(route));
       });
-  }, [directionsService, directionsRenderer, props.origin, props.destination, dispatch]);
+  }, [directionsService, directionsRenderer, map, props.origin, props.destination, dispatch]);
 
   return <></>;
 };
@@ -62,6 +49,9 @@ Routes.propTypes = {
     lat: PropTypes.number.isRequired,
     lng: PropTypes.number.isRequired,
   }).isRequired,
+  directionsService: PropTypes.object.isRequired,
+  directionsRenderer: PropTypes.object.isRequired,
+  map: PropTypes.object.isRequired,
 };
 
 export default Routes;

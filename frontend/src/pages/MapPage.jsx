@@ -5,7 +5,7 @@ import Map from '../components/Map/index';
 import ServiceSearchMap from '../components/ServiceSearchMap';
 import ServiceList from '../components/ServiceList';
 import { useSelector } from 'react-redux';
-
+import { APIProvider } from '@vis.gl/react-google-maps';
 const libraries = ['places'];
 
 const MapPage = () => {
@@ -33,7 +33,9 @@ const MapPage = () => {
         <div>
           <div className='grid grow h-[650px] lg:w-[420px] left-[960px] rounded-md'>
             {/* <div className='grid top-[83px] left-[960px] w-[422px] h-[641px] rounded-md'> */}
-            <Map />
+            <APIProvider apiKey={googleMapsApiKey}>
+              <Map />
+            </APIProvider>
           </div>
         </div>
       )}
