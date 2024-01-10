@@ -1,8 +1,18 @@
+import { useDispatch } from 'react-redux';
+import { setDestination, setTravelTimeInformation } from '../../slices/navSlice';
 import PropTypes from 'prop-types';
 
 // Needs styling
 const RouteDetails = (props) => {
   const { details } = props;
+  const dispatch = useDispatch();
+
+  const clearDirections = () => {
+    props.directionsRenderer.setMap(null);
+    dispatch(setDestination(null));
+    dispatch(setTravelTimeInformation(null));
+  };
+
   return (
     <>
       <div>
@@ -12,7 +22,7 @@ const RouteDetails = (props) => {
         <div>via {details.summary}</div>
         <p>Distance: {details?.distance}</p>
         <p>Duration: {details?.duration}</p>
-        <button onClick={() => props.directionsRenderer.setMap(null)}>Remove Provider</button>
+        <button onClick={clearDirections}>Remove Provider</button>
       </div>
     </>
   );
