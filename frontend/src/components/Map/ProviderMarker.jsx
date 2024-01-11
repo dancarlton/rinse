@@ -6,12 +6,6 @@ import { faCarSide } from '@fortawesome/free-solid-svg-icons';
 
 // Markers for provider positions
 const ProviderMarker = (props) => {
-  const [open, setOpen] = useState(false);
-
-  const handleClick = () => {
-    setOpen(false);
-  };
-
   const selectProvider = () => {
     props.selectProvider();
   };
@@ -20,14 +14,6 @@ const ProviderMarker = (props) => {
       <AdvancedMarker position={props.position} onClick={selectProvider}>
         <FontAwesomeIcon icon={faCarSide} size='xl' />
       </AdvancedMarker>
-      {open && (
-        <InfoWindow position={props.position} onCloseClick={() => setOpen(false)}>
-          <div>
-            {/* This button needs styling */}
-            <button onClick={handleClick}>Select this Provider</button>
-          </div>
-        </InfoWindow>
-      )}
     </>
   );
 };
