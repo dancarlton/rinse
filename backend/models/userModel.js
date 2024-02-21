@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import { model, Schema } from 'mongoose';
 import { omit } from 'ramda';
 import bcrypt from 'bcryptjs';
@@ -5,6 +6,20 @@ import dayjs from 'dayjs';
 import mongooseUniqueValidator from 'mongoose-unique-validator';
 
 // ! Change schema for additional location fields
+
+// Define a Point schema for GeoJSON format
+const PointSchema = new Schema({
+  type: {
+    type: String,
+    enum: ['Point'],
+    required: true,
+  },
+  coordinates: {
+    type: [Number], // format will be [longitude, latitude]
+    required: true,
+  },
+});
+
 const userSchema = new Schema(
   {
     name: {
@@ -72,8 +87,9 @@ const userSchema = new Schema(
     ],
     // ! added locations for testing sample user locations
     locations: {
-      latitude: { type: String, required: false },
-      longitude: { type: String, required: false },
+      type: PointSchema,
+      required: false,
+      index: '2dsphere', // Create a geospatial index
     },
   },
   {
@@ -104,8 +120,29 @@ userSchema.methods.hashPassword = function hashPassword() {
   });
 };
 
+// instance method to hide password for user objects
 userSchema.methods.hidePassword = function hidePassword() {
   return omit(['password', '__v'], this.toObject({ virtuals: true }));
+};
+
+// static
+userSchema.statics.findNearbyUsers = async function (currentUserId, maxDistance) {
+  const currentUser = await this.findById(currentUserId);
+  if (!currentUser || !currentUser.locations) {
+    throw new Error('Current user or their location not found');
+  }
+
+  return this.aggregate([
+    {
+      $geoNear: {
+        near: currentUser.locations,
+        distanceField: 'dist.calculated', // add field to each document
+        maxDistance: maxDistance,
+        spherical: true,
+      },
+    },
+    { $match: { _id: { $ne: currentUserId } } }, // Exclude current user from results
+  ]);
 };
 
 userSchema.plugin(mongooseUniqueValidator);
