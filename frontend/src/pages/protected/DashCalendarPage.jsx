@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setPageTitle } from '../../slices/headerSlice';
 import { useCalendlyEventListener, InlineWidget } from 'react-calendly';
+import axios from 'axios';
 
 /* 
 TODO: add conditinonal to see if user has given us their calendly username yet.
@@ -24,8 +25,14 @@ function Calendar() {
 
   useEffect(() => {
     dispatch(setPageTitle({ title: 'Calendar' }));
-    console.log('Calendar Page');
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    async function doIt(){
+      axios.get('https://api.calendly.com/user_availability_schedules/vguzman812', {
+        headers: {
+          Authorization: 'Bearer ' + import.meta.env.VITE_, //the token is a variable which holds the token
+        },
+      });
+    }
   }, []);
 
   return (
