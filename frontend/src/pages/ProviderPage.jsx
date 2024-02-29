@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Avatar from '../components/Avatar';
 
 const ProviderPage = () => {
@@ -104,8 +104,13 @@ const ProviderPage = () => {
                 </h2>
                 <p>{service.description}</p>
                 <div className='card-actions justify-end mt-4'>
-                  {/* TODO: Add a link here that goes to provider/{ProviderName}/bookings so the user can book with the provider */}
-                  <button className='btn btn-primary'>Book Now</button>
+                  {/* TODO: Change this route to use provider ID not name, other stuff has to be changed as well to use provider id */}
+                  <Link
+                    to={`/provider/${providerData.name}/bookings`}
+                    className='btn btn-secondary mr-2'
+                  >
+                    Book Now
+                  </Link>
                 </div>
               </div>
             </div>
