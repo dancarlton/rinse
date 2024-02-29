@@ -17,6 +17,7 @@ import MapPage from './pages/MapPage';
 import ProviderPage from './pages/ProviderPage.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
 import DashboardLayout from './layouts/dashboard/DashboardLayout.jsx';
+import BookingPage from './pages/BookingPage.jsx';
 
 // Route Modifiers
 // import AdminRoute from "./components/AdminRoute.tsx";
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: '/provider/:name',
         element: <ProviderPage />,
+      },
+      {
+        path: '/provider/:name/bookings',
+        element: <BookingPage />,
       },
     ],
   },

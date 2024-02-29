@@ -7,6 +7,7 @@ const ProviderPage = () => {
   const [providerData, setProviderData] = useState(null);
 
   useEffect(() => {
+    // we have a RTK Query for this. use that instead of fetching here
     const fetchData = async () => {
       try {
         // get all users
