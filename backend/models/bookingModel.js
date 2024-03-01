@@ -1,3 +1,6 @@
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
+
 const bookingSchema = new Schema(
   {
     provider: {
@@ -24,18 +27,26 @@ const bookingSchema = new Schema(
       enum: ['pending', 'confirmed', 'completed', 'cancelled'],
       default: 'pending',
     },
+    statusTimestamps: {
+      pending: { type: Date, default: Date.now },
+      confirmed: Date,
+      completed: Date,
+      cancelled: Date,
+    },
     hasPaid: {
       type: Boolean,
       default: false,
     },
     paymentDetails: {
-      // This can be expanded based on the payment processor (e.g., Stripe) used
-      transactionId: String,
-      amountPaid: Number,
-      paymentProcessor: String,
+      transactionId: { type: String },
+      amountPaid: { type: Number },
+      paymentProcessor: { type: String },
+      paymentTimestamp: { type: Date },
     },
   },
   {
     timestamps: true,
   }
 );
+
+export const Booking = mongoose.model('Booking', bookingSchema);

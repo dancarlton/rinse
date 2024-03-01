@@ -5,7 +5,7 @@ import { validateEmail, validateRegisterInput } from '../validations/userValidat
 import UserService from '../services/userServices.js';
 import TokenService from '../services/tokenServices.js';
 import EmailService from '../services/emailServices.js';
-import User from '../models/userModel.js';
+import { User } from '../models/userModel.js';
 import { logger } from '../config/logging.js';
 // export const getUser = (req, res) => {
 //   const { user } = req;
