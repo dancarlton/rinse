@@ -32,16 +32,6 @@ const serviceSchema = new Schema(
       type: String,
       required: false,
     },
-    numRatings: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    rating: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
   },
   {
     timestamps: true,
@@ -49,12 +39,5 @@ const serviceSchema = new Schema(
 );
 
 serviceSchema.index({ provider: 1 });
-
-serviceSchema.methods.updateRating = function updateRating(newRating) {
-  const cumulativeRatingScore = numRatings * rating + newRating;
-  this.numRatings += 1;
-  this.rating = cumulativeRatingScore / this.numRatings;
-  return this.save();
-};
 
 export const Service = mongoose.model('Service', serviceSchema);

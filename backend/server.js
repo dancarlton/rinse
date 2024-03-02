@@ -19,7 +19,7 @@ dotenv.config({ path: './config/config.env' });
 const port = process.env.PORT || 5000;
 const app = express();
 
-initConfig(app);
+await initConfig(app);
 
 const expiryDate = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 // Create express session

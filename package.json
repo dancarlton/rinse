@@ -14,8 +14,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
-    "data:import": "node backend/seeder.js",
-    "data:destroy": "node backend/seeder.js -D",
+    "data:import": "NODE_ENV=development node backend/seeder.js",
+    "data:destroy": "NODE_ENV=development node backend/seeder.js -D",
     "data:import-test": "NODE_ENV=test node backend/seeder.js",
     "data:destroy-test": "NODE_ENV=test node backend/seeder.js -D",
     "test": "NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose --runInBand"
@@ -66,6 +66,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.22.15",
+    "@faker-js/faker": "^8.4.1",
     "@flydotio/dockerfile": "^0.4.10",
     "@types/express": "^4.17.20",
     "concurrently": "^8.2.2",

@@ -5,11 +5,11 @@ import { initPassportJS } from './passport.js';
 import { initRateLimit } from './rateLimit.js';
 // import { initLogger } from "./logging.js";
 
-export const initConfig = (app) => {
+export async function initConfig(app) {
   initPassportJS();
   // initLogger();
   initCORS(app);
   initDB();
   initProd(app);
   initRateLimit(app);
-};
+}

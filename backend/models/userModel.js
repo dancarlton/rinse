@@ -58,8 +58,15 @@ const userSchema = new Schema(
       type: String,
       default: '',
     },
+    numRatings: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
     rating: {
       type: Number,
+      required: true,
+      default: 0,
     },
     location: {
       type: PointSchema,
@@ -82,6 +89,19 @@ userSchema.pre('save', async function hashPassword(next) {
 });
 
 /**
+ * Updates the rating of the user based on a new rating input.
+ *
+ * @param {number} newRating - The new rating to be added.
+ * @return {Promise} A promise that resolves to the updated user object after saving.
+ */
+userSchema.methods.updateRating = function updateRating(newRating) {
+  const cumulativeRatingScore = numRatings * rating + newRating;
+  this.numRatings += 1;
+  this.rating = cumulativeRatingScore / this.numRatings;
+  return this.save();
+};
+
+/**
  * Compares the provided password with the stored password for the user.
  *
  * @param {string} candidatePassword - The password to compare with the stored password
@@ -89,6 +109,17 @@ userSchema.pre('save', async function hashPassword(next) {
  */
 userSchema.methods.comparePassword = async function comparePassword(candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
+};
+
+/**
+ * Hides sensitive information from the user object, such as the password.
+ *
+ * @return {Object} The user object without the password field.
+ */
+userSchema.methods.hidePassword = function hidePassword() {
+  const user = this.toObject();
+  delete user.password;
+  return user;
 };
 
 export const User = model('User', userSchema);
