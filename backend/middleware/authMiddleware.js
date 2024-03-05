@@ -5,13 +5,7 @@ const authenticated = (req, res, next) => {
   }
   res.redirect('/login');
 };
-// User must be verified
-const verified = (req, res, next) => {
-  if (req.user && req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-};
+
 
 // User must be an admin
 const admin = (req, res, next) => {
@@ -36,4 +30,4 @@ const provider = (req, res, next) => {
   }
 };
 
-export { authenticated, verified, admin, provider };
+export { authenticated, admin, provider };

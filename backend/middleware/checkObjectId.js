@@ -7,7 +7,7 @@ import { isValidObjectId } from 'mongoose';
  * @param {import('express').Request} req - The Express request object.
  * @param {import('express').Response} res - The Express response object.
  * @param {import('express').NextFunction} next - The Express next middleware function.
- * @throws {Error} Throws an error if the ObjectId is invalid.
+ * @throws {Error} Throws an error(404) if the ObjectId is invalid.
  */
 
 function checkObjectId(req, res, next) {

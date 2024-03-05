@@ -13,22 +13,16 @@ router.get('/:id', UserController.getUserById);
 router.put('/:id', UserController.updateUserById);
 router.delete('/:id', UserController.deleteUserById);
 
-// router.get('/:id/services', UserController.getAllUserServices);
-// router.post('/:id/services', UserContrBooking);
-// router.get('/:id/services/:serviceId', UserController.getUserService);
-// router.put('/:id/services/:serviceId', UserController.updateUserService);
-// router.delete('/:id/services/:serviceId', UserController.deleteUserService);
+// services of the user
+router.get('/:id/services', UserController.getAllUserServices);
+router.post('/:id/services', UserController.createUserService);
 
-// router.get('/:id/bookings', UserController.getAllUserBookings);
-// router.post('/:id/bookings', UserController.createUserBooking);
-// router.get('/:id/bookings/:serviceId', UserController.getUserBooking);
-// router.put('/:id/bookings/:serviceId', UserController.updateUserBooking);
-// router.delete('/:id/bookings/:serviceId', UserController.deleteUserBooking);
+// bookings of the user
+router.get('/:id/bookings', UserController.getAllUserBookings);
+router.post('/:id/bookings', UserController.createUserBooking);
 
-// router.get('/:id/reviews', UserController.getAllUserReviews);
-// router.post('/:id/reviews', UserController.createUserReview);
-// router.get('/:id/reviews/:reviewId', UserController.getUserReview);
-// router.put('/:id/reviews/:reviewId', UserController.updateUserReview);
-// router.delete('/:id/reviews/:reviewId', UserController.deleteUserReview);
+// reviews of the user
+router.get('/:id/reviews', UserController.getAllUserReviews);
+router.post('/:id/reviews', UserController.createUserReview);
 
 export default router;
