@@ -31,7 +31,6 @@ const RegisterPage = () => {
   const navigate = useNavigate();
 
   // handle google login. currently points to backend. need to change for production
-  // TODO: change the link here
   const handleGoogleLogin = async (e) => {
     e.preventDefault();
     await window.open('/api/auth/google', '_self');
@@ -48,8 +47,7 @@ const RegisterPage = () => {
       try {
         // Attempt to register and set local credentials
         const res = await register({ email, password }).unwrap();
-        console.log(res);
-        dispatch(setCredentials({ ...res }));
+        dispatch(setCredentials(res.newUser));
         navigate('/');
         toast.success('Registration Successful. Welcome to the club.');
       } catch (err) {
@@ -63,11 +61,6 @@ const RegisterPage = () => {
     <>
       <div className='flex min-h-full flex-col justify-center px-6 pb-12 lg:px-8'>
         <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
-          {/* <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-          /> */}
           <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight'>
             Register for an account!
           </h2>
@@ -109,7 +102,7 @@ const RegisterPage = () => {
                   <input
                     id='password'
                     name='password'
-                    type='text' // this is difference
+                    type='text'
                     autoComplete='current-password'
                     placeholder='Enter Password Here'
                     className='input input-bordered w-full block'
@@ -119,7 +112,7 @@ const RegisterPage = () => {
                   <input
                     id='password'
                     name='password'
-                    type='password' // this is difference
+                    type='password'
                     autoComplete='current-password'
                     placeholder='Enter Password Here'
                     className='input input-bordered w-full block'
@@ -146,7 +139,7 @@ const RegisterPage = () => {
                   <input
                     id='verify-password'
                     name='verify-password'
-                    type='text' // this is difference
+                    type='text'
                     autoComplete='current-password'
                     placeholder='Retype Password Here'
                     className='input input-bordered w-full block'
@@ -156,7 +149,7 @@ const RegisterPage = () => {
                   <input
                     id='verify-password'
                     name='verify-password'
-                    type='password' // this is difference
+                    type='password'
                     autoComplete='current-password'
                     placeholder='Retype Password Here'
                     className='input input-bordered w-full block'
@@ -168,7 +161,7 @@ const RegisterPage = () => {
 
             <div>
               <button
-                type='submit'
+                type='button'
                 className='btn btn-block btn-primary'
                 onClick={handleLocalRegister}
               >
@@ -178,7 +171,7 @@ const RegisterPage = () => {
             <hr />
             <div>
               <button
-                type='submit'
+                type='button'
                 className='btn btn-block btn-secondary'
                 onClick={handleGoogleLogin}
               >

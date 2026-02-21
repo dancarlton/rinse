@@ -1,38 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Avatar from '../components/Avatar';
+import { useGetOneUserQuery, useGetUserServicesQuery, useGetUserReviewsQuery } from '../slices/usersSlice';
 
 const ProviderPage = () => {
-  const { name } = useParams();
-  const [providerData, setProviderData] = useState(null);
+  const { id } = useParams();
+  const { data: providerData, isLoading: isLoadingProvider, isError: isProviderError } = useGetOneUserQuery(id);
+  const { data: services, isLoading: isLoadingServices } = useGetUserServicesQuery(id);
+  const { data: reviews, isLoading: isLoadingReviews } = useGetUserReviewsQuery(id);
 
-  useEffect(() => {
-    // we have a RTK Query for this. use that instead of fetching here
-    const fetchData = async () => {
-      try {
-        // get all users
-        const response = await fetch(`/api/users`);
-        const data = await response.json();
-        // Find the user with the specified name and role "provider"
-        // TODO: Refactor this because this will find multiple users eventually
-        const foundProvider = data.find((user) => user.name === name && user.role === 'provider');
-        if (foundProvider) {
-          setProviderData(foundProvider);
-        } else {
-          // TODO: handle case where provider is not found
-
-          console.error(`Provider with name ${name} not found.`);
-        }
-      } catch (error) {
-        // TODO: Handle error
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, [name]);
-
-  if (!providerData) {
+  if (isLoadingProvider) {
     return (
       <div className='flex justify-center items-center h-screen'>
         <div className='loader'></div>
@@ -40,10 +17,15 @@ const ProviderPage = () => {
     );
   }
 
-  const overallRating = providerData.reviews?.length
-    ? providerData.reviews.reduce((sum, review) => sum + review.rating, 0) /
-      providerData.reviews.length
-    : 0;
+  if (isProviderError || !providerData) {
+    return (
+      <div className='flex justify-center items-center h-screen'>
+        <p>Provider not found.</p>
+      </div>
+    );
+  }
+
+  const overallRating = providerData.rating || 0;
 
   return (
     <div className='max-w-4xl mx-auto p-4'>
@@ -79,7 +61,7 @@ const ProviderPage = () => {
         {/* Location Subsection */}
         <div className='text-lg mt-4 md:mt-0'>
           <h3 className='font-semibold'>Location:</h3>
-          <p className='font-bold mt-2'>{providerData.serviceArea}</p>
+          <p className='font-bold mt-2'>{providerData.location ? 'Available' : 'Not set'}</p>
         </div>
       </section>
 
@@ -87,73 +69,79 @@ const ProviderPage = () => {
       <section className='my-8'>
         <h3 className='text-2xl font-bold mb-4'>Services</h3>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-          {/* Service Cards */}
-          {/* TODO: Turn this into a component */}
-          {providerData.services?.map((service, index) => (
-            <div key={index} className='card card-compact bg-base-100 shadow-xl'>
-              <figure className='h-48 overflow-hidden'>
-                <img
-                  src={service.photo}
-                  alt={service.name}
-                  className='object-cover w-full h-full'
-                />
-              </figure>
-              <div className='card-body'>
-                <h2 className='card-title'>
-                  {service.name} - ${service.price}
-                </h2>
-                <p>{service.description}</p>
-                <div className='card-actions justify-end mt-4'>
-                  {/* TODO: Change this route to use provider ID not name, other stuff has to be changed as well to use provider id */}
-                  <Link
-                    to={`/provider/${providerData.name}/bookings`}
-                    className='btn btn-secondary mr-2'
-                  >
-                    Book Now
-                  </Link>
+          {isLoadingServices ? (
+            <p>Loading services...</p>
+          ) : services && services.length > 0 ? (
+            services.map((service) => (
+              <div key={service._id} className='card card-compact bg-base-100 shadow-xl'>
+                <figure className='h-48 overflow-hidden'>
+                  <img
+                    src={service.photo || '/images/icons/service-missing.png'}
+                    alt={service.title}
+                    className='object-cover w-full h-full'
+                  />
+                </figure>
+                <div className='card-body'>
+                  <h2 className='card-title'>
+                    {service.title} - ${service.price}
+                  </h2>
+                  <p>{service.description}</p>
+                  <p className='text-sm text-gray-500'>Est. {service.estimatedTime} min</p>
+                  <div className='card-actions justify-end mt-4'>
+                    <Link
+                      to={`/provider/${id}/bookings`}
+                      className='btn btn-secondary mr-2'
+                    >
+                      Book Now
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p>No services listed yet.</p>
+          )}
         </div>
       </section>
-      {/* TODO: Change this to use RTK query to fetch reviews based on provider id and then provide pagination for the reviews */}
-      {/* TODO: add filtering of reviews by # of stars or date */}
+
       {/* Reviews Section */}
       <section className='my-8'>
         <h3 className='text-2xl font-bold mb-4'>Reviews</h3>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-          {/* Individual Review Cards */}
-          {providerData.reviews?.map((review, index) => (
-            <div key={index} className='card bg-base-100 shadow-xl p-4'>
-              <div className='flex items-start space-x-4'>
-                {/* TODO: Change default avatar */}
-                <img
-                  src={review.avatar || '/default-avatar.png'}
-                  alt='Reviewer'
-                  className='w-16 h-16 rounded-full'
-                />
-                <div>
-                  <h4 className='font-semibold'>{review.user}</h4>
-                  <div className='flex items-center mt-1'>
-                    {/* Star Ratings */}
-                    {Array.from({ length: 5 }, (_, i) => (
-                      <svg
-                        key={i}
-                        fill={i < review.rating ? 'currentColor' : 'none'}
-                        stroke='currentColor'
-                        className='w-5 h-5 text-yellow-500'
-                        viewBox='0 0 20 20'
-                      >
-                        <path d='M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.785.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z' />
-                      </svg>
-                    ))}
+          {isLoadingReviews ? (
+            <p>Loading reviews...</p>
+          ) : reviews && reviews.length > 0 ? (
+            reviews.map((review) => (
+              <div key={review._id} className='card bg-base-100 shadow-xl p-4'>
+                <div className='flex items-start space-x-4'>
+                  <img
+                    src='/default-avatar.png'
+                    alt='Reviewer'
+                    className='w-16 h-16 rounded-full'
+                  />
+                  <div>
+                    <div className='flex items-center mt-1'>
+                      {/* Star Ratings */}
+                      {Array.from({ length: 5 }, (_, i) => (
+                        <svg
+                          key={i}
+                          fill={i < review.rating ? 'currentColor' : 'none'}
+                          stroke='currentColor'
+                          className='w-5 h-5 text-yellow-500'
+                          viewBox='0 0 20 20'
+                        >
+                          <path d='M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.785.57-1.84-.197-1.54-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z' />
+                        </svg>
+                      ))}
+                    </div>
+                    <p className='mt-3 text-gray-600'>{review.comment}</p>
                   </div>
-                  <p className='mt-3 text-gray-600'>{review.comment}</p>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p>No reviews yet.</p>
+          )}
         </div>
       </section>
     </div>

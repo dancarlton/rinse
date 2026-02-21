@@ -1,8 +1,10 @@
-// import { themeChange } from 'theme-change';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { openRightDrawer } from '../../slices/rightDrawerSlice';
 import { RIGHT_DRAWER_TYPES } from '../../utils/globalConstantUtil';
+import { useLogoutMutation } from '../../slices/usersSlice';
+import { logout } from '../../slices/authSlice';
 
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,23 +12,11 @@ import { faBell, faMoon, faSun } from '@fortawesome/free-regular-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 function Header() {
-  // const darkThemeOptions = ['dark', 'luxury', 'black'];
-  // const lightThemeOptinos = ['light', 'corporate', 'lofi'];
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { noOfNotifications, pageTitle } = useSelector((state) => state.header);
   const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('theme'));
-
-  // useEffect(() => {
-  //   themeChange(false);
-  //   if (currentTheme === null) {
-  //     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  //       setCurrentTheme('black');
-  //     } else {
-  //       setCurrentTheme('lofi');
-  //     }
-  //   }
-  //   // 👆 false parameter is required for react project
-  // }, [currentTheme]);
+  const [logoutApi] = useLogoutMutation();
 
   // Opening right sidebar for notification
   const openNotification = () => {
@@ -38,10 +28,15 @@ function Header() {
     );
   };
 
-  function logoutUser() {
-    localStorage.clear();
-    window.location.href = '/';
-  }
+  const logoutUser = async () => {
+    try {
+      await logoutApi().unwrap();
+      dispatch(logout());
+      navigate('/');
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
@@ -55,24 +50,6 @@ function Header() {
         </div>
 
         <div className='order-last'>
-          {/* Multiple theme selection, uncomment this if you want to enable multiple themes selection.
-          Themes need to be changed in tailwind.config file  as well*/}
-
-          {/* <select
-            className="select select-sm mr-4"
-            defaultValue={currentTheme}
-            onChange={(e) => setCurrentTheme(e.target.value)}
-            data-choose-theme
-          >
-            <option disabled>Theme</option>
-            <option value="light">Default</option>
-            <option value="dark">Dark</option>
-            <option value="corporate">Corporate</option>
-            <option value="luxury">Luxury</option>
-            <option value="lofi">Lofi</option>
-            <option value="black">Black</option>
-          </select> */}
-
           {/* Light and dark theme selection toogle **/}
           <label className='swap '>
             <input type='checkbox' />
@@ -118,13 +95,13 @@ function Header() {
               className='menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52'
             >
               <li className='justify-between'>
-                <Link to={'/app/settings-profile'}>
+                <Link to={'/dashboard/settings-profile'}>
                   Profile Settings
                   <span className='badge'>New</span>
                 </Link>
               </li>
               <li className=''>
-                <Link to={'/app/settings-billing'}>Bill History</Link>
+                <Link to={'/dashboard/settings-billing'}>Bill History</Link>
               </li>
               <div className='divider mt-0 mb-0'></div>
               <li>

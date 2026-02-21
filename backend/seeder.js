@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import 'dotenv/config';
 import colors from 'colors';
+import bcrypt from 'bcryptjs';
 import { faker } from '@faker-js/faker';
 import { User } from './models/userModel.js';
 import { Service } from './models/serviceModel.js';
@@ -17,7 +18,7 @@ const numRecords = 100;
 const admin = new User({
   name: 'admin',
   email: 'admin@email.com',
-  password: 'Pa55word!',
+  password: bcrypt.hashSync('Pa55word!', 10),
   role: 'admin',
   googleId: faker.string.uuid(),
   isVerified: true,
@@ -50,20 +51,19 @@ const destroyData = async () => {
     console.log(`Booking: ${deleteManyResultBooking.deletedCount} records deleted`.red);
   } catch (error) {
     logErrorDetails(error, 'destroy operation', 'All');
+  } finally {
+    process.exit();
   }
 };
 
 const logErrorDetails = (error, operation, model) => {
   console.error(`Error during ${operation} on ${model}: ${error.message}`.red.inverse);
-  // Additional error details can be logged here if needed
 };
 
 const createBookingWithStatus = (provider, consumer, service) => {
-  // Base date for the booking creation
-  const baseDate = faker.date.recent({ days: 90 }); // Booking created within the last 90 days
+  const baseDate = faker.date.recent({ days: 90 });
   const statusOptions = ['pending', 'confirmed', 'completed', 'cancelled'];
 
-  // Start with a pending status
   let status = 'pending';
   const statusTimestamps = {
     pending: baseDate,
@@ -72,8 +72,7 @@ const createBookingWithStatus = (provider, consumer, service) => {
     cancelled: null,
   };
 
-  // Randomly decide the next status (for simplicity, this example may not cover all real-world logic)
-  const nextStatus = faker.helpers.arrayElement(statusOptions.slice(1)); // Exclude 'pending' as it is the initial state
+  const nextStatus = faker.helpers.arrayElement(statusOptions.slice(1));
 
   switch (nextStatus) {
     case 'confirmed':
@@ -81,7 +80,6 @@ const createBookingWithStatus = (provider, consumer, service) => {
       statusTimestamps.confirmed = new Date(
         baseDate.getTime() + faker.number.int({ min: 1, max: 7 }) * 24 * 60 * 60 * 1000
       );
-      // Decide if we go to completed or cancelled from confirmed
       if (faker.datatype.boolean()) {
         status = 'completed';
         statusTimestamps.completed = new Date(
@@ -97,7 +95,6 @@ const createBookingWithStatus = (provider, consumer, service) => {
       }
       break;
     case 'completed':
-      // For a booking to be completed, it first needs to be confirmed
       status = 'confirmed';
       statusTimestamps.confirmed = new Date(
         baseDate.getTime() + faker.number.int({ min: 1, max: 7 }) * 24 * 60 * 60 * 1000
@@ -109,9 +106,7 @@ const createBookingWithStatus = (provider, consumer, service) => {
       );
       break;
     case 'cancelled':
-      // Bookings can be cancelled either from pending or confirmed states
       if (faker.datatype.boolean()) {
-        // Assume it was confirmed then cancelled
         status = 'confirmed';
         statusTimestamps.confirmed = new Date(
           baseDate.getTime() + faker.number.int({ min: 1, max: 7 }) * 24 * 60 * 60 * 1000
@@ -122,7 +117,6 @@ const createBookingWithStatus = (provider, consumer, service) => {
             faker.number.int({ min: 1, max: 3 }) * 24 * 60 * 60 * 1000
         );
       } else {
-        // Cancelled directly from pending
         status = 'cancelled';
         statusTimestamps.cancelled = new Date(
           baseDate.getTime() + faker.number.int({ min: 1, max: 7 }) * 24 * 60 * 60 * 1000
@@ -131,7 +125,6 @@ const createBookingWithStatus = (provider, consumer, service) => {
       break;
   }
 
-  // Create and return the booking object
   return new Booking({
     provider: provider._id,
     consumer: consumer._id,
@@ -139,14 +132,14 @@ const createBookingWithStatus = (provider, consumer, service) => {
     status,
     statusTimestamps,
     calendlyEventUri: faker.internet.url(),
-    hasPaid: status !== 'cancelled' && faker.datatype.boolean(), // Assume payment may not have been made if the booking is cancelled
+    hasPaid: status !== 'cancelled' && faker.datatype.boolean(),
     paymentDetails:
       status !== 'cancelled'
         ? {
             transactionId: faker.string.uuid(),
             amountPaid: faker.commerce.price(),
             paymentProcessor: faker.helpers.arrayElement(['stripe', 'paypal']),
-            paymentTimestamp: baseDate, // Assuming payment was made at the time of booking
+            paymentTimestamp: baseDate,
           }
         : {},
   });
@@ -164,9 +157,7 @@ const createDummyData = async (numRecords) => {
         new User({
           name: faker.person.fullName(),
           email: faker.internet.email(),
-          password: faker.internet.password({
-            length: 10,
-          }),
+          password: bcrypt.hashSync(faker.internet.password({ length: 10 }), 10),
           role: faker.helpers.arrayElement(['admin', 'user', 'provider']),
           googleId: faker.string.uuid(),
           isVerified: faker.datatype.boolean(),
@@ -190,7 +181,6 @@ const createDummyData = async (numRecords) => {
     console.log('Seeding services...'.blue);
     providers.forEach((provider) => {
       for (let i = 0; i < Math.floor(Math.random() * 5) + 1; i++) {
-        // 1 - 5 services per provider
         services.push(
           new Service({
             provider: provider._id,
@@ -211,15 +201,12 @@ const createDummyData = async (numRecords) => {
     const reviews = [];
     console.log('Seeding bookings and reviews...'.blue);
     services.forEach((service) => {
-      // Find provider and consumer
       const provider = providers.find((provider) => provider._id.equals(service.provider));
       const consumer = faker.helpers.arrayElement(consumers);
 
-      // Create booking with realistic progression of statuses
       const booking = createBookingWithStatus(provider, consumer, service);
       bookings.push(booking);
 
-      // Only create a review if booking is completed
       if (booking.status === 'completed') {
         const review = new Review({
           provider: provider._id,

@@ -94,9 +94,6 @@ const Navbar = () => {
             <li>
               <NavLink to='/map'>The Map</NavLink>
             </li>
-            <li>
-              <NavLink to='/provider/John%20Smith'>Generic Provider Page</NavLink>
-            </li>
           </ul>
         </div>
         <NavLink to='/' className='normal-case text-2xl link link-hover ml-5 font-extrabold'>
@@ -120,7 +117,7 @@ const Navbar = () => {
                   <summary>Register</summary>
                   <ul className='p-2'>
                     <li>
-                      <NavLink to='/provider/Emily%20Davis'>Detailer</NavLink>
+                      <NavLink to='/register'>Detailer</NavLink>
                     </li>
                     <li>
                       <NavLink to='/register'>Customer</NavLink>
@@ -147,9 +144,6 @@ const Navbar = () => {
           </li>
           <li>
             <NavLink to='/map'>The Map</NavLink>
-          </li>
-          <li>
-            <NavLink to='/provider/John%20Smith'>Generic Provider Page</NavLink>
           </li>
         </ul>
       </div>

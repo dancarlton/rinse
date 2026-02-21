@@ -1,6 +1,9 @@
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import TitleCard from '../../components/Cards/TitleCard';
 import { setPageTitle, showNotification } from '../../slices/headerSlice';
+import { useProfileMutation } from '../../slices/usersSlice';
+import { setCredentials } from '../../slices/authSlice';
 import InputText from '../../components/Input/InputText';
 import TextAreaInput from '../../components/Input/TextAreaInput';
 import ToggleInput from '../../components/Input/ToggleInput';
@@ -8,14 +11,31 @@ import { useEffect } from 'react';
 
 function ProfileSettings() {
   const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.auth);
+  const [profileApi] = useProfileMutation();
+
+  const [formData, setFormData] = useState({
+    name: userInfo?.name || '',
+    email: userInfo?.email || '',
+    about: '',
+    language: 'English',
+    timezone: '',
+    syncData: true,
+  });
 
   // Call API to update profile settings changes
-  const updateProfile = () => {
-    dispatch(showNotification({ message: 'Profile Updated', status: 1 }));
+  const updateProfile = async () => {
+    try {
+      const res = await profileApi({ name: formData.name, email: formData.email }).unwrap();
+      dispatch(setCredentials(res));
+      dispatch(showNotification({ message: 'Profile Updated', status: 1 }));
+    } catch (err) {
+      dispatch(showNotification({ message: err?.data?.message || 'Update failed', status: 0 }));
+    }
   };
 
   const updateFormValue = ({ updateType, value }) => {
-    console.log(updateType);
+    setFormData((prev) => ({ ...prev, [updateType]: value }));
   };
 
   useEffect(() => {
@@ -27,37 +47,37 @@ function ProfileSettings() {
     <>
       <TitleCard title='Profile Settings' topMargin='mt-2'>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-          <InputText labelTitle='Name' defaultValue='Alex' updateFormValue={updateFormValue} />
           <InputText
-            labelTitle='Email Id'
-            defaultValue='alex@dashwind.com'
+            labelTitle='Name'
+            updateType='name'
+            defaultValue={userInfo?.name || ''}
             updateFormValue={updateFormValue}
           />
           <InputText
-            labelTitle='Title'
-            defaultValue='UI/UX Designer'
+            labelTitle='Email'
+            updateType='email'
+            defaultValue={userInfo?.email || ''}
             updateFormValue={updateFormValue}
           />
           <InputText
-            labelTitle='Place'
-            defaultValue='California'
+            labelTitle='Language'
+            updateType='language'
+            defaultValue='English'
+            updateFormValue={updateFormValue}
+          />
+          <InputText
+            labelTitle='Timezone'
+            updateType='timezone'
+            defaultValue=''
+            placeholder='e.g. EST, PST'
             updateFormValue={updateFormValue}
           />
           <TextAreaInput
             labelTitle='About'
-            defaultValue='Doing what I love, part time traveller'
+            updateType='about'
+            defaultValue=''
             updateFormValue={updateFormValue}
           />
-        </div>
-        <div className='divider'></div>
-
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-          <InputText
-            labelTitle='Language'
-            defaultValue='English'
-            updateFormValue={updateFormValue}
-          />
-          <InputText labelTitle='Timezone' defaultValue='IST' updateFormValue={updateFormValue} />
           <ToggleInput
             updateType='syncData'
             labelTitle='Sync Data'

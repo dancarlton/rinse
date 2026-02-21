@@ -4,6 +4,7 @@ import baseRoutes from './baseRoutes.js';
 import bookingRoutes from './bookingRoutes.js';
 import serviceRoutes from './serviceRoutes.js';
 import reviewRoutes from './reviewRoutes.js';
+import contactController from '../controllers/contactController.js';
 
 export function initRoutes(app) {
   app.use('/api', baseRoutes);
@@ -12,5 +13,6 @@ export function initRoutes(app) {
   app.use('/api/bookings', bookingRoutes);
   app.use('/api/services', serviceRoutes);
   app.use('/api/reviews', reviewRoutes);
+  app.post('/api/contact', contactController.submitContact);
   app.use('/healthcheck', (req, res) => res.send('Router routing OK'));
 }

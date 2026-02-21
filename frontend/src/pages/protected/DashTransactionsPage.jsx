@@ -1,7 +1,6 @@
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import TitleCard from '../../components/Cards/TitleCard';
-import { RECENT_TRANSACTIONS } from '../../utils/dummyData';
 import SearchBar from '../../components/Input/SearchBar';
 import PropType from 'prop-types';
 import { setPageTitle } from '../../slices/headerSlice';
@@ -12,7 +11,6 @@ import { faFilter, faXmark } from '@fortawesome/free-solid-svg-icons';
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
   const [filterParam, setFilterParam] = useState('');
   const [searchText, setSearchText] = useState('');
-  const locationFilters = ['Paris', 'London', 'Canada', 'Peru', 'Tokyo'];
 
   const showFiltersAndApply = (params) => {
     applyFilter(params);
@@ -55,13 +53,6 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
           tabIndex={0}
           className='dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52'
         >
-          {locationFilters.map((l, k) => {
-            return (
-              <li key={k}>
-                <button onClick={() => showFiltersAndApply(l)}>{l}</button>
-              </li>
-            );
-          })}
           <div className='divider mt-0 mb-0'></div>
           <li>
             <button onClick={() => removeAppliedFilter()}>Remove Filter</button>
@@ -73,28 +64,20 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
 };
 
 function Transactions() {
-  const [trans, setTrans] = useState(RECENT_TRANSACTIONS);
+  const [trans, setTrans] = useState([]);
 
   const removeFilter = () => {
-    setTrans(RECENT_TRANSACTIONS);
+    setTrans([]);
   };
 
   const applyFilter = (params) => {
-    let filteredTransactions = RECENT_TRANSACTIONS.filter((t) => {
-      return t.location === params;
-    });
-    setTrans(filteredTransactions);
+    // When real data is available, filter transactions here
+    setTrans([]);
   };
 
-  // Search according to name
   const applySearch = (value) => {
-    let filteredTransactions = RECENT_TRANSACTIONS.filter((t) => {
-      return (
-        t.email.toLowerCase().includes(value.toLowerCase()) ||
-        t.email.toLowerCase().includes(value.toLowerCase())
-      );
-    });
-    setTrans(filteredTransactions);
+    // When real data is available, search transactions here
+    setTrans([]);
   };
 
   const dispatch = useDispatch();
@@ -116,7 +99,6 @@ function Transactions() {
           />
         }
       >
-        {/* Team Member list in table format loaded constant */}
         <div className='overflow-x-auto w-full'>
           <table className='table w-full'>
             <thead>
@@ -129,28 +111,36 @@ function Transactions() {
               </tr>
             </thead>
             <tbody>
-              {trans.map((l, k) => {
-                return (
-                  <tr key={k}>
-                    <td>
-                      <div className='flex items-center space-x-3'>
-                        <div className='avatar'>
-                          <div className='mask mask-circle w-12 h-12'>
-                            <img src={l.avatar} alt='Avatar' />
+              {trans.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className='text-center text-gray-500 py-8'>
+                    No transactions found.
+                  </td>
+                </tr>
+              ) : (
+                trans.map((l, k) => {
+                  return (
+                    <tr key={k}>
+                      <td>
+                        <div className='flex items-center space-x-3'>
+                          <div className='avatar'>
+                            <div className='mask mask-circle w-12 h-12'>
+                              <img src={l.avatar} alt='Avatar' />
+                            </div>
+                          </div>
+                          <div>
+                            <div className='font-bold'>{l.name}</div>
                           </div>
                         </div>
-                        <div>
-                          <div className='font-bold'>{l.name}</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>{l.email}</td>
-                    <td>{l.location}</td>
-                    <td>${l.amount}</td>
-                    <td>{moment(l.date).format('D MMM')}</td>
-                  </tr>
-                );
-              })}
+                      </td>
+                      <td>{l.email}</td>
+                      <td>{l.location}</td>
+                      <td>${l.amount}</td>
+                      <td>{moment(l.date).format('D MMM')}</td>
+                    </tr>
+                  );
+                })
+              )}
             </tbody>
           </table>
         </div>

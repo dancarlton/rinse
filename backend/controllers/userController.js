@@ -63,6 +63,27 @@ const userController = {
   },
 
   /********************************************************************************
+   * @description update current user's profile
+   * @route /api/users/profile
+   * @method PUT
+   * @returns {object}, updated user object
+   *******************************************************************************/
+  updateCurrentUserProfile: async (req, res) => {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' });
+    }
+    const { name, email, password, avatar, location } = req.body;
+    if (name) user.name = name;
+    if (email) user.email = email;
+    if (password) user.password = password; // pre-save hook will hash
+    if (avatar) user.avatar = avatar;
+    if (location) user.location = location;
+    const updatedUser = await user.save();
+    return res.status(200).json(updatedUser.hidePassword());
+  },
+
+  /********************************************************************************
    * @description delete one user by _id
    * @route /api/users/:id
    * @method DELETE
@@ -101,49 +122,11 @@ const userController = {
       });
     }
 
-    // create new user with hashed password
-    const newUser = await User.create({ email, password });
-    await newUser.hashPassword();
-    /*
-    try {
-      await newUser.save();
-
-      // create verification token for new user
-      const verificationToken = TokenService.createToken();
-      TokenService.setUserId(verificationToken, newUser._id);
-      TokenService.saveToken(verificationToken);
-
-      // send verification email to new user
-      const verificationEmail = EmailService.createVerificationEmail(
-        newUser.email,
-        verificationToken.token
-      );
-      try {
-        // attempt email service to registration email
-        EmailService.sendEmail(verificationEmail);
-        return res.status(200).send({
-          message: `A verification email has been sent to ${verificationEmail}.`,
-          newUser,
-        });
-      } catch (err) {
-        //
-        await User.findByIdAndDelete(user._id);
-
-        return res.status(503).send({
-          message: `Error sending an email to ${newUser.email}. You must re-register. Our service may be down.`,
-        });
-      }
-    } catch (err) {
-      LoggerService.log.error(err);
-
-      return res
-        .status(500)
-        .send({ message: "Creation of user failed, try again." });
-    }
-  */
+    // create new user -- pre-save hook handles password hashing
+    const newUser = new User({ email, password });
     await newUser.save();
     return res.status(201).send({
-      newUser,
+      newUser: newUser.hidePassword(),
     });
   },
 

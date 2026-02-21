@@ -3,7 +3,7 @@ const authenticated = (req, res, next) => {
   if (req.user && req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/login');
+  res.status(401).json({ message: 'Not authenticated' });
 };
 
 
@@ -12,8 +12,7 @@ const admin = (req, res, next) => {
   if (req.user && req.isAuthenticated() && req.user.role === 'admin') {
     next();
   } else {
-    res.status(401);
-    throw new Error('Not authorized as an admin');
+    res.status(401).json({ message: 'Not authorized as an admin' });
   }
 };
 // User must be a provider. lets admin role through as well
@@ -25,8 +24,7 @@ const provider = (req, res, next) => {
   ) {
     next();
   } else {
-    res.status(401);
-    throw new Error('Not authorized as a provider');
+    res.status(401).json({ message: 'Not authorized as a provider' });
   }
 };
 

@@ -1,9 +1,18 @@
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 import PageContent from './PageContent';
 import LeftSidebar from './LeftSidebar';
 import RightSidebar from './RightSidebar';
 import ModalLayout from './ModalLayout';
 
 function Layout() {
+  const { userInfo } = useSelector((state) => state.auth);
+
+  // Redirect to login if not authenticated
+  if (!userInfo) {
+    return <Navigate to="/login" replace />;
+  }
+
   return (
     <>
       {/* Left drawer - containing page content and side bar (always open) */}

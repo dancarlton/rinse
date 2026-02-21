@@ -39,7 +39,7 @@ const LoginPage = () => {
     } catch (err) {
       // Show error toast if login fails.
       console.error(err);
-      toast.error(err.data.message || err.error);
+      toast.error(err?.data?.message || err?.error);
     }
   };
 
@@ -56,11 +56,6 @@ const LoginPage = () => {
     <>
       <div className='flex min-h-full flex-col justify-center  px-6 pb-12 lg:px-8'>
         <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
-          {/* <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-          /> */}
           <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight'>
             Sign in to your account
           </h2>
@@ -107,7 +102,7 @@ const LoginPage = () => {
                   <input
                     id='password'
                     name='password'
-                    type='text' // this is difference
+                    type='text'
                     autoComplete='current-password'
                     placeholder='Enter Password Here'
                     className='input input-bordered w-full block'
@@ -117,7 +112,7 @@ const LoginPage = () => {
                   <input
                     id='password'
                     name='password'
-                    type='password' // this is difference
+                    type='password'
                     autoComplete='current-password'
                     placeholder='Enter Password Here'
                     className='input input-bordered w-full block'
@@ -129,7 +124,7 @@ const LoginPage = () => {
 
             <div>
               <button
-                type='submit'
+                type='button'
                 className='btn btn-block btn-primary'
                 onClick={handleLocalLogin}
               >
@@ -139,7 +134,7 @@ const LoginPage = () => {
             <hr />
             <div>
               <button
-                type='submit'
+                type='button'
                 className='btn btn-block btn-secondary'
                 onClick={handleGoogleLogin}
               >
@@ -152,7 +147,7 @@ const LoginPage = () => {
           </form>
           <p className='mt-10 text-center text-sm text-gray-500'>
             Not a member?{' '}
-            <Link to='/' className='font-semibold leading-6 text-indigo-600 hover:text-indigo-500'>
+            <Link to='/register' className='font-semibold leading-6 text-indigo-600 hover:text-indigo-500'>
               {' '}
               Register Now
             </Link>

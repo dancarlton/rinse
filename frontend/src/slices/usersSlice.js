@@ -37,7 +37,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     }),
     // Query to get all users with optional pagination
     getAllUsers: builder.query({
-      query: ({ pageNumber }) => ({
+      query: ({ pageNumber } = {}) => ({
         url: `${USERS_URL}`,
       }),
       providesTags: ['User'],
@@ -74,6 +74,22 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
+    // Query to get services for a specific user
+    getUserServices: builder.query({
+      query: (id) => ({
+        url: `${USERS_URL}/${id}/services`,
+        method: 'GET',
+      }),
+      keepUnusedDataFor: 5,
+    }),
+    // Query to get reviews for a specific user
+    getUserReviews: builder.query({
+      query: (id) => ({
+        url: `${USERS_URL}/${id}/reviews`,
+        method: 'GET',
+      }),
+      keepUnusedDataFor: 5,
+    }),
   }),
 });
 
@@ -87,4 +103,6 @@ export const {
   useGetOneUserQuery,
   useUpdateUserMutation,
   useGetCurrentUserQuery,
+  useGetUserServicesQuery,
+  useGetUserReviewsQuery,
 } = usersApiSlice;

@@ -19,9 +19,6 @@ export const saveUser = async (user) => await user.save();
 
 export const setUserPassword = async (user, password) => {
   user.password = password;
-  user.passwordResetToken = '';
-  user.passwordResetExpires = dayjs().toDate();
-  return await user.hashPassword();
 };
 
 export const setUserVerified = async (user) => {

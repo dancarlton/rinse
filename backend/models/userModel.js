@@ -25,8 +25,7 @@ const userSchema = new Schema(
   {
     name: {
       type: String,
-      required: [true, 'Name is required'],
-      minlength: 2,
+      default: '',
       maxlength: 50,
     },
     googleId: {
@@ -51,8 +50,8 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
-      required: true,
       enum: ['admin', 'user', 'provider'],
+      default: 'user',
     },
     avatar: {
       type: String,
@@ -95,7 +94,7 @@ userSchema.pre('save', async function hashPassword(next) {
  * @return {Promise} A promise that resolves to the updated user object after saving.
  */
 userSchema.methods.updateRating = function updateRating(newRating) {
-  const cumulativeRatingScore = numRatings * rating + newRating;
+  const cumulativeRatingScore = this.numRatings * this.rating + newRating;
   this.numRatings += 1;
   this.rating = cumulativeRatingScore / this.numRatings;
   return this.save();

@@ -1,9 +1,7 @@
 import passport from 'passport';
 import Local from 'passport-local';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-// import mongoose from "mongoose";
 import { User } from '../models/userModel.js';
-// import { logger } from "./logging.js";
 
 export function initPassportJS() {
   // pulled from passport JS local strategy https://www.passportjs.org/packages/passport-local/
@@ -25,7 +23,8 @@ export function initPassportJS() {
             });
           }
           // if password is incorrect
-          if (!user.comparePassword(password)) {
+          const isMatch = await user.comparePassword(password);
+          if (!isMatch) {
             return cb(null, false, {
               message: 'Incorrect username or password',
             });
@@ -46,7 +45,7 @@ export function initPassportJS() {
         {
           clientID: process.env.GOOGLE_CLIENT_ID,
           clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-          callbackURL: process.env.GOOGLE_CALLBACK_URL || 'http://localhost:5000/api/auth/google/callback',
+          callbackURL: process.env.GOOGLE_CALLBACK_URL || 'http://localhost:5050/api/auth/google/callback',
           passReqToCallback: true,
         },
         // find user by google id or create user
@@ -58,9 +57,9 @@ export function initPassportJS() {
             }
             const newUser = await User.create({
               googleId: profile.id,
-              email: profile.emails[0].value, // Extracting email from Google profile
+              email: profile.emails[0].value,
+              name: profile.displayName || profile.emails[0].value,
               password: null, // No password is needed for OAuth2
-              // additional fields here
             });
             return done(null, newUser);
           } catch (err) {

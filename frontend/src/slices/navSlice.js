@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { apiSlice } from './apiSlice';
 
 const initialState = {
   origin: {
@@ -30,18 +29,5 @@ const navSlice = createSlice({
   },
 });
 
-const asyncNavSlice = apiSlice.injectEndpoints({
-  endpoints: (builder) => ({
-    getTravelTimeInformation: builder.query({
-      query: ({ origin, destination, travelMode }) => ({
-        url: `/api/directions`,
-        method: 'POST',
-        body: { origin, destination, travelMode },
-      }),
-    }),
-  }),
-});
-
 export const { setOrigin, setDestination, setTravelTimeInformation } = navSlice.actions;
-export const { useGetTravelTimeInformationQuery } = asyncNavSlice;
 export default navSlice.reducer;

@@ -19,10 +19,6 @@ import ErrorPage from './pages/ErrorPage.jsx';
 import DashboardLayout from './layouts/dashboard/DashboardLayout.jsx';
 import BookingPage from './pages/BookingPage.jsx';
 
-// Route Modifiers
-// import AdminRoute from "./components/AdminRoute.tsx";
-// import PrivateRoute from "./components/PrivateRoute.tsx";
-
 // Create the router with all the routes
 const router = createBrowserRouter([
   {
@@ -51,11 +47,11 @@ const router = createBrowserRouter([
         element: <MapPage />,
       },
       {
-        path: '/provider/:name',
+        path: '/provider/:id',
         element: <ProviderPage />,
       },
       {
-        path: '/provider/:name/bookings',
+        path: '/provider/:id/bookings',
         element: <BookingPage />,
       },
     ],

@@ -48,12 +48,13 @@ const Map = () => {
   if (isError) return <p>Error</p>;
   if (isSuccess) {
     locations = users
-      .filter((user) => user.locations && user.role === 'provider')
+      .filter((user) => user.location && user.role === 'provider')
       .map((provider) => ({
         id: provider._id,
+        name: provider.name,
         position: {
-          lat: Number(provider.locations.latitude),
-          lng: Number(provider.locations.longitude),
+          lat: provider.location.coordinates[1],  // GeoJSON: [lng, lat]
+          lng: provider.location.coordinates[0],
         },
       }));
   }
