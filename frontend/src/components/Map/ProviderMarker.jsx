@@ -1,20 +1,18 @@
-import { useState } from 'react';
-import { AdvancedMarker, InfoWindow } from '@vis.gl/react-google-maps';
+import { Marker } from 'react-map-gl';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCarSide } from '@fortawesome/free-solid-svg-icons';
 
-// Markers for provider positions
 const ProviderMarker = (props) => {
-  const selectProvider = () => {
-    props.selectProvider();
-  };
   return (
-    <>
-      <AdvancedMarker position={props.position} onClick={selectProvider}>
-        <FontAwesomeIcon icon={faCarSide} size='xl' />
-      </AdvancedMarker>
-    </>
+    <Marker
+      latitude={props.position.lat}
+      longitude={props.position.lng}
+      onClick={props.selectProvider}
+      anchor='center'
+    >
+      <FontAwesomeIcon icon={faCarSide} size='xl' />
+    </Marker>
   );
 };
 

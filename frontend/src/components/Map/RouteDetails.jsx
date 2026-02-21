@@ -1,30 +1,26 @@
 import { useDispatch } from 'react-redux';
-import { setDestination, setTravelTimeInformation } from '../../slices/navSlice';
+import { setDestination } from '../../slices/navSlice';
 import PropTypes from 'prop-types';
 
-// Needs styling
 const RouteDetails = (props) => {
   const { details } = props;
   const dispatch = useDispatch();
 
   const clearDirections = () => {
-    props.directionsRenderer.setMap(null);
+    props.clearRoute();
     dispatch(setDestination(null));
-    dispatch(setTravelTimeInformation(null));
   };
 
   return (
-    <>
-      <div>
-        <h2>
-          {details.startAddress} to {details.endAddress}
-        </h2>
-        <div>via {details.summary}</div>
-        <p>Distance: {details?.distance}</p>
-        <p>Duration: {details?.duration}</p>
-        <button onClick={clearDirections}>Remove Provider</button>
-      </div>
-    </>
+    <div>
+      <h2>
+        {details.startAddress} to {details.endAddress}
+      </h2>
+      {details.summary && <div>via {details.summary}</div>}
+      <p>Distance: {details?.distance}</p>
+      <p>Duration: {details?.duration}</p>
+      <button onClick={clearDirections}>Remove Provider</button>
+    </div>
   );
 };
 
@@ -36,7 +32,7 @@ RouteDetails.propTypes = {
     distance: PropTypes.string,
     duration: PropTypes.string,
   }),
-  directionsRenderer: PropTypes.object.isRequired,
+  clearRoute: PropTypes.func.isRequired,
 };
 
 export default RouteDetails;

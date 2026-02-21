@@ -1,44 +1,69 @@
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import { useState, useCallback } from 'react';
 import { setOrigin } from '../slices/navSlice';
 import { useDispatch } from 'react-redux';
-import { useLazyGetPlaceDetailsQuery } from '../slices/navSlice';
 
-// https://developers.google.com/maps/documentation/places/web-service/autocomplete
-// I think initially we can get current users location and set that as the center of the map instead of initial state which is 0,0
-// this could be done in the navSlice, but maybe it would be better to do it here on initial render?
+const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
+
 const AutoComplete = () => {
   const dispatch = useDispatch();
-  const [trigger, { data, error }] = useLazyGetPlaceDetailsQuery();
+  const [query, setQuery] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
 
-  const handleSelect = async (place) => {
-    if (place?.value?.place_id) {
-      try {
-        const res = await trigger(place.value.place_id).unwrap(); // This will execute the lazy query
-        console.log(res);
-        dispatch(setOrigin(res));
-      } catch (e) {
-        console.log('catch error: e');
-        console.error(e);
-        console.log('error from useLazyGetPlaceDetailsQuery: ');
-        console.error(error);
-        console.log('data from useLazyGetPlaceDetailsQuery: ');
-        console.log(data);
-      }
+  const handleSearch = useCallback(async (value) => {
+    setQuery(value);
+    if (value.length < 3) {
+      setSuggestions([]);
+      return;
     }
+    try {
+      const res = await fetch(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(value)}.json?access_token=${MAPBOX_TOKEN}&limit=5`
+      );
+      const data = await res.json();
+      setSuggestions(data.features || []);
+    } catch (err) {
+      console.error('Geocoding error:', err);
+    }
+  }, []);
+
+  const handleSelect = (feature) => {
+    setQuery(feature.place_name);
+    setSuggestions([]);
+    dispatch(
+      setOrigin({
+        id: feature.id,
+        formattedAddress: feature.place_name,
+        location: {
+          latitude: feature.center[1],
+          longitude: feature.center[0],
+        },
+      })
+    );
   };
 
   return (
-    <>
-      <GooglePlacesAutocomplete
-        selectProps={{
-          onChange: handleSelect,
-          placeholder: 'select location',
-        }}
-        nearbyPlacesAPI='GooglePlacesSearch'
-        debounce={400}
-        minLengthAutocomplete={2}
+    <div className='relative'>
+      <input
+        type='text'
+        value={query}
+        onChange={(e) => handleSearch(e.target.value)}
+        placeholder='Search location...'
+        className='input input-bordered w-full'
       />
-    </>
+      {suggestions.length > 0 && (
+        <ul className='absolute z-50 bg-base-100 shadow-lg rounded-lg w-full mt-1 max-h-60 overflow-y-auto'>
+          {suggestions.map((feature) => (
+            <li
+              key={feature.id}
+              onClick={() => handleSelect(feature)}
+              className='p-2 hover:bg-base-200 cursor-pointer text-sm'
+            >
+              {feature.place_name}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 };
 

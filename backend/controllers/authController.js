@@ -13,11 +13,7 @@ import TokenService from '../services/tokenServices.js';
 import EmailService from '../services/emailServices.js';
 import { logger } from '../config/logging.js';
 
-// client host is either deployed base url or local host environment
-const clientHost =
-  process.env.NODE_ENV === 'production'
-    ? 'https://rinse-copy.onrender.com'
-    : 'http://localhost:5173/';
+const clientHost = process.env.CLIENT_URL || 'http://localhost:5173';
 
 /**
  * @desc Logs out user

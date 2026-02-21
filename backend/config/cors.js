@@ -8,7 +8,8 @@ export function initCORS(app) {
         `http://${process.env.HOST}`,
         `${process.env.HOST}`,
         'http://localhost:5173', // frontend for development purposes
-      ],
+        process.env.CLIENT_URL,
+      ].filter(Boolean),
       methods: ['GET', 'POST', 'PUT', 'OPTIONS', 'DELETE'],
       credentials: true, // enable set cookie
       allowedHeaders: ['Content-Type', 'Authorization'],

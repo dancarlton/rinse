@@ -9,7 +9,7 @@ const authenticated = (req, res, next) => {
 
 // User must be an admin
 const admin = (req, res, next) => {
-  if (req.user && req.isAuthenticated && req.user.role === 'admin') {
+  if (req.user && req.isAuthenticated() && req.user.role === 'admin') {
     next();
   } else {
     res.status(401);
@@ -20,7 +20,7 @@ const admin = (req, res, next) => {
 const provider = (req, res, next) => {
   if (
     req.user &&
-    req.isAuthenticated &&
+    req.isAuthenticated() &&
     (req.user.role === 'provider' || req.user.role === 'admin')
   ) {
     next();

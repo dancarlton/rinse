@@ -15,7 +15,7 @@ const LoginPage = () => {
 
   const handleGoogleLogin = async (e) => {
     e.preventDefault();
-    await window.open('http://localhost:5000/api/auth/google', '_self');
+    await window.open('/api/auth/google', '_self');
   };
   // Fetching login state
   const [login] = useLocalLoginMutation();

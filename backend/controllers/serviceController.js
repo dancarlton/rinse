@@ -35,7 +35,11 @@ const serviceController = {
    *******************************************************************************/
   updateServiceById: async (req, res) => {
     const { id } = req.params;
-    const service = await Service.findByIdAndUpdate(id, req.body, { new: true });
+    const allowed = ['title', 'description', 'price', 'estimatedTime', 'photo'];
+    const updates = Object.fromEntries(
+      Object.entries(req.body).filter(([key]) => allowed.includes(key))
+    );
+    const service = await Service.findByIdAndUpdate(id, updates, { new: true });
     return res.status(200).json(service);
   },
 

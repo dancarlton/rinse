@@ -35,7 +35,11 @@ const reviewController = {
    *******************************************************************************/
   updateReviewById: async (req, res) => {
     const { id } = req.params;
-    const review = await Review.findByIdAndUpdate(id, req.body, { new: true });
+    const allowed = ['rating', 'comment', 'reply'];
+    const updates = Object.fromEntries(
+      Object.entries(req.body).filter(([key]) => allowed.includes(key))
+    );
+    const review = await Review.findByIdAndUpdate(id, updates, { new: true });
     return res.status(200).json(review);
   },
 

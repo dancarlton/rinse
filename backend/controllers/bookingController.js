@@ -35,7 +35,11 @@ const bookingController = {
    *******************************************************************************/
   updateBookingById: async (req, res) => {
     const { id } = req.params;
-    const booking = await Booking.findByIdAndUpdate(id, req.body, { new: true });
+    const allowed = ['status', 'calendlyEventUri'];
+    const updates = Object.fromEntries(
+      Object.entries(req.body).filter(([key]) => allowed.includes(key))
+    );
+    const booking = await Booking.findByIdAndUpdate(id, updates, { new: true });
     return res.status(200).json(booking);
   },
 

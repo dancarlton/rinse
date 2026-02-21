@@ -5,7 +5,6 @@ import MongoStore from 'connect-mongo';
 import bodyParser from 'body-parser';
 import express from 'express';
 import 'express-async-errors';
-import path from 'path';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import { logger } from './config/logging.js';
@@ -21,7 +20,6 @@ const app = express();
 
 await initConfig(app);
 
-const expiryDate = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 // Create express session
 app.use(
   session({
@@ -31,7 +29,8 @@ app.use(
     saveUninitialized: false,
     cookie: {
       secure: process.env.NODE_ENV === 'production',
-      expires: expiryDate,
+      maxAge: 24 * 60 * 60 * 1000,
+      sameSite: 'lax',
     },
     // Store session on DB
     store: MongoStore.create({
@@ -53,24 +52,10 @@ app.use(passport.session()); // allow passport to use "express-session".
 
 initRoutes(app);
 
-// Get directory name for the current module
-const __dirname = path.resolve();
-
-// If app running in production use static folder else only use api.
-if (process.env.NODE_ENV === 'production') {
-  // Set the static folder for serving frontend files
-  app.use(express.static(path.join(__dirname, '/frontend/dist')));
-
-  // Any undefined route will serve index.html file
-  app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'))
-  );
-} else {
-  // Basic route for the root URL
-  app.get('/', (req, res) => {
-    res.send('API running');
-  });
-}
+// Basic route for the root URL
+app.get('/', (req, res) => {
+  res.send('API running');
+});
 
 // Middleware for handling 404 not found errors
 app.use(notFound);
@@ -78,6 +63,8 @@ app.use(notFound);
 // Middleware for handling other errors
 app.use(errorHandler);
 
-app.listen(port, () => logger.info(`Server running on ${port}`));
+if (process.env.VERCEL !== '1') {
+  app.listen(port, () => logger.info(`Server running on ${port}`));
+}
 
 export { app };

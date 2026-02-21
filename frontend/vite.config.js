@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss(), eslint()],
   server: {
     proxy: {
-      '/api': 'http://localhost:5000',
+      '/api': `http://localhost:${process.env.PORT || 5050}`,
       configure: (proxy, _options) => {
         proxy.on('error', (err, _req, _res) => {
           console.log('proxy error', err);

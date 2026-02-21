@@ -9,7 +9,7 @@ export async function initConfig(app) {
   initPassportJS();
   // initLogger();
   initCORS(app);
-  initDB();
+  await initDB();
   initProd(app);
   initRateLimit(app);
 }

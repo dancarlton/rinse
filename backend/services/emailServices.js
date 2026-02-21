@@ -1,49 +1,33 @@
-import sgMail from '@sendgrid/mail';
+import { Resend } from 'resend';
 
+const resend = new Resend(process.env.RESEND_API_KEY);
 const host = process.env.HOST;
-const sendingEmail = process.env.SENDING_EMAIL;
+const sendingEmail = process.env.SENDING_EMAIL || 'onboarding@resend.dev';
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-export const createResetPasswordEmail = (receiverEmail, resetTokenValue) => {
-  const email = {
-    to: receiverEmail,
-    from: `${sendingEmail}`,
-    subject: 'Reset password link',
-    text: 'Some useless text',
-    html: `<p>You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n Please click on the following link, or paste this into your browser to complete the process:\n\n
+export const createResetPasswordEmail = (receiverEmail, resetTokenValue) => ({
+  to: receiverEmail,
+  from: sendingEmail,
+  subject: 'Reset password link',
+  html: `<p>You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n Please click on the following link, or paste this into your browser to complete the process:\n\n
   <a href="http://${host}/login/reset/${resetTokenValue}">http://${host}/login/reset/${resetTokenValue}</a> \n\n If you did not request this, please ignore this email and your password will remain unchanged.\n </p>`,
-  };
+});
 
-  return email;
-};
+export const createResetConfirmationEmail = (receiverEmail) => ({
+  to: receiverEmail,
+  from: sendingEmail,
+  subject: 'Your password has been changed',
+  html: `<p>This is a confirmation that the password for your account ${receiverEmail} has just been changed. </p>`,
+});
 
-export const createResetConfirmationEmail = (receiverEmail) => {
-  const email = {
-    to: receiverEmail,
-    from: `${sendingEmail}`,
-    subject: 'Your password has been changed',
-    text: 'Some useless text',
-    html: `<p>This is a confirmation that the password for your account ${receiverEmail} has just been changed. </p>`,
-  };
-
-  return email;
-};
-
-export const createVerificationEmail = (receiverEmail, verificationTokenValue) => {
-  const email = {
-    to: receiverEmail,
-    from: `${sendingEmail}`,
-    subject: 'Email Verification',
-    text: 'Some uselss text',
-    html: `<p>Please verify your account by clicking the link: 
+export const createVerificationEmail = (receiverEmail, verificationTokenValue) => ({
+  to: receiverEmail,
+  from: sendingEmail,
+  subject: 'Email Verification',
+  html: `<p>Please verify your account by clicking the link:
   <a href="http://${host}/account/confirm/${verificationTokenValue}">http://${host}/account/confirm/${verificationTokenValue}</a> </p>`,
-  };
+});
 
-  return email;
-};
-
-export const sendEmail = async (email) => sgMail.send(email);
+export const sendEmail = async (email) => resend.emails.send(email);
 
 export default {
   createResetPasswordEmail,

@@ -40,34 +40,36 @@ export function initPassportJS() {
   );
 
   // https://www.passportjs.org/packages/passport-google-oauth20/
-  passport.use(
-    new GoogleStrategy(
-      {
-        clientID: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: 'http://localhost:5000/api/auth/google/callback',
-        passReqToCallback: true,
-      },
-      // find user by google id or create user
-      async (request, accessToken, refreshToken, profile, done) => {
-        try {
-          const user = await User.findOne({ googleId: profile.id });
-          if (user) {
-            return done(null, user);
+  if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+    passport.use(
+      new GoogleStrategy(
+        {
+          clientID: process.env.GOOGLE_CLIENT_ID,
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          callbackURL: process.env.GOOGLE_CALLBACK_URL || 'http://localhost:5000/api/auth/google/callback',
+          passReqToCallback: true,
+        },
+        // find user by google id or create user
+        async (request, accessToken, refreshToken, profile, done) => {
+          try {
+            const user = await User.findOne({ googleId: profile.id });
+            if (user) {
+              return done(null, user);
+            }
+            const newUser = await User.create({
+              googleId: profile.id,
+              email: profile.emails[0].value, // Extracting email from Google profile
+              password: null, // No password is needed for OAuth2
+              // additional fields here
+            });
+            return done(null, newUser);
+          } catch (err) {
+            return done(err);
           }
-          const newUser = await User.create({
-            googleId: profile.id,
-            email: profile.emails[0].value, // Extracting email from Google profile
-            password: null, // No password is needed for OAuth2
-            // additional fields here
-          });
-          return done(null, newUser);
-        } catch (err) {
-          return done(err);
         }
-      }
-    )
-  );
+      )
+    );
+  }
 
   // passes user id to client side
   passport.serializeUser((user, cb) => {

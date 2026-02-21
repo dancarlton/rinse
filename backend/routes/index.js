@@ -9,8 +9,8 @@ export function initRoutes(app) {
   app.use('/api', baseRoutes);
   app.use('/api/users', userRoutes);
   app.use('/api/auth', authRoutes);
-  app.use('api/bookings', bookingRoutes);
-  app.use('api/services', serviceRoutes);
-  app.use('api/reviews', reviewRoutes);
+  app.use('/api/bookings', bookingRoutes);
+  app.use('/api/services', serviceRoutes);
+  app.use('/api/reviews', reviewRoutes);
   app.use('/healthcheck', (req, res) => res.send('Router routing OK'));
 }

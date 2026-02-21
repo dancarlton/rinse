@@ -1,25 +1,60 @@
-import { useMapsLibrary, useMap } from '@vis.gl/react-google-maps';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setTravelTimeInformation } from '../slices/navSlice';
 
-// Custom hook to retrieve map instance, and init directions library services
-const useDirections = () => {
-  // get map instance
-  const map = useMap();
+const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 
-  // load routes google maps library
-  const routesLibrary = useMapsLibrary('routes');
-  const [directionsService, setDirectionsService] = useState();
-  const [directionsRenderer, setDirectionsRenderer] = useState();
+const useDirections = (origin, destination) => {
+  const dispatch = useDispatch();
+  const [route, setRoute] = useState(null);
 
-  // init services
   useEffect(() => {
-    if (!routesLibrary || !map) return;
-    // create instances and set in state
-    setDirectionsService(new routesLibrary.DirectionsService());
-    setDirectionsRenderer(new routesLibrary.DirectionsRenderer({ map }));
-  }, [routesLibrary, map]);
+    if (!origin || !destination) {
+      setRoute(null);
+      return;
+    }
 
-  return { directionsService, directionsRenderer, map };
+    const fetchDirections = async () => {
+      const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${origin.lng},${origin.lat};${destination.lng},${destination.lat}?geometries=geojson&overview=full&access_token=${MAPBOX_TOKEN}`;
+
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (data.routes?.length > 0) {
+          const r = data.routes[0];
+          setRoute({
+            type: 'Feature',
+            geometry: r.geometry,
+          });
+
+          const distanceKm = (r.distance / 1000).toFixed(1);
+          const durationMin = Math.round(r.duration / 60);
+
+          dispatch(
+            setTravelTimeInformation({
+              summary: r.legs[0]?.summary || 'Route',
+              startAddress: `${origin.lat.toFixed(4)}, ${origin.lng.toFixed(4)}`,
+              endAddress: `${destination.lat.toFixed(4)}, ${destination.lng.toFixed(4)}`,
+              distance: `${distanceKm} km`,
+              duration: `${durationMin} mins`,
+            })
+          );
+        }
+      } catch (err) {
+        console.error('Directions fetch failed:', err);
+      }
+    };
+
+    fetchDirections();
+  }, [origin?.lat, origin?.lng, destination?.lat, destination?.lng, dispatch]);
+
+  const clearRoute = () => {
+    setRoute(null);
+    dispatch(setTravelTimeInformation(null));
+  };
+
+  return { route, clearRoute };
 };
 
 export default useDirections;
