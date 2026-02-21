@@ -1,6 +1,10 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let resend;
+const getResend = () => {
+  if (!resend) resend = new Resend(process.env.RESEND_API_KEY);
+  return resend;
+};
 const host = process.env.HOST;
 const sendingEmail = process.env.SENDING_EMAIL || 'onboarding@resend.dev';
 
@@ -27,7 +31,7 @@ export const createVerificationEmail = (receiverEmail, verificationTokenValue) =
   <a href="http://${host}/account/confirm/${verificationTokenValue}">http://${host}/account/confirm/${verificationTokenValue}</a> </p>`,
 });
 
-export const sendEmail = async (email) => resend.emails.send(email);
+export const sendEmail = async (email) => getResend().emails.send(email);
 
 export default {
   createResetPasswordEmail,
