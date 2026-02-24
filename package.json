@@ -1,0 +1,49 @@
+{
+  "name": "rinse",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 5050",
+    "build": "next build",
+    "start": "next start --port 5050",
+    "lint": "next lint",
+    "seed": "npx tsx scripts/seed.ts"
+  },
+  "dependencies": {
+    "@radix-ui/react-label": "^2.1.8",
+    "@radix-ui/react-select": "^2.2.6",
+    "@radix-ui/react-slot": "^1.2.4",
+    "@stripe/react-stripe-js": "^5.6.0",
+    "@stripe/stripe-js": "^8.8.0",
+    "@supabase/ssr": "^0.8.0",
+    "@supabase/supabase-js": "^2.97.0",
+    "@tailwindcss/postcss": "^4.2.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
+    "lucide-react": "^0.460.0",
+    "mapbox-gl": "^3.18.1",
+    "next": "^15.5.12",
+    "postcss": "^8.5.6",
+    "radix-ui": "^1.4.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-map-gl": "^8.1.0",
+    "resend": "^6.9.2",
+    "sonner": "^2.0.7",
+    "stripe": "^20.3.1",
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss": "^4.2.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/mapbox-gl": "^3.4.1",
+    "@types/node": "^25.3.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.3",
+    "eslint-config-next": "^15.5.12",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

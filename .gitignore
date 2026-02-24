@@ -1,0 +1,11 @@
+node_modules/
+.next/
+out/
+.env*.local
+
+# Build cache
+tsconfig.tsbuildinfo
+
+# Test artifacts
+test-results/
+playwright-report/

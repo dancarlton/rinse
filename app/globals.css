@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: 0 0% 4%; /* #0A0A0A */
+    --foreground: 0 0% 98%; /* #FAFAFA */
+    --card: 0 0% 8%; /* #141414 */
+    --card-foreground: 0 0% 98%; /* #FAFAFA */
+    --popover: 0 0% 8%; /* #141414 */
+    --popover-foreground: 0 0% 98%; /* #FAFAFA */
+    --primary: 43 74% 52%; /* #D4AF37 gold */
+    --primary-foreground: 0 0% 4%; /* #0A0A0A */
+    --secondary: 0 0% 12%; /* #1F1F1F */
+    --secondary-foreground: 0 0% 98%; /* #FAFAFA */
+    --muted: 0 0% 12%; /* #1F1F1F */
+    --muted-foreground: 240 5% 65%; /* #A1A1AA */
+    --accent: 43 74% 52%; /* #D4AF37 gold */
+    --accent-foreground: 0 0% 4%; /* #0A0A0A */
+    --destructive: 0 84% 60%; /* #EF4444 */
+    --destructive-foreground: 0 0% 98%; /* #FAFAFA */
+    --border: 0 0% 16%; /* #2A2A2A */
+    --input: 0 0% 16%; /* #2A2A2A */
+    --ring: 43 74% 52%; /* #D4AF37 gold */
+    --radius: 0.5rem;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
